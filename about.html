@@ -9,38 +9,40 @@
 
     <!-- Le styles -->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="./css/docs.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
       }
     </style>
-    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="brand">JTAF</div>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
+          <div class="navbar-header">
+          	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          		<span class="sr-only">Toggle navigation</span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+          	</button>
+          	<a class="navbar-brand" href="#">JTAF</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
               <li class="active"><a href="./index.html#">ExtWebDriver</a></li>
               <li class="dropdown">
                 <a href="./index.html#" class="dropdown-toggle" data-toggle="dropdown">Getting Started <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-				  <li class="nav-header">Intro</li>
+				  <li class="dropdown-header">Intro</li>
                   <li><a href="./howitworks.html">How It Works</a></li>
                   <li><a href="./widgetlibrary.html">Widget Library</a></li>
                   <li><a href="./extendedapi.html">Extended API</a></li>
                   <li class="divider"></li>
-                  <li class="nav-header">Configuration</li>
+                  <li class="dropdown-header">Configuration</li>
                   <li><a href="./clientproperties.html">Client Properties</a></li>
                   <li><a href="./guiproperties.html">GUI Properties</a></li>
                 </ul>
@@ -51,20 +53,48 @@
             </ul>
           </div><!--/.nav-collapse -->
         </div>
-      </div>
+      
     </div>
-
-	<div class="container">
-      <h1>About</h1>
-      <p><i>Coming soon</i></p>
-
-	  <hr>
+    
+    <div class="container bs-docs-container">
+		<div class="row">
+        	<div class="col-md-3">
+          		<div class="bs-sidebar hidden-print" role="complementary">
+            		<ul class="nav bs-sidenav">
+              			<li><a href="#history">History</a></li>
+						<li><a href="#team">Core team</a></li>
+						<li><a href="#community">Community</a></li>
+						<li><a href="#translations">Translations</a></li>
+            		</ul>
+          		</div>
+        	</div>
+        	
+        	<div class="col-md-9" role="main">
+				<div class="bs-docs-section">
+  					<div class="page-header">
+    					<h1 id="history">History</h1>
+  					</div>
+					<p class="lead">This is the lead text</p>
+  					<p>This is the below text</p>
+				</div>
+				
+				<div class="bs-docs-section">
+  					<div class="page-header">
+    					<h1 id="team">Core team</h1>
+  					</div>
+					<p class="lead">This is the lead text</p>
+  					<p>This is the below text</p>
+				</div>
+			</div>
+		</div>
+		
+		<hr>
 	  
-      <footer>
-        <p>JTAF projects are released under <b>Apache License 2.0</b></p>
-      </footer>
-    </div> <!-- /container -->
-
+		<footer>
+    		<p>JTAF projects are released under <b>Apache License 2.0</b></p>
+    	</footer>
+	</div>
+	
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
