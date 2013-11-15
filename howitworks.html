@@ -17,11 +17,10 @@
       }
     </style>
     <link href="./css/prettify.css" rel="stylesheet">
-    
-    <script src="./js/jquery.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
     <script src="./js/prettify.js"></script>
     <script src="./js/run_prettify.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -63,29 +62,87 @@
     </div>
 
 	<div class="container">
-      <h1>Getting Started</h1>
-      <p><i>Coming soon</i></p>
-            
-	  <!--<div class="alert alert-info">
-	  	<div><b>Test Alert</b>: This is a test alert</div>
-	  </div>
-	  
-	  <div>
+      <div class="page-header">
+			<h1>Getting Started</h1>
+		</div>
+      <p>ExtWebDriver inherits all the wonderful concept of WebDriver. It allows you to test web applications and verify they are working as expected. You have the flexibility to run your tests against multiple browsers using your favorite testing framework as well IDE. The value of ExtWebDriver is to bring better experience through features such as the extended API, widget library, and session management. This guide will help you write your first test using ExtWebDriver.</p>
+      <p>The first thing you need to do is to create a new Java project in your favorite IDE. Our recommendation is to create a Java maven project so that you can easily manage your dependencies. Once you create the project, you can add the ExtWebDriver maven dependency to your pom file and you should have all the required libraries.</p>
+      <p>
+      	<b>POM Snippet:</b>
+      	<div>
+      		<pre class="prettyprint">
+<code>   &lt;dependency&gt;
+      &lt;groupId&gt;org.finra.jtaf&lt;/groupId&gt;
+      &lt;artifactId&gt;jtaf-extwebdriver&lt;/artifactId&gt;
+      &lt;version&gt;1.0&lt;/version&gt;
+   &lt;/dependency&gt;</code></pre></div>
+      </p>
+      
+      <p>
+      	Now that you have all the required libraries to use ExtWebDriver, you need to choose your testing framework. Let's try using JUnit 4. To do this, first you need to add JUnit 4 maven dependency to your pom file similar to how you added ExtWebDriver maven dependency. Please refer to <a href="https://github.com/junit-team/junit/wiki/Download-and-Install">this link</a> to add JUnit 4 maven dependency.
+      </p>
+      
+      <p>
+      	Now you are ready to write some code! Let's create a test which performs a simple scenario on this website. We will open up the ExtWebDriver homepage and validate 'Learn More' button exists, click on it and finally verify that we have landed on the correct page.
+      	
+      	<div>
 	  	<pre class="prettyprint">
-<code> /**
-  *  This is a test class
+<code>package org.finra.jtaf.extwebdriver.example;
+
+import org.finra.jtaf.ewd.ExtWebDriver;
+import org.finra.jtaf.ewd.widget.IButton;
+import org.finra.jtaf.ewd.widget.element.html.Button;
+import org.junit.Assert;
+import org.junit.Test;
+
+/**
+  *  Tests for ExtWebDriver homepage
   */
- public class Test {
-    public Test() {
-	
+ public class ExtWebDriverHomeTest {
+
+    @Test
+    public void testLearnMoreButton() {
+      // Get a new ExtWebDriver session
+      ExtWebDriver ewd = SessionManager.getInstance().getNewSession();
+
+      // Open ExtWebDriver home page
+      ewd.open("http://finraos.github.io/JTAF-ExtWebDriver");
+      
+      // Create Button object
+      IButton b = new Button("//*[contains(@class,'btn') and text()='Learn more »']");
+      
+      // Wait for existence of the button
+      b.waitForElementPresent();
+      
+      // Click on button
+      b.click();
+      
+      // Verify the page title
+      Assert.assertEquals("Extensions for WebDriver - Getting Started", ewd.getTitle());
     }
-	  				
-    public void testMethod() {
-      // This is a test method
-      System.out.println("test");
-    }
- }</code></pre>
-	  </div>-->
+ }</code></pre></div>
+	  </p>
+	  
+	  <p>
+	  	That's it! You can simply run your test and it will execute your test scenario. You will notice that it is very easy to start a new browser session by using the SessionManager. Also, it is very easy to interactive with elements, such as a Button in this example, which is included within the <a href="./widgetlibrary.html">Widget Library</a>. One thing to note is that you will not be able to see the actual browser running your scenario because ExtWebDriver will use HtmlUnitDriver by default. With a small tweak, you can run against a different browser.
+	  	
+	  	<div>
+	  	<pre class="prettyprint">
+<code>  // Get a new ExtWebDriver session
+  ExtWebDriver ewd = SessionManager.getInstance().getNewSession("client.properties");
+</code></pre></div>
+	  </p>
+	  <p>
+	  	Leaving everything the same, all you need to do is provide a file name to getNewSession() method. The file needs to be a resource to the project and you need to have one property configured:
+	  	
+	  	<div>
+	  	<pre class="prettyprint">
+<code>  browser=firefox
+</code></pre></div>
+	  </p>
+	  <p>
+	  	Now if you run your test, you will see a Firefox browser start up and running your test scenario. You can also run against other browsers which are supported by WebDriver. Please refer to <a href="./clientproperties.html">Client Properties</a> page for other useful configurations.
+	  </p>
 	  
 	  <hr>
 	  
