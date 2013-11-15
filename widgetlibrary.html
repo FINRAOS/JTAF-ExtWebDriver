@@ -16,6 +16,11 @@
         padding-bottom: 40px;
       }
     </style>
+    <link href="./css/prettify.css" rel="stylesheet">
+    <script src="./js/prettify.js"></script>
+    <script src="./js/run_prettify.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -90,7 +95,43 @@
 			</ul>
       	</div>
       </div>
+      
+      <p>
+      	When you instantiate a new widget object, you need to construct it with a locator string such as an XPath, CSSSelector, id, name. ExtWebDriver will automatically parse the locator string and use it to locate the element on the DOM. To effectively manage all of the locator string you are using to test your application, you can use the <a href="./guiproperties.html">GUI Properties</a> feature to maximize reusability.
+      </p>
 
+	  <p>
+	  <div>
+	  	<b>Table Widget Example:</b>
+	  	<pre class="prettyprint">
+<code>
+/**
+  *  Sample Test
+  */
+ public class SampleTableTest {
+
+    @Test
+    public void testTableElement() {
+      // Setup session and open up application under test
+      ...
+      
+      // Create Table object
+      ITable t = new Table("//table[@id='myTable']");
+      
+      // Wait for existence of the table
+      t.waitForElementPresent();
+      
+      // Validate the count of rows
+      Assert.assertEquals(10, t.getTableRowCount());
+      
+      // Validate item existence
+      Map<String,String> item = new HashMap<String,String>();
+      item.put("Header1", "Value1");
+      item.put("Header2", "Value2");      			
+      Assert.assertTrue(t.isItemExist(item));
+    }
+ }</code></pre></div>
+	  </p>
 	  <hr>
 	  
 	 	<footer>
@@ -98,10 +139,4 @@
 	    	<p>&copy; Copyright 2013 JTAF Contributors</p>
     	</footer>
     </div> <!-- /container -->
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./js/jquery.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
 </body></html>
