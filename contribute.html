@@ -63,11 +63,15 @@
 	    <li><a href="https://github.com/FINRAOS/JTAF-ExtWebDriver/issues/new">Submit</a> a ticket in GitHub project (please verify the ticket doesn't already exist by searching <a href="https://github.com/FINRAOS/JTAF-ExtWebDriver/issues">here</a>)</li>
 	    <li>Fork the repository in GitHub</li>
 	    <li>Code code code!</li>
-	    <li>Create unit tests</li>
+	    <li>Create unit/integration tests</li>
 			<ul>
-	    		<li>For every class you are writing/modifying, you must create/modify unit tests</li>
-	    		<li>All unit tests run against a locally deployed app (static HTML files under 'src/test/resources/webapp')</li>
-	    		<li>You may extend an existing HTML to test your code or create a new HTML</li>
+	    		<li>For every class you are writing/modifying, you must create/modify unit or integration tests</li>
+	    		<li>Unit Tests: Write unit tests for classes which do not require execution against a deployed app running on a browser</li>
+	    		<li>Integration Tests:</li>
+	    		<ul>
+					<li>All integration tests run against a locally deployed app (static HTML files under 'src/test/resources/webapp')</li>
+					<li>You may extend an existing HTML to test your code or create a new HTML</li>
+	    		</ul>
 	    		<li>You should not break existing tests</li>
 	    	</ul>  
 
