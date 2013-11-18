@@ -5,6 +5,10 @@ JTAF-ExtWebDriver
 
 Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver/howitworks.html)
 
+Contributing
+=============
+We encourage contribution from the open source community to make ExtWebDriver better. Please refer to the [development](http://finraos.github.io/JTAF-ExtWebDriver/contribute.html) page for more information on how to contribute to this project.
+
 License Type
 =============
 JTAF projects including ExtWebDriver is licensed under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
