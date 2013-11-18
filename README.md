@@ -23,11 +23,11 @@ mvn package
 
 Running Tests
 ==============
-ExtWebDriver uses Maven failsafe plugin to execute the integration tests. Each test runs against a locally deployed app (using Jetty server) using HtmlUnitDriver. You can execute all the tests by executing:
+ExtWebDriver uses Maven plugins to execute both the unit and integration tests. The integration tests run against a locally deployed app (using Jetty server) using HtmlUnitDriver. You can execute all of the tests by executing:
 ```sh
 mvn verify
 ```
-You can run individual tests by executing it from your IDE or through command line. You need to deploy the app locally first before executing your tests independently.
+You can run individual tests by executing it from your IDE or through command line. If you want to run a integration test, you need to deploy the app locally first before execution.
 
 License Type
 =============
