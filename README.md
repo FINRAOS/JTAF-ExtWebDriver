@@ -7,7 +7,7 @@ Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver
 
 Contributing
 =============
-We encourage contribution from the open source community to make ExtWebDriver better. Please refer to the [development](http://finraos.github.io/JTAF-ExtWebDriver/contribute.html) page for more information on how to contribute to this project.
+We encourage contribution from the open source community to make ExtWebDriver better. Please refer to the [development](http://finraos.github.io/JTAF-ExtWebDriver/contribute.html) page for more information on how to contribute to this project including sign off and DCO agreement.
 
 Building
 =========
