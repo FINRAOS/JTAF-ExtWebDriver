@@ -9,6 +9,8 @@ Contributing
 =============
 We encourage contribution from the open source community to make ExtWebDriver better. Please refer to the [development](http://finraos.github.io/JTAF-ExtWebDriver/contribute.html) page for more information on how to contribute to this project including sign off and DCO agreement.
 
+If you have any questions or discussion topics, please post them on [Google Groups](https://groups.google.com/forum/#!forum/jtaf-extwebdriver).
+
 Building
 =========
 ExtWebDriver uses Maven for build. Please install Maven by downloading it from [here](http://maven.apache.org/download.cgi).
