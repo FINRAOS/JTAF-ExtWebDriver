@@ -15,6 +15,11 @@
         padding-bottom: 40px;
       }
     </style>
+    <link href="./css/prettify.css" rel="stylesheet">
+    <script src="./js/prettify.js"></script>
+    <script src="./js/run_prettify.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
     <link rel="shortcut icon" href="favicon.ico">
   </head>
 
@@ -37,7 +42,7 @@
                 <a href="./index.html#" class="dropdown-toggle" data-toggle="dropdown">Intro <b class="caret"></b></a>
                 <ul class="dropdown-menu">
 				  <li class="dropdown-header">Introduction</li>
-                  <li><a href="./howitworks.html">How It Works</a></li>
+                  <li><a href="./howitworks.html">Getting Started</a></li>
                   <li><a href="./widgetlibrary.html">Widget Library</a></li>
                   <li class="divider"></li>
                   <li class="dropdown-header">Configuration</li>
@@ -58,7 +63,37 @@
       <div class="page-header">
 			<h1 id="history">Client Properties</h1>
 		</div>
-      <p><i>Coming soon</i></p>
+      <p>You can use client properties feature to easily set the driver and browser configurations. When you create a new session by using SessionManager, you can simply pass the path to your client properties file to instantiate your session with the desired configurations:</p>
+	  <div>
+	  	<pre class="prettyprint lang-java">
+<code>  ExtWebDriver ewd = SessionManager.getInstance().getNewSession("client.properties");
+</code></pre></div>
+	  <br/>
+      <p>There are many different options you can use with client properties. Please refer to the following table for available configurations:</p>
+      <!--
+      <table class="table table-bordered table-striped table-consensed">
+    	<thead>
+    		<tr>
+      			<th>Property Name</th>
+      			<th>Description</th>
+      		</tr>
+    	</thead>
+      	<tbody>
+      		<tr>
+      			<td>browser</td>
+      			<td>IE, Firefox, Chrome, HtmlUnit, Safari</td>
+      		</tr>
+      		<tr>
+      			<td>browser.version</td>
+      			<td>Version of the browser. Required for IE and optional for other browsers.</td>
+      		</tr>
+      		<tr>
+      			<td>webdriver.ie.driver</td>
+      			<td>Path to IEDriversServer.exe</td>
+      		</tr>
+      	</tbody>	
+      </table>
+      -->
 
 	  <hr>
 	  
@@ -66,9 +101,5 @@
     		<p>JTAF projects are released under <a href="http://www.apache.org/licenses/LICENSE-2.0"><b>Apache License 2.0</b></a></p>
 	    	<p>&copy; Copyright 2013 JTAF Contributors</p>
     	</footer>
-    </div> <!-- /container -->
-
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./js/jquery.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
+    </div> 
 </body></html>
