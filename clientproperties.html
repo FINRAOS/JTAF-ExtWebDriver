@@ -66,7 +66,7 @@
       <p>You can use client properties feature to easily set the driver and browser configurations. When you create a new session by using SessionManager, you can simply pass the path to your client properties file to instantiate your session with the desired configurations:</p>
 	  <div>
 	  	<pre class="prettyprint lang-java">
-<code>  ExtWebDriver ewd = SessionManager.getInstance().getNewSession("client.properties");
+<code>  ExtWebDriver ewd = SessionManager.getInstance().getNewSession("client", "client.properties");
 </code></pre></div>
 	  <br/>
       <p>SessionManager will automatically use the appropriate configuration properties to setup your session. There are many different options you can use with client properties. Please refer to the following table for available configurations:</p>
