@@ -69,31 +69,217 @@
 <code>  ExtWebDriver ewd = SessionManager.getInstance().getNewSession("client.properties");
 </code></pre></div>
 	  <br/>
-      <p>There are many different options you can use with client properties. Please refer to the following table for available configurations:</p>
-      <!--
+      <p>SessionManager will automatically use the appropriate configuration properties to setup your session. You can also retrieve the properties at the code level by calling ClientProperties.get###() method. There are many different options you can use with client properties. Please refer to the following table for available configurations:</p>
       <table class="table table-bordered table-striped table-consensed">
     	<thead>
     		<tr>
+    			<th>Category</th>
       			<th>Property Name</th>
+      			<th>Default Value</th>
       			<th>Description</th>
       		</tr>
     	</thead>
       	<tbody>
       		<tr>
+      			<td>Browser</td>
       			<td>browser</td>
+      			<td>HtmlUnit</td>
       			<td>IE, Firefox, Chrome, HtmlUnit, Safari</td>
       		</tr>
       		<tr>
+      			<td>Browser</td>
       			<td>browser.version</td>
-      			<td>Version of the browser. Required for IE and optional for other browsers.</td>
+      			<td></td>
+      			<td>Version of the browser. Required for IE and optional for other browsers when running locally. Always required for running on SauceLabs.</td>
       		</tr>
       		<tr>
+      			<td>Browser</td>
+      			<td>browser.init.position.x</td>
+      			<td>0</td>
+      			<td>Horizontal position to set browser location. Useful for debugging tests.</td>
+      		</tr>
+      		<tr>
+      			<td>Browser</td>
+      			<td>browser.init.position.y</td>
+      			<td>0</td>
+      			<td>Vertical position to set browser location. Useful for debugging tests.</td>
+      		</tr>
+      		<tr>
+      			<td>Browser</td>
+      			<td>download.folder</td>
+      			<td></td>
+      			<td>Default folder to download files from browser</td>
+      		</tr>
+      		<tr>
+      			<td>Browser</td>
+      			<td>download.time</td>
+      			<td>18000</td>
+      			<td>Maximum browser download time in milliseconds</td>
+      		</tr>
+      		<tr>
+      			<td>Browser</td>
+      			<td>upload.folder</td>
+      			<td></td>
+      			<td>Default folder to get files to upload on browser</td>
+      		</tr>
+      		<tr>
+      			<td>Browser</td>
+      			<td>proxy</td>
+      			<td></td>
+      			<td>HTTP proxy setting <i>(e.g. localhost:8080)</i></td>
+      		</tr>
+      		<tr>
+      			<td>Browser</td>
+      			<td>proxyHttps</td>
+      			<td></td>
+      			<td>HTTPS proxy setting <i>(e.g. localhost:8080)</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>appearWaitTime</td>
+      			<td>5000</td>
+      			<td>Maximum time to wait for an element to appear in milliseconds</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>binaryPath</td>
+      			<td></td>
+      			<td>Only required when using Firefox as browser. Path to firefox.exe executable.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>debugMode</td>
+      			<td>false</td>
+      			<td>Turns on debug mode. Highlight will automatically turn on when this is set to true.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>firefoxProfile.extension.#</td>
+      			<td></td>
+      			<td>Path to the Firefox extension. This will load the extension when the browser session is created. You can set multiple extensions by including "firefoxProfile.extension.1", "firefoxProfile.extension.2", etc.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>firefoxProfile.file</td>
+      			<td></td>
+      			<td>Path to the configuration file containing Firefox profile settings</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>firefoxProfile.folder</td>
+      			<td></td>
+      			<td>Path to the custom Firefox profile to use</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>highlight</td>
+      			<td>false</td>
+      			<td>Highlights web elements during execution. Useful for debugging</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>highlightFindColor</td>
+      			<td>rgb(255,255,0)</td>
+      			<td>Highlight color for when locating elements. Only works when hightlight is set to true.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>highlightFindGet</td>
+      			<td>rgb(135,206,250)</td>
+      			<td>Highlight color when getting value from elements. Only works when hightlight is set to true.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>highlightFindPut</td>
+      			<td>rgb(152,251,152)</td>
+      			<td>Highlight color for setting value on elements. Only works when hightlight is set to true.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>maxAllowedSessions</td>
+      			<td></td>
+      			<td>Maximum number of sessions which can be created by SessionManager. Leave it empty for unlimited sessions.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>maxRequestTimeout</td>
+      			<td>18000</td>
+      			<td>Maximum WebDriver request timeout in milliseconds</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>numberOfDaysToKeepTempFolders</td>
+      			<td>7</td>
+      			<td>Period of time to keep temporary WebDriver folders created in temp directory</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>selectLastFrame</td>
+      			<td>true</td>
+      			<td>Automatically select the last iframe used so that you don't have to explicitly call switch frame everytime.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>tempFolderNameContainsList</td>
+      			<td></td>
+      			<td>Comma separated list of folders to clean within WebDriver temporary files</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
       			<td>webdriver.ie.driver</td>
-      			<td>Path to IEDriversServer.exe</td>
+      			<td></td>
+      			<td>Path to IEDriversServer.exe. This is not necessary if you add path to IEDriverServer.exe to your system library path.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>webdriver.chrome.driver</td>
+      			<td></td>
+      			<td>Path to chromedriver.exe. This is not necessary if you add path to chromedriver.exe to your library path.</td>
+      		</tr>
+      		<tr>
+      			<td>Driver</td>
+      			<td>webdriver.doTaskKill</td>
+      			<td>true</td>
+      			<td>Gracefully kills all the driver server processes at the beginning of execution. Not recommended when running tests in multithreaded mode.</td>
+      		</tr>
+      		<tr>
+      			<td>Operating System</td>
+      			<td>os</td>
+      			<td></td>
+      			<td>Name of the operating system running against such as 'Windows'. Required for running on SauceLabs</td>
+      		</tr>
+      		<tr>
+      			<td>Operating System</td>
+      			<td>os.version</td>
+      			<td></td>
+      			<td>Version of the operating system running against such as '7' for Windows. Required for running on SauceLabs</td>
+      		</tr>
+      		<tr>
+      			<td>Selenium Grid</td>
+      			<td>grid.platform</td>
+      			<td>Windows 7</td>
+      			<td>Operating system to run against on Selenium Grid. Required for running on SauceLabs.</td>
+      		</tr>
+      		<tr>
+      			<td>Selenium Grid</td>
+      			<td>grid.properties</td>
+      			<td>record-screenshots=true</td>
+      			<td>Space separated properties for running on Selenium Grid. Refer to Selenium Grid properties for supported configurations.</td>
+      		</tr>
+      		<tr>
+      			<td>Selenium Grid</td>
+      			<td>grid.url</td>
+      			<td></td>
+      			<td>URL for the Selenium Grid server. Required for running on SauceLabs.</td>
+      		</tr>
+      		<tr>
+      			<td>Selenium Grid</td>
+      			<td>useGrid</td>
+      			<td>false</td>
+      			<td>Turn on to use Selenium Grid instead of local machine. Required for running on SauceLabs</td>
       		</tr>
       	</tbody>	
       </table>
-      -->
 
 	  <hr>
 	  
