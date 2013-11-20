@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Extensions for WebDriver - GUI Properties</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="./css/prettify.css" rel="stylesheet">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="./js/prettify.js"></script>
+    <script src="./js/run_prettify.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 75e2955caa4c6657a423dfaa867185e1c76ffb3c
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+          	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          		<span class="sr-only">Toggle navigation</span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+            	<span class="icon-bar"></span>
+          	</button>
+          	<span class="navbar-brand" href="#">JTAF</span>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+            	<li><a href="./index.html#" style="color: white"><b>ExtWebDriver</b></a></li>
+              	<li class="dropdown active">
+                <a href="./index.html#" class="dropdown-toggle" data-toggle="dropdown">Intro <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+				  <li class="dropdown-header">Introduction</li>
+                  <li><a href="./howitworks.html">How It Works</a></li>
+                  <li><a href="./widgetlibrary.html">Widget Library</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Configuration</li>
+                  <li><a href="./clientproperties.html">Client Properties</a></li>
+                  <li class="active"><a href="./guiproperties.html">GUI Properties</a></li>
+                </ul>
+              </li>
+              <li><a href="./apidoc.html">API Doc</a></li>
+              <li><a href="./contribute.html">Development</a></li>              
+              <li><a href="./about.html">About</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+	<div class="container">
+      <div class="page-header">
+			<h1>GUI Properties</h1>
+		</div>
+      <p>ExtWebDriver contains a properties fetcher that allows for parameterization of any value. Files that GUIProperties reference will generally contain any locators such as CSSSelectors or XPaths.</p>
+
+	<div>
+	<p>
+	  <b><i>my-xpaths.properties:</i></b>
+		<pre class="prettyprint" value="my-xpaths.properties">
+ <code>  my.locatorkey.1 = //div[@id="eevee"]
+   my.locatorkey.2 = {0}/input[@id="lightningStone"]
+   my.locatorkey.3 = {0}/div/{1}</code></pre>
+	</p>
+	</div>
+	<div style="height:7px;"></div>
+	<div>
+	<p>
+<<<<<<< HEAD
+	
+	Below are a few examples on how to utilize the GUIProperties class.
+	<pre class="prettyprint">
+<code class="language-java">  //Instantiate an object on the properties file which needs to be a resource of the project
+  GUIProperties gp = new GUIProperties("my-xpaths.properties");</code></pre>
+	</p></div>
+	<div><p> 
+	Get the value from properties file given the key:
+=======
+	Below are a few examples on how to utilize the GUIProperties class.
+	<pre class="prettyprint">
+<code class="language-java">  //Instantiate an object on the properties file
+  GUIProperties gp = new GUIProperties("my-xpaths.properties");</code></pre>
+	</p></div>
+	<div><p> Get the value from properties file given the key:
+>>>>>>> 75e2955caa4c6657a423dfaa867185e1c76ffb3c
+	<pre class="prettyprint">
+<code class="language-java">  String example1 = gp.getPropertyValue("my.locatorkey.1");
+  //example1 = //div[@id="eevee"]</code></pre>
+	</p></div>
+	<div><p> Get the value from properties file given a key and a parameter:
+	<pre class="prettyprint">
+<code class="language-java">  String example2 = gp.getPropertyValue("my.locatorkey.2", example1);
+  //example2 = <b>//div[@id="eevee"]</b>/input[@id="lightningStone"]
+  
+  String example3 = gp.getPropertyValue("my.locatorkey.2", "foobar");
+  //example3 = <b>foobar</b>/input[@id="lightningStone"]</code></pre>
+	</p></div>
+	<div><p> Get the value from properties file given multiple parameters:
+	<pre class="prettyprint">
+<code class="language-java">  String example4 = gp.getPropertyValue("my.locatorkey.3", example1, example2);
+  //example4 = <b>//div[@id="eevee"]</b>/div/<b>/input[@id="lightningStone"]</b>
+  
+  String example5 = gp.getPropertyValue("my.locatorkey.3", "foo", "bar", "asdf");
+  //example5 = <b>foo</b>/div/<b>bar</b></code></pre></p></div>
+<<<<<<< HEAD
+=======
+	<div>
+>>>>>>> 75e2955caa4c6657a423dfaa867185e1c76ffb3c
+	  <hr>
+	 	<footer>
+    		<p>JTAF projects are released under <a href="http://www.apache.org/licenses/LICENSE-2.0"><b>Apache License 2.0</b></a></p>
+	    	<p>&copy; Copyright 2013 JTAF Contributors</p>
+    	</footer>
+    </div> <!-- /container -->
+</body></html>
