@@ -106,9 +106,9 @@
   
   <br>
 	<div class="page-header">
-		<h1>GUIHierarchyConcatenationProperties</h1>
+		<h1>GUI Hierarchy Concatenation Properties</h1>
 	</div>
-	<p>Alongside the single file accessing GUIProperties class, there is a class that allows for multiple files to be searched for properties. Introducing the GUIHierarchyConcatenationProperties class!</p>
+	<p>Alongside the single file accessing GUIProperties class, there is a class that allows for multiple files to be searched for properties. You can achieve this by the GUIHierarchyConcatenationProperties class!</p>
 	<div><b><i>file-1.properties:</i></b>
 	<pre class="prettyprint" value="file-1.properties">
  <code>  my.locatorkey = //div[@id="jolteon"]</code></pre></div>
@@ -121,11 +121,11 @@
  <code>  my.locatorkey.extra = //div[@id="vaporeon"]</code></pre></div>
  <div><p> Get the value from properties file given a key and a parameter:
 	<pre class="prettyprint">
-<code class="language-java">  GUIHierarchyConcatenationProperties longClassName = GUIHierarchyConcatenationProperties("file-1.properties","file-2.properties","file-3.properties");
-  String val1 = longClassName.getPropertyValue("my.locatorkey");
+<code class="language-java">  GUIHierarchyConcatenationProperties gcp = GUIHierarchyConcatenationProperties("file-1.properties","file-2.properties","file-3.properties");
+  String val1 = gcp.getPropertyValue("my.locatorkey");
   //val1 = //div[@id="jolteon"]
   
-  String val2 = longClassName.getPropertyValue("my.locatorkey.extra");
+  String val2 = gcp.getPropertyValue("my.locatorkey.extra");
   //val2 = //div[@id="vaporeon"]</code></pre>
 	</p></div>
 	
