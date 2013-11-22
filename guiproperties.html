@@ -67,13 +67,11 @@
       <p>ExtWebDriver contains a properties fetcher that allows for parameterization of any value. Files that GUIProperties reference will generally contain any locators such as CSSSelectors or XPaths.</p>
 
 	<div>
-	<p>
 	  <b><i>my-xpaths.properties:</i></b>
 		<pre class="prettyprint" value="my-xpaths.properties">
  <code>  my.locatorkey.1 = //div[@id="eevee"]
    my.locatorkey.2 = {0}/input[@id="lightningStone"]
    my.locatorkey.3 = {0}/div/{1}</code></pre>
-	</p>
 	</div>
 	<div style="height:7px;"></div>
 	<div>
@@ -105,7 +103,33 @@
   
   String example5 = gp.getPropertyValue("my.locatorkey.3", "foo", "bar", "asdf");
   //example5 = <b>foo</b>/div/<b>bar</b></code></pre></p></div>
-	  <hr>
+  
+  <br>
+	<div class="page-header">
+		<h1>GUIHierarchyConcatenationProperties</h1>
+	</div>
+	<p>Alongside the single file accessing GUIProperties class, there is a class that allows for multiple files to be searched for properties. Introducing the GUIHierarchyConcatenationProperties class!</p>
+	<div><b><i>file-1.properties:</i></b>
+	<pre class="prettyprint" value="file-1.properties">
+ <code>  my.locatorkey = //div[@id="jolteon"]</code></pre></div>
+   <div><b><i>file-2.properties:</i></b>
+   <pre class="prettyprint" value="file-2.properties">
+ <code>  my.locatorkey = //div[@id="flareon"]</code></pre></div>
+   <div>
+	<b><i>file-3.properties:</i></b>
+   <pre class="prettyprint" value="file-3.properties">
+ <code>  my.locatorkey.extra = //div[@id="vaporeon"]</code></pre></div>
+ <div><p> Get the value from properties file given a key and a parameter:
+	<pre class="prettyprint">
+<code class="language-java">  GUIHierarchyConcatenationProperties longClassName = GUIHierarchyConcatenationProperties("file-1.properties","file-2.properties","file-3.properties");
+  String val1 = longClassName.getPropertyValue("my.locatorkey");
+  //val1 = //div[@id="jolteon"]
+  
+  String val2 = longClassName.getPropertyValue("my.locatorkey.extra");
+  //val2 = //div[@id="vaporeon"]</code></pre>
+	</p></div>
+	
+	<hr>
 	 	<footer>
     		<p>JTAF projects are released under <a href="http://www.apache.org/licenses/LICENSE-2.0"><b>Apache License 2.0</b></a></p>
 	    	<p>&copy; Copyright 2013 JTAF Contributors</p>
