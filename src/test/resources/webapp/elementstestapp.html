@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple App For Unit Testing</title>
+	<style>
+		#dropBox {
+			min-height:250px;
+			width: 350px;
+			border: 2px solid red;
+			margin: 10px;
+			padding : 10px;
+		}
+		
+		#dest {
+			min-height: 150px;
+			width: 250px;
+			border: 2px solid blue;
+			margin: 0 auto;
+			padding : 10px;
+			margin-top: 5em;
+		}
+		
+		#interactiveElementDivider {
+			background-color: pink;
+		}
+		#checkBoxDivider {
+			background-color: burlywood;
+		}
+		
+		#dropDownDivider {
+			background-color: beige;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var span =  "<span id='waitForSpan'>I'm Present Now</span>";
+		
+		var createSpan = function(){
+			setTimeout(function(){
+				document.getElementById('content').innerHTML = span;
+			}, 2000);
+		};
+		
+		var removeSpan = function(){
+			setTimeout(function(){
+				document.getElementById('removeContent').innerHTML = "";
+			}, 2000);
+		};
+		
+		var createAndRemoveSpan = function() {
+			setTimeout(function(){
+				document.getElementById('content').innerHTML = span;
+			}, 1000);
+			
+			setTimeout(function(){
+				document.getElementById('content').innerHTML = "";
+			}, 2000);
+		};
+		
+		var showButton = function(){
+			setTimeout(function(){
+				document.getElementById('myInvisibleButton').setAttribute("style", "visibility: visible;");
+			}, 2000);
+		};
+		
+		var hideButton = function(){
+			setTimeout(function(){
+				document.getElementById('visibilityTest').setAttribute("style", "visibility: hidden;");
+			}, 2000);
+		};
+		
+		var changeAttr = function() {
+			document.getElementById('attributeChanger').setAttribute("style", "background: red;");
+			setTimeout(function(){
+				document.getElementById('content').setAttribute("randomAttrib", "Goodbye");
+			}, 2000);
+		};
+		
+		var allowDrop = function(event){
+			event.preventDefault();
+		};
+	
+		var drag = function(event){
+			event.dataTransfer.setData("Text", event.target.id);
+		};
+		
+		var drop = function(event){
+			event.preventDefault();
+			document.getElementById('dropBox').innerHTML = 'dragged';	
+		};
+		
+		var updateContent = function(event){
+			document.getElementById('content').innerHTML = event;
+		};
+		
+		var updateText = function(){
+			
+			document.getElementById('textcontent').innerHTML = document.getElementById('inputFieldTest').value;
+		};
+	</script>
+    <button id="myButton" onclick="document.getElementById('content').innerHTML = 'Clicked';">Click me</button>
+	<button id="myInvisibleButton" style="visibility: hidden">I'm Hidden!</button>
+	<button id="testWaitButton" onclick="createSpan()">Wait For Element Present Test</button>
+	<button id="testOverTime" onclick="createAndRemoveSpan()">Over Time Test</button>
+	<button id="testWaitElementNotPresentButton" onclick="removeSpan()">Removal	Test</button>
+	<div id="removeContent"> 
+		<span id="someText">Here is some text</span>
+	</div>
+	<button id="visibilityTest" onclick="showButton();">Wait For Visibility Test</button>
+	<button id="nonVisibilityTest" onclick="hideButton();">Wait For Not Visible Test</button>
+	<button id="attributeChanger" onclick="changeAttr();">Change Attribute On Content Div</button>
+	<div id="interactiveElementDivider">Interactive Elements Added Below
+	<input type="button" value="Double Click Me" id="dblClickTest" />
+	<input type="button" value="Right Click Me" id="rightClickTest" />
+	<input type="button" value="Mouse Events" id="mouseEvents"
+		onmousedown="updateContent('Mouse is Down')" 
+		onmouseup="updateContent('Mouse Released')"
+		onmouseover="updateContent('Mouse Over')"/>
+	<button type="button" id="disabledBtn" disabled>I'm Disabled</button>
+	<input type="text" id="inputFieldTest" onkeydown="updateContent('KeyDown');"
+	onkeyup="updateContent('KeyUp');updateText()" ></input>
+	<div id="draggableText" draggable="true">DragMe</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<div id="content" style="background:aquamarine;" randomAttrib="Hello"></div>	
+	<div id="textcontent" style="background:CornflowerBlue;" randomAttrib="Hello"></div>	
+	</div>
+	<div id="dropBox" ondrop="drop(event)" ondragover="allowDrop(event)">
+		<div id="dest" onmousemove="updateContent('Mouse Move Triggered')"
+		onmouseout="updateContent('Mouse Moved Out')"></div>
+	</div>
+	<script type="text/javascript">
+		document.getElementById("dblClickTest").ondblclick = function(){
+			document.getElementById('content').innerHTML = 'double clicked';
+		};
+		
+		document.getElementById("rightClickTest").oncontextmenu = function(){
+			document.getElementById('content').innerHTML = 'right clicked';
+		};
+	</script>
+	<div id="checkBoxDivider">
+		<span>CheckBox Unchecked</span>
+		<input id="testCheckBox" type="checkbox" value="Check Me" title="Check Me" onclick="updateContent('CheckBox Checked')"></input>
+		<span>CheckBox Checked</span>
+		<input id="testUncheckBox" type="checkbox" checked="checked" title="Check Me" onclick="updateContent('CheckBox Unchecked')"></input>
+	</div>
+	<div id="dropDownDivider">
+		<span> Dropdown for testing </span>
+		<select id="selectTest" onchange="updateContent(document.getElementById('selectTest').value)">
+			<option value="" disabled="disabled" selected="selected">Please select a name</option>
+			<option value="A">Alpha</option>
+			<option value="B">Beta</option>
+			<option value="C">Charlie</option>
+			<option value="D">Delta</option>
+		</select>
+		
+		<span> Another Dropdown for testing </span>
+		<select id="selectTestGet" onchange="updateContent(document.getElementById('selectTest').value)">
+			<option value="O">Oscar</option>
+			<option value="M">Mike</option>
+			<option value="C">Charlie</option>
+			<option value="E">Echo</option>
+		</select>
+		
+		<span> An Empty Dropdown for testing </span>
+		<select id="selectTestGetValue" onchange="updateContent(document.getElementById('selectTest').value)">
+
+		</select>
+	</div>
+	<a id="hyperlinkTest" href="http://www.finra.org">Hyperlink Test</a>
+	<div id="inner1">
+        <div>hello<span> world</span></div>
+        <div>welcome</div>
+	</div>
+	
+</body>
+</html>
