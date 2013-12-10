@@ -107,10 +107,13 @@
 					</execution>
 				</executions>
 				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
+					<testFailureIgnore>false</testFailureIgnore>
 					<includes>
 						<include>**/*Test*</include>
 					</includes>
+                    <excludes>
+                        <exclude>**/*BrowserOnlyTest*</exclude>
+                    </excludes>
 					<parallel>methods</parallel>
 					<threadCount>4</threadCount>
 					<argLine>${failsafeArgLine}</argLine>

@@ -16,19 +16,18 @@
  */
 package org.finra.jtaf.ewd.widget.element.html;
 
-import java.util.List;
-
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.InteractiveElement;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class InteractiveHTMLListTest {
+import java.util.List;
+
+public class InteractiveHTMLListBrowserOnlyTest {
     public static String url = "http://localhost:29090/simpleapp/interactiveelements.html";
 	public ExtWebDriver wd;
 	
@@ -49,37 +48,13 @@ public class InteractiveHTMLListTest {
     }
 
     @Test
-    public void testGetInteractiveItems() throws WidgetException{
+    public void testGetInteractiveItem() throws WidgetException{
     	wd.open(url);
     	InteractiveHtmlList hList = new InteractiveHtmlList(htmlListLocator);
-    	List<IInteractiveElement> ieLists = hList.getInteractiveItems();
-    	Assert.assertEquals(4, ieLists.size());
-    }
-    
-    @Test(expected=WidgetException.class)
-    public void testGetInteractiveItemException() throws WidgetException{
-    	wd.open(url);
-    	InteractiveHtmlList hList = new InteractiveHtmlList(badHtmlListLocator);
     	IInteractiveElement ie = hList.getInteractiveItem(1);
-    	ie.click();
+        ie.click();
     	//This needs to happen since its a button
     	Button b = new Button("//input[@id=\"button\"]");
-    }
-
-    @Test(expected=WidgetException.class)
-    public void testGetInteractiveItemException2() throws WidgetException{
-        wd.open(url);
-        InteractiveHtmlList hList = new InteractiveHtmlList(badHtmlListLocator);
-        IInteractiveElement ie = hList.getInteractiveItem(10);
-        ie.click();
-        //This needs to happen since its a button
-        Button b = new Button("//input[@id=\"button\"]");
-    }
-    
-    @Test(expected=WidgetException.class)
-    public void testGetInteractiveItemsException() throws WidgetException{
-    	wd.open(url);
-    	InteractiveHtmlList hList = new InteractiveHtmlList(badHtmlListLocator);
-    	List<IInteractiveElement> ieLists = hList.getInteractiveItems();
+    	Assert.assertEquals("interacted:0", b.getAttribute("value"));
     }
 }
