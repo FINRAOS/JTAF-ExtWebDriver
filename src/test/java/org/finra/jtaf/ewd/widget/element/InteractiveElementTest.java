@@ -154,20 +154,6 @@ public class InteractiveElementTest {
         
     }
 
-    // Selenium issue #3604
-    @Test
-    public void testDragAndDrop() throws WidgetException{
-    	wd.open(url);
-
-        IInteractiveElement ie = new InteractiveElement(getDiv("draggableText"));
-        IInteractiveElement destination = new InteractiveElement(getDiv("dropBox"));
-        ie.waitForElementPresent();
-        destination.waitForElementPresent();
-        ie.dragAndDrop(destination);
-        destination.waitForText();
-        Assert.assertEquals("dragged", destination.getText());
-    }
-    
     @Test(expected=WidgetException.class)
     public void testDragAndDropException() throws WidgetException{
     	wd.open(url);
@@ -177,18 +163,6 @@ public class InteractiveElementTest {
         ie.dragAndDrop(destination);       	
     }
       
-    @Test
-    public void testDragAndDropByOffset() throws WidgetException{
-    	wd.open(url);
-
-        IInteractiveElement ie = new InteractiveElement(getDiv("draggableText"));
-        IInteractiveElement destination = new InteractiveElement(getDiv("dropBox"));
-        ie.waitForElementPresent();
-        destination.waitForElementPresent();
-        ie.dragAndDropByOffset(0, -50);       	
-        Assert.assertEquals("DragMe", destination.getText());
-    }
-    
     @Test(expected=WidgetException.class)
     public void testDragAndDropByOffsetException() throws WidgetException{
     	wd.open(url);
@@ -312,21 +286,6 @@ public class InteractiveElementTest {
         ie.mouseMove();
     }
 
-      /*
-       * Only testable on real browsers
-       */
-    @Test
-    public void testMouseMoveOut() throws WidgetException{
-    	wd.open(url);
-
-        IInteractiveElement ie = new InteractiveElement(getDiv("dest"));
-        IElement element = new Element(getDiv("content"));
-        ie.waitForElementPresent();
-        ie.mouseMove();
-        ie.mouseMoveOut();
-        Assert.assertEquals("Mouse Moved Out", element.getText());
-    }
-    
     @Test(expected=WidgetException.class)
     public void testMouseMoveOutException() throws WidgetException{
     	wd.open(url);
