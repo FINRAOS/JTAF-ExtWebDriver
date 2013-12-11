@@ -344,92 +344,92 @@ public class DefaultSessionFactory implements SessionFactory {
                     capabilities);
             remoteWebDriver.setFileDetector(new LocalFileDetector());
             wd = remoteWebDriver;
-        }
-
-        if (browser == null || browser.equals("")) {
-            throw new RuntimeException(
-                    "Browser cannot be null. Please set 'browser' in client properties. Supported browser types: IE, Firefox, Chrome, Safari, HtmlUnit.");
-        } else if (browser.equalsIgnoreCase("ie") || browser.equalsIgnoreCase("iexplore")
-                || browser.equalsIgnoreCase("*iexplore")) {
-            String webdriverIEDriver = properties.getWebDriverIEDriver();
-
-            if (webdriverIEDriver != null) {
-                System.setProperty("webdriver.ie.driver", webdriverIEDriver);
-            }
-
-            String browserVersion = properties.getBrowserVersion();
-
-            if (browserVersion == null || browserVersion.equals("")) {
+        }else {
+            if (browser == null || browser.equals("")) {
                 throw new RuntimeException(
-                        "When using IE as the browser, please set 'browser.version' in client properties");
-            } else {
-                if (browserVersion.startsWith("9")) {
-                    desiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-                    desiredCapabilities
-                            .setCapability(
-                                    InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-                                    true);
-                    wd = new InternetExplorerDriver(desiredCapabilities);
+                        "Browser cannot be null. Please set 'browser' in client properties. Supported browser types: IE, Firefox, Chrome, Safari, HtmlUnit.");
+            } else if (browser.equalsIgnoreCase("ie") || browser.equalsIgnoreCase("iexplore")
+                    || browser.equalsIgnoreCase("*iexplore")) {
+                String webdriverIEDriver = properties.getWebDriverIEDriver();
+
+                if (webdriverIEDriver != null) {
+                    System.setProperty("webdriver.ie.driver", webdriverIEDriver);
+                }
+
+                String browserVersion = properties.getBrowserVersion();
+
+                if (browserVersion == null || browserVersion.equals("")) {
+                    throw new RuntimeException(
+                            "When using IE as the browser, please set 'browser.version' in client properties");
                 } else {
-                    wd = new InternetExplorerDriver(desiredCapabilities);
+                    if (browserVersion.startsWith("9")) {
+                        desiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+                        desiredCapabilities
+                                .setCapability(
+                                        InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
+                                        true);
+                        wd = new InternetExplorerDriver(desiredCapabilities);
+                    } else {
+                        wd = new InternetExplorerDriver(desiredCapabilities);
+                    }
                 }
-            }
-        } else if ((browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("*firefox"))) {
-            final String ffProfileFolder = properties.getFirefoxProfileFolder();
-            final String ffProfileFile = properties.getFirefoxProfileFile();
-            final String path = properties.getBinaryPath();
+            } else if ((browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("*firefox"))) {
+                final String ffProfileFolder = properties.getFirefoxProfileFolder();
+                final String ffProfileFile = properties.getFirefoxProfileFile();
+                final String path = properties.getBinaryPath();
 
-            if (path != null) {
-                FirefoxBinary fireFox = getFFBinary(path);
-                FirefoxProfile ffp = null;
+                if (path != null) {
+                    FirefoxBinary fireFox = getFFBinary(path);
+                    FirefoxProfile ffp = null;
 
-                if (ffProfileFolder != null) {
-                    ffp = new FirefoxProfile(new File(ffProfileFolder));
+                    if (ffProfileFolder != null) {
+                        ffp = new FirefoxProfile(new File(ffProfileFolder));
+                    } else {
+                        ffp = new FirefoxProfile();
+                    }
+
+                    if (ffProfileFile != null) {
+                        addPreferences(ffp, ffProfileFile);
+                    }
+
+                    addPreferences(ffp);
+
+                    List<String> ffExtensions = properties.getFirefoxExtensions();
+                    if (ffExtensions != null && ffExtensions.size() > 0) {
+                        addExtensionsToFirefoxProfile(ffp, ffExtensions);
+                    }
+
+                    wd = new FirefoxDriver(fireFox, ffp, desiredCapabilities);
                 } else {
-                    ffp = new FirefoxProfile();
+                    wd = new FirefoxDriver(desiredCapabilities);
+                }
+            } else if (browser.equalsIgnoreCase("chrome")) {
+
+                String webdriverChromeDriver = properties.getWebDriverChromeDriver();
+
+                if (webdriverChromeDriver != null) {
+                    System.setProperty("webdriver.chrome.driver", webdriverChromeDriver);
                 }
 
-                if (ffProfileFile != null) {
-                    addPreferences(ffp, ffProfileFile);
-                }
-
-                addPreferences(ffp);
-
-                List<String> ffExtensions = properties.getFirefoxExtensions();
-                if (ffExtensions != null && ffExtensions.size() > 0) {
-                    addExtensionsToFirefoxProfile(ffp, ffExtensions);
-                }
-
-                wd = new FirefoxDriver(fireFox, ffp, desiredCapabilities);
+                wd = new ChromeDriver(desiredCapabilities);
+            } else if (browser.equalsIgnoreCase("safari")) {
+                wd = new SafariDriver(desiredCapabilities);
+            } else if (browser.equalsIgnoreCase("htmlunit")) {
+                wd = new HtmlUnitDriver(desiredCapabilities);
+                ((HtmlUnitDriver) wd).setJavascriptEnabled(true);
             } else {
-                wd = new FirefoxDriver(desiredCapabilities);
-            }
-        } else if (browser.equalsIgnoreCase("chrome")) {
-
-            String webdriverChromeDriver = properties.getWebDriverChromeDriver();
-
-            if (webdriverChromeDriver != null) {
-                System.setProperty("webdriver.chrome.driver", webdriverChromeDriver);
+                throw new Exception("Unsupported browser type: " + browser
+                        + ". Supported browser types: IE, Firefox, Chrome, Safari, HtmlUnit.");
             }
 
-            wd = new ChromeDriver(desiredCapabilities);
-        } else if (browser.equalsIgnoreCase("safari")) {
-            wd = new SafariDriver(desiredCapabilities);
-        } else if (browser.equalsIgnoreCase("htmlunit")) {
-            wd = new HtmlUnitDriver(desiredCapabilities);
-            ((HtmlUnitDriver) wd).setJavascriptEnabled(true);
-        } else {
-            throw new Exception("Unsupported browser type: " + browser
-                    + ". Supported browser types: IE, Firefox, Chrome, Safari, HtmlUnit.");
-        }
-
-        // move browser windows to specific position. It's useful for
-        // debugging...
-        final int browserInitPositionX = properties.getBrowserInitPositionX();
-        final int browserInitPositionY = properties.getBrowserInitPositionY();
-        if (browserInitPositionX != 0 || browserInitPositionY != 0) {
-            wd.manage().window().setSize(new Dimension(1280, 1024));
-            wd.manage().window().setPosition(new Point(browserInitPositionX, browserInitPositionY));
+            // move browser windows to specific position. It's useful for
+            // debugging...
+            final int browserInitPositionX = properties.getBrowserInitPositionX();
+            final int browserInitPositionY = properties.getBrowserInitPositionY();
+            if (browserInitPositionX != 0 || browserInitPositionY != 0) {
+                wd.manage().window().setSize(new Dimension(1280, 1024));
+                wd.manage().window().setPosition(new Point(browserInitPositionX, browserInitPositionY));
+            }
         }
 
         return wd;
