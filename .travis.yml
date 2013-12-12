@@ -1,12 +1,13 @@
 language: java
-before_script: git clone -b CM `git config --get remote.origin.url` target/CM
+before_script: "git clone -b CM `git config --get remote.origin.url` target/CM"
 install: ''
-script: mvn -DskipTests -DskipITs deploy --settings target/CM/settings.xml
+script: "mvn -DskipTests -DskipITs deploy --settings target/CM/settings.xml"
 
 branches:
-  only: master
+  only: 
+  - master
 
 env:
   global:
-  - secure: "KRZYk7rnb0GGaX4MoEfKOCiwbENmmlx9lVm45iU3Wf56+4pKZ0uVdns4nnrRw2jOaYPC4eY5z8Iyr0Wq1n2TK6Y1oQs/tdtCbQm3/dH8b0KMFw8lCoIpm1LfkMEO4O0T1ATp84ZW0fJ2JjM6iNPJIjSi4h7e946lamA8TrNzCPQ="
-  - secure: "2fRFkzGtaQ7KCI0PLJq93Tg49dmUuc/flIzHSAgldBXGxkhGFkqSCzNtPRBNpLbK0eZfQ20Wy76Q02J/ytj9aEdIhSrY2L01shNM7X2albtXktZY4UrApVolmrAT5NDpD+8Cqr1Sb1sbx4kaeCIs0Br+AC+eeyrOQTWE05sfK+w="
+  - secure: "VkiKYFQmuG82POrsjZ9I2H11lOkGulNq6or0hj/fFCYM0g5ISIbWM4Cm4ZbENckwGVEWRrZ1V8Pp5TC/+QCgXXA0qvptCEwYrCDL8bp8j2GwTqIsDH10aNecuUxDpQBRkkv0mgiQlSMhqWRjbkceEFIc1bGzr49gaC06lJ2MBow="
+  - secure: "cgHIlhB/yvxCswX9VmyXM0W15WsZxk8jhsHi9pG2jIy3rmRc371yKbYaM1FKFejMdUtYwC1/wQXT5Hd40mpyXehUfkTItRCLy1xDiTlS3+gweFgS+P6So8fF8e6b3pgpRtWV6ix3E9Cya+OjVt6ktujnRn9d3nUm5QEsUDqDFLE="
