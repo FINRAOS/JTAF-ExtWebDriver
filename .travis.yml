@@ -2,12 +2,10 @@ language: java
 before_script: git clone -b CM `git config --get remote.origin.url` target/CM
 install: ''
 script: mvn -DskipTests -DskipITs deploy --settings target/CM/settings.xml
-
 branches:
-  only: 
+  only:
   - master
-
 env:
   global:
-  - secure: XS0+kHx2IjkhgQVbg/RTng7ZqM4QBh8T6bm/ITtgMsOKeSqw4fqSOsVK6zy1MWkMyerDmHIPwIDpVSWGr1A+XndMIUNZQYbO9JLx+mOU9Q9ZZj8V6qhQOp2LljrPztg1vzKLAxeqqds8CjWvPVHFjDGOrrez6sz4PyT50Khgi8M=
-  - secure: keFpCwP0AkCU+vk2AWUQdwX2HrLdfRPv9Z1FNL+nrjPTAr2hLlUdG26+jP1r0aN95l9AXGEGpvlR8EjALAVYWNGnvOx7FcSIPf7uXW9ptCj1Hh1488k26bJ8+R/bzzCQht5SHAIwZ4VRdV/jWXAueobwhuWzdumS9DgiMq2PO0M=
+  - secure: TyYZwIOSBUZ0c4rwbAraOCuxA4ze0q6098IrwYoIc7VAXeeaaZNmGwuSI0XeMJsWLRp9GSA+ZGUtUJxVdFNd1bEFseePNTkWFxf7fEh47Y6PPvfFEhE/CfJ3gnmrx09XHgoWyXidM+90x2L4VMEwf9/8IrTfgvugZj9lg/hDO9I=
+  - secure: UpwjFP66iAtFKwhl3mLwWItpKY3LiFSGfNub+aY5A0m87bEqNJCjUdeyN9GXPxTGxCHPsHrz7lZpXrfigdR48u59OWMePbEBDuP3w5fac5wO9DJiQ0yaEq4hKx6RoCFSyRWrVkGJhiz6wUwWFrEElxeQFCQ5uZ7RGs3tJOrdVdQ=
