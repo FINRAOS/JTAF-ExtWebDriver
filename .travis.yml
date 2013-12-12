@@ -1,13 +1,2 @@
 language: java
-before_script: git clone -b CM `git config --get remote.origin.url` target/CM
-install: ''
-script: mvn -DskipTests -DskipITs deploy --settings target/CM/settings.xml
-
-branches:
-  only: 
-  - master
-
-env:
-  global:
-  - secure: 6qwKnWOZvfq03cRzZm/7wMXakfVRiIfWIDOKHD6XrXZfnuB9AvA5PYeYDASlpGScp2/k96J+Tt5ngaYllOfn+X+V6v2GbNvPDhnqZJy3sYzi5tnqhXiElJ2Zn45+nTKEKQ0/QQWXXXyIACQgHHOPlChrM1tprW72WWvHMqgSYKg=
-  - secure: AycO3SuMSWuBQse4TsSPTfQMs5S2ihPv2TY7J6pMJEJhsHlcMVbb04A0st3sNVmqgNGr568fnHV6V5SiHeH+D3rUIkifSaBt2t5wZwPOF7NwmlkV+I7e0wzhah1fRdN5RQtFacg8MEBramv+aL6VyeZD90vAQyiqtklo/CrEPdc=
+script: mvn clean package
