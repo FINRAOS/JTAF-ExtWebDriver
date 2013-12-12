@@ -1,7 +1,6 @@
 language: java
-before_script: "git clone -b CM `git config --get remote.origin.url` target/CM"
+before_script: git clone -b CM `git config --get remote.origin.url` target/CM
 install: ''
-<<<<<<< HEAD
 script: target/CM/deploy.sh
 branches:
   only:
