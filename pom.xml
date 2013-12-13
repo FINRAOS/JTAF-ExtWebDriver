@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.finra.jtaf</groupId>
 	<artifactId>jtaf-extwebdriver</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
     <packaging>jar</packaging>
 	<name>Extensions for WebDriver</name>
     <description>ExtWebDriver is an enhancement to the WebDriver API, with features such as widget library, session management and extended functions</description>
@@ -18,7 +18,8 @@
         <connection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</connection>
         <developerConnection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
         <url>git@github.com:FINRAOS/JTAF-ExtWebDriver.git</url>
-    </scm>
+      <tag>jtaf-extwebdriver-1.0</tag>
+  </scm>
     <developers>
         <developer>
             <id>kood1</id>
@@ -42,18 +43,18 @@
             <id>lathanagaraj</id>
             <name>Latha Nagaraj</name>
             <email>latha.nagaraj@gmail.com</email>
-            <url></url>
+            <url />
         </developer>
         <developer>
             <id>SMxJrz</id>
             <name>Stephen Mele</name>
-            <email>smelecs@gmail.com</email >
+            <email>smelecs@gmail.com</email>
             <url>http://github.com/SMxJrz</url>
         </developer>
         <developer>
             <id>mchao47</id>
             <name>Michael Chao</name>
-            <email>mchao47@gmail.com</email >
+            <email>mchao47@gmail.com</email>
             <url>http://github.com/mchao47</url>
         </developer>
     </developers>
