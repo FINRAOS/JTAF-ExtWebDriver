@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.finra.jtaf</groupId>
 	<artifactId>jtaf-extwebdriver</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<name>Extensions for WebDriver</name>
     <description>ExtWebDriver is an enhancement to the WebDriver API, with features such as widget library, session management and extended functions</description>
@@ -15,10 +15,11 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</connection>
-        <developerConnection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
-        <url>git@github.com:FINRAOS/JTAF-ExtWebDriver.git</url>
-    </scm>
+    	<connection>scm:git:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</connection>
+    	<developerConnection>scm:git:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
+    	<url>https://github.com/FINRAOS/JTAF-ExtWebDriver.git</url>
+  	  <tag>HEAD</tag>
+  </scm>
     <developers>
         <developer>
             <id>kood1</id>
@@ -39,21 +40,21 @@
             <url>http://github.com/mike-glorioso</url>
         </developer>
         <developer>
-            <id></id>
+            <id>lathanagaraj</id>
             <name>Latha Nagaraj</name>
-            <email></email>
-            <url></url>
+            <email>latha.nagaraj@gmail.com</email>
+            <url />
         </developer>
         <developer>
             <id>SMxJrz</id>
             <name>Stephen Mele</name>
-            <email>smelecs@gmail.com</email >
+            <email>smelecs@gmail.com</email>
             <url>http://github.com/SMxJrz</url>
         </developer>
         <developer>
             <id>mchao47</id>
             <name>Michael Chao</name>
-            <email>mchao47@gmail.com</email >
+            <email>mchao47@gmail.com</email>
             <url>http://github.com/mchao47</url>
         </developer>
     </developers>
