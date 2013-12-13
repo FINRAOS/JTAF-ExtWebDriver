@@ -15,12 +15,10 @@
         </license>
     </licenses>
     <scm>
-        <scm>
-    		<connection>scm:git:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</connection>
-    		<developerConnection>scm:git:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
-    		<url>https://github.com/FINRAOS/JTAF-ExtWebDriver.git</url>
-  		</scm>
-    </scm>
+    	<connection>scm:git:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</connection>
+    	<developerConnection>scm:git:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
+    	<url>https://github.com/FINRAOS/JTAF-ExtWebDriver.git</url>
+  	</scm>
     <developers>
         <developer>
             <id>kood1</id>
