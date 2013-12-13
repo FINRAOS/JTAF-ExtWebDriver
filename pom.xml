@@ -15,8 +15,8 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git://github.com/FINRAOS/JTAF-ExtWebDriver.git</connection>
-        <developerConnection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
+        <connection>scm:https://github.com/FINRAOS/JTAF-ExtWebDriver.git</connection>
+        <developerConnection>scm:https://github.com:FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
         <url>https://github.com/FINRAOS/JTAF-ExtWebDriver.git</url>
     </scm>
     <developers>
