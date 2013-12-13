@@ -3,7 +3,67 @@
 	<groupId>org.finra.jtaf</groupId>
 	<artifactId>jtaf-extwebdriver</artifactId>
 	<version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 	<name>Extensions for WebDriver</name>
+    <description>ExtWebDriver is an enhancement to the WebDriver API, with features such as widget library, session management and extended functions</description>
+    <url>http://finraos.github.io/JTAF-ExtWebDriver/</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</connection>
+        <developerConnection>scm:git:git@github.com:FINRAOS/JTAF-ExtWebDriver.git</developerConnection>
+        <url>git@github.com:FINRAOS/JTAF-ExtWebDriver.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>kood1</id>
+            <name>Daniel Koo</name>
+            <email>danieljamin.koo@gmail.com</email>
+            <url>http://github.com/kood1</url>
+        </developer>
+        <developer>
+            <id>bryantrobbins</id>
+            <name>Bryan Robbins</name>
+            <email>bryantrobbins@gmail.com</email>
+            <url>https://github.com/bryantrobbins</url>
+        </developer>
+        <developer>
+            <id>mike-glorioso</id>
+            <name>Mike Glorioso</name>
+            <email>mike.glorioso@gmail.com</email>
+            <url>http://github.com/mike-glorioso</url>
+        </developer>
+        <developer>
+            <id>lathanagaraj</id>
+            <name>Latha Nagaraj</name>
+            <email>latha.nagaraj@gmail.com</email>
+            <url></url>
+        </developer>
+        <developer>
+            <id>SMxJrz</id>
+            <name>Stephen Mele</name>
+            <email>smelecs@gmail.com</email >
+            <url>http://github.com/SMxJrz</url>
+        </developer>
+        <developer>
+            <id>mchao47</id>
+            <name>Michael Chao</name>
+            <email>mchao47@gmail.com</email >
+            <url>http://github.com/mchao47</url>
+        </developer>
+    </developers>
+
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -158,8 +218,47 @@
 					</webApp>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <arguments>${arguments} -Psonatype-oss-release</arguments>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 	<dependencies>
 		<!-- project's sole purpose is to provide standardized access to Selenium Web Driver -->
 		<dependency>
@@ -210,8 +309,8 @@
 	</dependencies>
 	<distributionManagement>
 		<repository>
-		    <id>TBD</id>
-		    <name>TBD</name>
+		    <id>sonatype-nexus-staging</id>
+		    <name>Sonatype Nexus release repository</name>
 		    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 
