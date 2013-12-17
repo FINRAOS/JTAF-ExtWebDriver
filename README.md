@@ -1,9 +1,12 @@
 JTAF-ExtWebDriver
 ==================
-
 [Extensions for WebDriver](http://finraos.github.io/JTAF-ExtWebDriver/) is an enhancement to the powerful WebDriver API, with robust features that keep your browser automation running smoothly. It includes a widget library, improved session management and extended functions over the existing WebDriver API.
 
 Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver/howitworks.html)
+
+Releases
+========
+>[Release 1.0](http://search.maven.org/#artifactdetails%7Corg.finra.jtaf%7Cjtaf-extwebdriver%7C1.0%7Cjar) is available on Maven central repository!
 
 Contributing
 =============
