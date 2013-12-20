@@ -365,7 +365,7 @@ public class SessionManager {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e1) {
-            log.error("Oops! Can't sleep before starting new webDriver...");
+            log.error("Can't sleep before starting new webDriver...");
         }
 
         // Get the current factory impl setting
