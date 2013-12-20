@@ -47,8 +47,6 @@ public class SessionManager {
 
     private boolean doCleanup = true;
 
-    private SessionFactory sessionFactory;
-
     private SessionManager() {
 
     }
@@ -58,6 +56,13 @@ public class SessionManager {
             return new SessionManager();
         }
     };
+    
+    private static ThreadLocal<SessionFactory> sessionFactory = new ThreadLocal<SessionFactory>() {
+        protected synchronized SessionFactory initialValue() {
+            return new DefaultSessionFactory();
+        }
+    };
+
 
     /**
      * Obtain the ThreadLocal instance of SessionManager. Configures the
@@ -69,7 +74,7 @@ public class SessionManager {
      */
 
     public static SessionManager getInstance() {
-        return sessionManager.get().setSessionFactory(new DefaultSessionFactory());
+    	return sessionManager.get();
     }
 
     /**
@@ -87,7 +92,7 @@ public class SessionManager {
      */
 
     public SessionManager setSessionFactory(SessionFactory impl) {
-        this.sessionFactory = impl;
+        sessionFactory.set(impl);
         return this;
     }
 
@@ -243,7 +248,7 @@ public class SessionManager {
      */
 
     public ExtWebDriver getNewSession(boolean setAsCurrent) throws Exception {
-        Map<String, String> options = sessionFactory.createDefaultOptions();
+        Map<String, String> options = sessionFactory.get().createDefaultOptions();
         return getNewSessionDo(options, setAsCurrent);
     }
 
@@ -294,7 +299,7 @@ public class SessionManager {
          * This is where the clientPropertiesFile is parsed and key-value pairs
          * are added into the options map
          */
-        Map<String, String> options = sessionFactory.createDefaultOptions();
+        Map<String, String> options = sessionFactory.get().createDefaultOptions();
         options.put(key, value);
 
         return getNewSessionDo(options, setAsCurrent);
@@ -333,7 +338,7 @@ public class SessionManager {
     public ExtWebDriver getNewSession(Map<String, String> override, boolean setAsCurrent)
             throws Exception {
 
-        Map<String, String> options = sessionFactory.createDefaultOptions();
+        Map<String, String> options = sessionFactory.get().createDefaultOptions();
 
         for (Entry<String, String> opt : override.entrySet()) {
             options.put(opt.getKey(), opt.getValue());
@@ -346,7 +351,7 @@ public class SessionManager {
             throws Exception {
 
         if (doCleanup) {
-            sessionFactory.cleanup(options);
+            sessionFactory.get().cleanup(options);
             doCleanup = false;
         }
 
@@ -360,19 +365,19 @@ public class SessionManager {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e1) {
-            log.error("Can't sleep before starting new WebDriver...");
+            log.error("Can't sleep before starting new webDriver...");
         }
 
         // Get the current factory impl setting
 
         // Get capabilities
-        DesiredCapabilities dc = sessionFactory.createCapabilities(options);
+        DesiredCapabilities dc = sessionFactory.get().createCapabilities(options);
 
         // Get driver instance
-        WebDriver innerDriver = sessionFactory.createInnerDriver(options, dc);
+        WebDriver innerDriver = sessionFactory.get().createInnerDriver(options, dc);
 
         // Inject as wrapped driver
-        ExtWebDriver sel = sessionFactory.createNewSession(options, innerDriver);
+        ExtWebDriver sel = sessionFactory.get().createNewSession(options, innerDriver);
 
         String sessionId = getNextCustomSessionId();
         if (setAsCurrent) {
