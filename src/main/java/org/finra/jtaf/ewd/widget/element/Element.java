@@ -684,7 +684,9 @@ public class Element implements IElement {
 	 */
 	private void setBackgroundColor(WebElement element, String color) {
 		try {
-			eval("arguments[0].style.backgroundColor = '" + color + "'");
+//			eval("arguments[0].style.backgroundColor = '" + color + "'");
+			WebDriver wd = getGUIDriver().getWrappedDriver();
+			((JavascriptExecutor) wd).executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
 		} catch (Exception e) {
 			// Since its debug only, dont care
 		}
@@ -722,7 +724,7 @@ public class Element implements IElement {
 		HighlightProvider highDriver = (HighlightProvider) getGUIDriver();
 
 		if (highDriver.isHighlight()) {
-			setBackgroundColor(webElement, highDriver.getHighlightColor(mode.toString()));
+			setBackgroundColor(webElement, highDriver.getHighlightColor(mode.toString().toLowerCase()));
 		}
 	}
 	

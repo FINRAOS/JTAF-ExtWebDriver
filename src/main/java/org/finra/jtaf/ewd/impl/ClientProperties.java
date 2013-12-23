@@ -323,25 +323,38 @@ public class ClientProperties {
     private final void loadColorMapRgb() {
         Iterator<String> colorKeys = config.getKeys("highlight");
         while(colorKeys.hasNext()){
-      	  String[] splits = colorKeys.next().split(".");
+        	String current = colorKeys.next();
+      	  String[] splits = current.split("\\.");
       	  if(splits.length > 1){
-      		  if(config.getString(colorKeys.next()).startsWith("("))
-      			  highlightColorMap.put(splits[1], config.getString(colorKeys.next()));
+      		  String val = config.getString(current);
+      		  if(val.startsWith("rgb"))
+      			  highlightColorMap.put(splits[1], val);
       		  else
-      			logger.fatal("The highlight color has to specify RGB values in this format: eg. highlight.find=(255,255,0)");
+      			logger.warn("The highlight color has to specify RGB values in this format: eg. highlight.find=rgb(255,255,0)");
       	  }     		 
+      	  else if(splits[0].equals("highlight"))
+      		  continue;
       	  else
-      		logger.fatal("Error getting mode for client property 'highlight'. Please provide a mode for highlight : eg. highlight.find=(255,255,0)");
+      		logger.warn("Error getting mode for client property 'highlight'. Please provide a mode for highlight : eg. highlight.find=rgb(255,255,0)");
         }
+        
+        if(!highlightColorMap.containsKey("put"))		
+        	highlightColorMap.put("put", "rgb(255,255,0)");
+        if(!highlightColorMap.containsKey("get"))		
+        	highlightColorMap.put("get", "rgb(0,255,255)");
+        if(!highlightColorMap.containsKey("find"))		
+        	highlightColorMap.put("find", "rgb(0,255,0)");
+        
       }
 
       public String getHighlightColor(String colorMode){
-      	return highlightColorMap.get("highlight."+ colorMode);
+      	return highlightColorMap.get( colorMode);
       }
       
       public Map<String, String> getHighlightColorMap(){
       	return this.highlightColorMap;
       }
+      
     /**
      * Returns the name of the browser.
      * 
