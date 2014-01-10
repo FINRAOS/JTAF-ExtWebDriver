@@ -616,7 +616,6 @@ public class Element implements IElement {
 			}
 		} catch (Exception e) {
 		}
-
 		try {
 			webElement = wd.findElement(By.name(locator));
 			if (webElement != null) {
