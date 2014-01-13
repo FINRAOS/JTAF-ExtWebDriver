@@ -1,3 +1,0 @@
-.gitattributes merge=ours
-.gitignore merge=ours
-.travis.yml merge=ours
