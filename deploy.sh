@@ -10,7 +10,7 @@ echo "Attempting deployment..."
 
 if [ $TRAVIS_PULL_REQUEST == 'false' ]; then
   echo "Not a pull request, deploying..."
-  mvn deploy --settings target/travis/settings.xml
+  mvn deploy --settings target/CM/settings.xml
 
 fi
 fi
