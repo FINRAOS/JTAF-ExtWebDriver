@@ -16,5 +16,5 @@ else
 fi
 else
   echo "No deployment necessary, installing..."
-  mvn install --setings target/CM/settings.xml
+  mvn install --settings target/CM/settings.xml
 fi
