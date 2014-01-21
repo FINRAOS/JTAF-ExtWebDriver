@@ -17,6 +17,7 @@
 package org.finra.jtaf.ewd.widget.element;
 
 import org.finra.jtaf.ewd.ExtWebDriver;
+import org.finra.jtaf.ewd.HighlightProvider;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
@@ -377,5 +378,26 @@ public class InteractiveElementTest {
     	wd.open(url);
     	IInteractiveElement field = new InteractiveElement("//input[dff]");
     	field.type("hello");
+    }
+    
+    @Test
+    public void testHighlight() throws WidgetException{
+    	wd.open(url);
+    	HighlightProvider highDriver = (HighlightProvider) wd;
+    	if(highDriver.isHighlight()){
+    		IInteractiveElement b = new InteractiveElement("//button[@id='myButton']");
+        	b.click();
+        	Assert.assertEquals(getRgb(b.getCssValue("background-color")), highDriver.getHighlightColor("put"));
+    	}
+    	
+    }
+    
+    public String getRgb(String rgba){
+    	if(rgba.startsWith("rgba") & rgba.split(",").length>3){
+    		String[] splits = rgba.substring(rgba.indexOf("a")+1).split(",");
+    		return "rgb"+splits[0]+","+splits[1]+","+splits[2]+")";
+    	}
+    	else
+    		return rgba;
     }
 }

@@ -17,6 +17,8 @@
 package org.finra.jtaf.ewd.widget.element;
 
 import org.finra.jtaf.ewd.ExtWebDriver;
+import org.finra.jtaf.ewd.HighlightProvider;
+import org.finra.jtaf.ewd.impl.ClientProperties;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
@@ -57,7 +59,7 @@ public class ElementTest {
         wd.close();
         SessionManager.getInstance().removeSession(wd);
     }
-    
+   
     @Test
     public void testGetLocator() throws WidgetException{
         wd.open(url);
@@ -302,9 +304,9 @@ public class ElementTest {
     	
     }
     
-    /*
-     * TODO: Instead of returning false, HTMLUnit throws the WidgetException, try running this test in firefox
-     */
+    
+    // * TODO: Instead of returning false, HTMLUnit throws the WidgetException, try running this test in firefox
+     
     @Test
     public void testIsAttributePresentFalse() throws WidgetException{
     	wd.open(url);
@@ -472,9 +474,9 @@ public class ElementTest {
     	
     }
     
-    /*
-     *Not part of IElement, but part of Element 
-     */
+    
+     //*Not part of IElement, but part of Element 
+     
     
     @Test
     public void testSetGUIDriver() throws Exception{
@@ -531,5 +533,32 @@ public class ElementTest {
     	wd.open(url);
     	IElement e = new Element("#removeContent>span");
     	Assert.assertEquals("Here is some text", e.getText());
+    }
+    
+    @Test
+    public void testHighlight() throws WidgetException{
+    	wd.open(url);
+    	HighlightProvider highDriver = (HighlightProvider) wd;
+    	if(highDriver.isHighlight()){
+    		Element e1 = new Element(getButton("testOverTime"));
+        	e1.findElement();
+        	
+        	Assert.assertEquals(highDriver.getHighlightColor("find"),getRgb(e1.getCssValue("background-color")) );
+        	
+        	Element e2 = new Element(getButton("myButton"));
+        	e2.isAttributePresent("xyz");
+        	Assert.assertEquals(getRgb(e2.getCssValue("background-color")), highDriver.getHighlightColor("get"));
+    	}
+    	
+    	
+    }
+    
+    public String getRgb(String rgba){
+    	if(rgba.startsWith("rgba") & rgba.split(",").length>3){
+    		String[] splits = rgba.substring(rgba.indexOf("a")+1).split(",");
+    		return "rgb"+splits[0]+","+splits[1]+","+splits[2]+")";
+    	}
+    	else
+    		return rgba;
     }
 }
