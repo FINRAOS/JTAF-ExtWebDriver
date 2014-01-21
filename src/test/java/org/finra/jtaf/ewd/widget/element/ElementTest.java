@@ -59,7 +59,7 @@ public class ElementTest {
         wd.close();
         SessionManager.getInstance().removeSession(wd);
     }
-    
+   
     @Test
     public void testGetLocator() throws WidgetException{
         wd.open(url);
@@ -539,14 +539,18 @@ public class ElementTest {
     public void testHighlight() throws WidgetException{
     	wd.open(url);
     	HighlightProvider highDriver = (HighlightProvider) wd;
-    
-    	Element e1 = new Element(getButton("testOverTime"));
-    	e1.findElement();
-    	Assert.assertEquals(highDriver.getHighlightColor("find"),getRgb(e1.getCssValue("background-color")) );
+    	if(highDriver.isHighlight()){
+    		Element e1 = new Element(getButton("testOverTime"));
+        	e1.findElement();
+        	
+        	Assert.assertEquals(highDriver.getHighlightColor("find"),getRgb(e1.getCssValue("background-color")) );
+        	
+        	Element e2 = new Element(getButton("myButton"));
+        	e2.isAttributePresent("xyz");
+        	Assert.assertEquals(getRgb(e2.getCssValue("background-color")), highDriver.getHighlightColor("get"));
+    	}
     	
-    	Element e2 = new Element(getButton("myButton"));
-    	e2.isAttributePresent("xyz");
-    	Assert.assertEquals(getRgb(e2.getCssValue("background-color")), highDriver.getHighlightColor("get"));
+    	
     }
     
     public String getRgb(String rgba){

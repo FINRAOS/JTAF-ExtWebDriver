@@ -58,14 +58,14 @@ public class Element implements IElement {
 	private static final long DEFAULT_INTERVAL = 100;
 
 	protected enum HIGHLIGHT_MODES {
-		FIND, GET, PUT
+		FIND, GET, PUT, NONE
 	}
 
-	 /**
-     * 
-     * @param locator
-     *            XPath, ID, name, CSS Selector, class name, or tag name
-     */
+	/**
+	 * 
+	 * @param locator
+	 *            XPath, ID, name, CSS Selector, class name, or tag name
+	 */
 	public Element(String locator) {
 		this.locator = locator;
 	}
@@ -95,10 +95,10 @@ public class Element implements IElement {
 	}
 
 	/**
-	 * Use the JavaXPath to determine if  element is present. If not, then try finding element.
-	 * Return false if the element does not exist
-	 * @return
-	 * 		true or false 
+	 * Use the JavaXPath to determine if element is present. If not, then try
+	 * finding element. Return false if the element does not exist
+	 * 
+	 * @return true or false
 	 * @throws WidgetException
 	 */
 	private boolean isElementPresent_internal() throws WidgetException {
@@ -120,7 +120,8 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#isElementPresent(java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#isElementPresent(java.lang.Long)
 	 */
 	@Override
 	public boolean isElementPresent(long timeout) throws WidgetException {
@@ -145,7 +146,9 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#isElementPresent(java.lang.Boolean)
+	 * @see
+	 * qc.automation.framework.widget.IElement#isElementPresent(java.lang.Boolean
+	 * )
 	 */
 	@Override
 	public boolean isElementPresent(boolean isJavaXPath) throws WidgetException {
@@ -180,7 +183,8 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#isElementVisible(java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#isElementVisible(java.lang.Long)
 	 */
 	@Override
 	public boolean isElementVisible(long timeout) throws WidgetException {
@@ -200,8 +204,8 @@ public class Element implements IElement {
 
 	/**
 	 * Determine if the element is visible or not
-	 * @return
-	 * 		true or false
+	 * 
+	 * @return true or false
 	 * @throws WidgetException
 	 */
 	private boolean isVisible() throws WidgetException {
@@ -221,13 +225,13 @@ public class Element implements IElement {
 			throw new WidgetException("Error while waiting for element to be present", locator, e);
 		}
 	}
-	
-	
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForElementPresent(java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForElementPresent(java.lang
+	 * .Long)
 	 */
 	@Override
 	public void waitForElementPresent(long time) throws WidgetException {
@@ -265,7 +269,9 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForElementPresent(java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForElementPresent(java.lang
+	 * .Long)
 	 */
 	public void waitForElementNotPresent(final long time) throws WidgetException {
 		try {
@@ -325,8 +331,7 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * qc.automation.framework.widget.IElement#waitForNotVisible()
+	 * @see qc.automation.framework.widget.IElement#waitForNotVisible()
 	 */
 	public void waitForNotVisible() throws WidgetException {
 		waitForNotVisible(getGUIDriver().getMaxRequestTimeout());
@@ -375,7 +380,7 @@ public class Element implements IElement {
 			try {
 				webElement = findElement();
 				attrValue = webElement.getAttribute(attributeName);
-				highlight(webElement, HIGHLIGHT_MODES.GET);
+				highlight(HIGHLIGHT_MODES.GET);
 			} catch (Exception e) {
 				throw new RuntimeException("Exception happened at locator: " + locator + " attribute: " + attributeName + e.getMessage());
 			}
@@ -406,7 +411,7 @@ public class Element implements IElement {
 			try {
 				webElement = findElement();
 				attr = webElement.getAttribute(attributeName);
-				highlight(webElement, HIGHLIGHT_MODES.GET);
+				highlight(HIGHLIGHT_MODES.GET);
 			} catch (NoSuchElementException e) {
 				throw e;
 			}
@@ -453,18 +458,19 @@ public class Element implements IElement {
 
 	/**
 	 * Tell Selenium to use the provided WebDriver instance
+	 * 
 	 * @param guiDriver
-	 * 			ExtendedWebDriver object
+	 *            ExtendedWebDriver object
 	 */
 	public void setGUIDriver(ExtWebDriver guiDriver) {
 		gd = guiDriver;
 	}
 
-
 	/**
 	 * Get the WebDriver object to interact with the UI elements
-	 * @return ExtendedWebDriver
-	 * 			specific type of WebDriver object (browser-specific)
+	 * 
+	 * @return ExtendedWebDriver specific type of WebDriver object
+	 *         (browser-specific)
 	 */
 	public final ExtWebDriver getGUIDriver() {
 		if (gd != null)
@@ -481,7 +487,7 @@ public class Element implements IElement {
 	public String getText() throws WidgetException {
 		try {
 			WebElement webElement = findElement();
-			highlight(webElement, HIGHLIGHT_MODES.GET);
+			highlight(HIGHLIGHT_MODES.GET);
 			return webElement.getText();
 		} catch (Exception e) {
 			throw new WidgetException("Error while fetching text", locator, e);
@@ -495,24 +501,25 @@ public class Element implements IElement {
 	 */
 	public boolean hasText(String text) throws WidgetException {
 		try {
-            Element element = new Element(getLocator());
-            List<WebElement> childElements = element.getWebElement().findElements(By.xpath(".//*"));
-            for(WebElement we : childElements) {
-                if(we.getText().contains(text)) {
-                    return true;
-                }
-            }
+			Element element = new Element(getLocator());
+			List<WebElement> childElements = element.getWebElement().findElements(By.xpath(".//*"));
+			for (WebElement we : childElements) {
+				if (we.getText().contains(text)) {
+					return true;
+				}
+			}
 
-            return false;
-        } catch (Exception e2) {
-            throw new WidgetException("Error while determining if element has text '" + text + "'", getLocator(), e2);
-        }
-    }
+			return false;
+		} catch (Exception e2) {
+			throw new WidgetException("Error while determining if element has text '" + text + "'", getLocator(), e2);
+		}
+	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#getCssValue(java.lang.String)
+	 * @see
+	 * qc.automation.framework.widget.IElement#getCssValue(java.lang.String)
 	 */
 	@Override
 	public String getCssValue(String propertyName) throws WidgetException {
@@ -523,11 +530,12 @@ public class Element implements IElement {
 		}
 	}
 
-	
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForAttributeEqualTo(java.lang.String, java.lang.String)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForAttributeEqualTo(java.
+	 * lang.String, java.lang.String)
 	 */
 	public void waitForAttributeEqualTo(String attributeName, String attributeValue) throws WidgetTimeoutException {
 		waitForAttributeEqualTo(attributeName, attributeValue, getGUIDriver().getMaxRequestTimeout());
@@ -536,7 +544,9 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForAttributeEqualTo(java.lang.String, java.lang.String, java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForAttributeEqualTo(java.
+	 * lang.String, java.lang.String, java.lang.Long)
 	 */
 	public void waitForAttributeEqualTo(final String attributeName, final String attributeValue, long timeout) throws WidgetTimeoutException {
 		waitForCommand(new ITimerCallback() {
@@ -567,7 +577,9 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForAttributeNotEqualTo(java.lang.String, java.lang.Stringg)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForAttributeNotEqualTo(java
+	 * .lang.String, java.lang.Stringg)
 	 */
 	@Override
 	public void waitForAttributeNotEqualTo(String attributeName, String attributeValue) throws WidgetException {
@@ -588,12 +600,23 @@ public class Element implements IElement {
 
 	/**
 	 * Find the element using xpath, id, name, class name or tag name
-	 * @return WebElement
-	 * 		the element identified by any of the properties
+	 * 
+	 * @return WebElement the element identified by any of the properties
 	 * @throws WidgetException
 	 */
 
 	protected WebElement findElement() throws WidgetException {
+		return findElement(true);
+	}
+
+	private WebElement findElement(boolean doHighlight) {
+
+		HIGHLIGHT_MODES highlightMode = null;
+		if (doHighlight)
+			highlightMode = HIGHLIGHT_MODES.FIND;
+		else if (!doHighlight)
+			highlightMode = HIGHLIGHT_MODES.NONE;
+
 		String locator = getLocator();
 		getGUIDriver().selectLastFrame();
 		WebDriver wd = getGUIDriver().getWrappedDriver();
@@ -602,7 +625,7 @@ public class Element implements IElement {
 		try {
 			webElement = wd.findElement(By.xpath(locator));
 			if (webElement != null) {
-				highlight(webElement, HIGHLIGHT_MODES.FIND);
+				highlight(highlightMode);
 				return webElement;
 			}
 		} catch (Exception e) {
@@ -611,7 +634,7 @@ public class Element implements IElement {
 		try {
 			webElement = wd.findElement(By.id(locator));
 			if (webElement != null) {
-				highlight(webElement, HIGHLIGHT_MODES.FIND);
+				highlight(highlightMode);
 				return webElement;
 			}
 		} catch (Exception e) {
@@ -619,25 +642,25 @@ public class Element implements IElement {
 		try {
 			webElement = wd.findElement(By.name(locator));
 			if (webElement != null) {
-				highlight(webElement, HIGHLIGHT_MODES.FIND);
+				highlight(highlightMode);
 				return webElement;
 			}
 		} catch (Exception e) {
 		}
 
-		 try {
-			 webElement = wd.findElement(By.cssSelector(locator));
-			 if(webElement != null) {
-					highlight(webElement, HIGHLIGHT_MODES.FIND);
-				 return webElement;
-			 }
-		 } catch (Exception e) {
-		 }
+		try {
+			webElement = wd.findElement(By.cssSelector(locator));
+			if (webElement != null) {
+				highlight(highlightMode);
+				return webElement;
+			}
+		} catch (Exception e) {
+		}
 
 		try {
 			webElement = wd.findElement(By.className(locator));
 			if (webElement != null) {
-				highlight(webElement, HIGHLIGHT_MODES.FIND);
+				highlight(highlightMode);
 				return webElement;
 			}
 		} catch (Exception e) {
@@ -646,13 +669,14 @@ public class Element implements IElement {
 		try {
 			webElement = wd.findElement(By.tagName(locator));
 			if (webElement != null) {
-				highlight(webElement, HIGHLIGHT_MODES.FIND);
+				highlight(highlightMode);
 				return webElement;
 			}
 		} catch (Exception e) {
 		}
 
 		throw new NoSuchElementException("Could not find element at " + locator);
+
 	}
 
 	/**
@@ -665,101 +689,79 @@ public class Element implements IElement {
 
 
 	/**
-	 * Find the current element and highlight it according to the mode
+	 * Set the background color of a particular web element to a certain color
+	 * 
+	 * @param element
+	 *            the element to highlight
+	 * @param color
+	 *            the color to use for highlight
+	 * @throws Exception
+	 */
+	private void setBackgroundColor(String color) throws WidgetException {
+		try {
+			this.eval("arguments[0].style.backgroundColor = '" + color + "'");
+			
+		} catch (Exception e) {
+
+		}
+	}
+
+
+	/**
+	 * Highlight a web element depending on one of the three default modes FIND,
+	 * GET and PUT
+	 * 
+	 * @param webElement
+	 *            the element to be highlighted
 	 * @param mode
+	 *            the mode which decides the color of highlight
 	 * @throws WidgetException
 	 */
-	public void highlight(HIGHLIGHT_MODES mode) throws WidgetException {
-		WebElement element = findElement();
-		highlight(element, mode);
-	}
-
-	/**
-	 * Set the background color of a particular web element to a certain color
-	 * @param element
-	 * 		the element to highlight
-	 * @param color
-	 * 		the color to use for highlight
+	/*
+	 * protected void highlight(WebElement webElement, HIGHLIGHT_MODES mode)
+	 * throws WidgetException { if (!(getGUIDriver() instanceof
+	 * HighlightProvider)) { return; } HighlightProvider highDriver =
+	 * (HighlightProvider) getGUIDriver();
+	 * 
+	 * if (highDriver.isHighlight()) { setBackgroundColor(
+	 * highDriver.getHighlightColor(mode.toString())); } }
 	 */
-	private void setBackgroundColor(WebElement element, String color) {
-		try {
-//			eval("arguments[0].style.backgroundColor = '" + color + "'");
-			WebDriver wd = getGUIDriver().getWrappedDriver();
-			((JavascriptExecutor) wd).executeScript("arguments[0].style.backgroundColor = '" + color + "'", element);
-		} catch (Exception e) {
-			// Since its debug only, dont care
-		}
-	}
 
 	/**
-	 * Highlight a web element by getting its color from the map loaded from client properties file
-	 * @param webElement
-	 * 		the element to be highlighted
-	 * @param colorMode
-	 * 		the mode which decides the color of highlight
-	 */
-	protected void highlight(WebElement webElement, String colorMode) {
-		if (!(getGUIDriver() instanceof HighlightProvider)) {
-			return;
-		}
-		HighlightProvider highDriver = (HighlightProvider) getGUIDriver();
-
-		if (highDriver.isHighlight()) {
-			setBackgroundColor(webElement, highDriver.getHighlightColor(colorMode));
-		}
-	}
-	
-	/**
-	 * Highlight a web element depending on one of the three default modes FIND, GET and PUT
-	 * @param webElement
-	 * 		the element to be highlighted
-	 * @param mode
-	 * 		the mode which decides the color of highlight
-	 */
-	protected void highlight(WebElement webElement, HIGHLIGHT_MODES mode) {
-		if (!(getGUIDriver() instanceof HighlightProvider)) {
-			return;
-		}
-		HighlightProvider highDriver = (HighlightProvider) getGUIDriver();
-
-		if (highDriver.isHighlight()) {
-			setBackgroundColor(webElement, highDriver.getHighlightColor(mode.toString().toLowerCase()));
-		}
-	}
-	
-	/**
-	 * Executes JavaScript code on the current element in the current frame or window.
+	 * Executes JavaScript code on the current element in the current frame or
+	 * window.
+	 * 
 	 * @param javascript
-	 * 		the javascript code to be executed
+	 *            the javascript code to be executed
 	 */
-	 @Override
-		public void eval(String javascript) throws WidgetException {
-	        WebElement element = getWebElement();
-			WebDriver wd = getGUIDriver().getWrappedDriver();
-			try {
-				((JavascriptExecutor) wd).executeScript(javascript, element);
-			} catch (Exception e) {
-				long time = System.currentTimeMillis() + 2000;
-				boolean success = false;
-				while (!success && System.currentTimeMillis() < time) {
+	@Override
+	public void eval(String javascript) throws WidgetException {
+		WebElement element = findElement(false);
+		WebDriver wd = getGUIDriver().getWrappedDriver();
+		try {
+			((JavascriptExecutor) wd).executeScript(javascript, element);
+		} catch (Exception e) {
+			long time = System.currentTimeMillis() + 2000;
+			boolean success = false;
+			while (!success && System.currentTimeMillis() < time) {
+				try {
+					((JavascriptExecutor) wd).executeScript(javascript, element);
+					success = true;
+				} catch (Exception e2) {
 					try {
-						((JavascriptExecutor) wd).executeScript(javascript, element);
-						success = true;
-					} catch (Exception e2) {
-						try {
-							Thread.sleep(500);
-						} catch (InterruptedException e1) {
-							// Ignore
-						}
-						e = e2;
+						Thread.sleep(500);
+					} catch (InterruptedException e1) {
+						// Ignore
 					}
-				}
-
-				if (!success) {
-					throw new RuntimeException(e);
+					e = e2;
 				}
 			}
+
+			if (!success) {
+				throw new RuntimeException(e);
+			}
 		}
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -773,6 +775,7 @@ public class Element implements IElement {
 
 	/**
 	 * wait for timeout amount of time
+	 * 
 	 * @param callback
 	 * @param timeout
 	 * @throws WidgetTimeoutException
@@ -784,8 +787,8 @@ public class Element implements IElement {
 
 	/**
 	 * Use the Java Xpath API to determine if the element is present or not
-	 * @return boolean
-	 * 		true or false as the case is
+	 * 
+	 * @return boolean true or false as the case is
 	 * @throws Exception
 	 */
 	private boolean isElementPresentJavaXPath() throws Exception {
@@ -804,11 +807,11 @@ public class Element implements IElement {
 	}
 
 	/**
-	 * Format the xpath to work with Java XPath API 
+	 * Format the xpath to work with Java XPath API
+	 * 
 	 * @param xpath
-	 * 		the xpath to be formatted
-	 * @return String
-	 * 		the formatted xpath
+	 *            the xpath to be formatted
+	 * @return String the formatted xpath
 	 * @throws Exception
 	 */
 	private static String formatXPathForJavaXPath(String xpath) throws Exception {
@@ -866,10 +869,10 @@ public class Element implements IElement {
 
 	/**
 	 * Get the list of nodes which satisfy the xpath expression passed in
+	 * 
 	 * @param xpath
-	 * 		the input xpath expression
-	 * @return
-	 * 		the nodeset of matching elements
+	 *            the input xpath expression
+	 * @return the nodeset of matching elements
 	 * @throws Exception
 	 */
 	private NodeList getNodeListUsingJavaXPath(String xpath) throws Exception {
@@ -887,12 +890,12 @@ public class Element implements IElement {
 		DOMResult result = new DOMResult();
 		transformer.transform(new SAXSource(reader, new InputSource(input)), result);
 
-		Node htmlNode = result.getNode(); // This code gets a Node from the result.
+		Node htmlNode = result.getNode(); // This code gets a Node from the
+											// result.
 		NodeList nodes = (NodeList) theXpath.evaluate(xpath, htmlNode, XPathConstants.NODESET);
 
 		return nodes;
 	}
-
 
 	/*
 	 * (non-Javadoc)
@@ -925,7 +928,9 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForNotAttribute(java.lang.String, java.lang.String, java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForNotAttribute(java.lang
+	 * .String, java.lang.String, java.lang.Long)
 	 */
 	@Override
 	public void waitForNotAttribute(String attributeName, String pattern, long timeout) throws WidgetException {
@@ -935,7 +940,9 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForNotAttribute(java.lang.String, java.lang.String)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForNotAttribute(java.lang
+	 * .String, java.lang.String)
 	 */
 	@Override
 	public void waitForNotAttribute(String attributeName, String pattern) throws WidgetException {
@@ -944,14 +951,16 @@ public class Element implements IElement {
 
 	/**
 	 * Matches an attribute value to a pattern that is passed.
+	 * 
 	 * @param attributeName
-	 * 		the attribute whose value os to be compared
+	 *            the attribute whose value os to be compared
 	 * @param pattern
-	 * 		the pattern to which to match
+	 *            the pattern to which to match
 	 * @param timeout
-	 * 		time in milliseconds after which request timeout occurs
+	 *            time in milliseconds after which request timeout occurs
 	 * @param waitCondition
-	 * 		true to match the attribute value and false to not match the value
+	 *            true to match the attribute value and false to not match the
+	 *            value
 	 * @throws WidgetException
 	 */
 	private void waitForAttributePatternMatcher(String attributeName, String pattern, long timeout, boolean waitCondition) throws WidgetException {
@@ -974,7 +983,8 @@ public class Element implements IElement {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * qc.automation.framework.widget.IElement#waitForAttribute(java.lang.String, java.lang.String, java.lang.Long)
+	 * qc.automation.framework.widget.IElement#waitForAttribute(java.lang.String
+	 * , java.lang.String, java.lang.Long)
 	 */
 	public void waitForAttribute(String attributeName, String pattern, long timeout) throws WidgetException {
 		waitForAttributePatternMatcher(attributeName, pattern, timeout, true);
@@ -984,7 +994,8 @@ public class Element implements IElement {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * qc.automation.framework.widget.IElement#waitForAttribute(java.lang.String, java.lang.String)
+	 * qc.automation.framework.widget.IElement#waitForAttribute(java.lang.String
+	 * , java.lang.String)
 	 */
 	public void waitForAttribute(String attributeName, String pattern) throws WidgetException {
 		waitForAttribute(attributeName, pattern, getGUIDriver().getMaxRequestTimeout());
@@ -993,8 +1004,7 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * qc.automation.framework.widget.IElement#waitForEnabled()
+	 * @see qc.automation.framework.widget.IElement#waitForEnabled()
 	 */
 	@Override
 	public void waitForEnabled() throws WidgetException {
@@ -1035,11 +1045,12 @@ public class Element implements IElement {
 		return findElement().isEnabled();
 	}
 
-
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see qc.automation.framework.widget.IElement#waitForAttributeNotEqualTo(java.lang.String, java.lang.String, java.lang.Long)
+	 * @see
+	 * qc.automation.framework.widget.IElement#waitForAttributeNotEqualTo(java
+	 * .lang.String, java.lang.String, java.lang.Long)
 	 */
 	public void waitForAttributeNotEqualTo(final String attributeName, final String attributeValue, long timeout) throws WidgetTimeoutException {
 		waitForCommand(new ITimerCallback() {
@@ -1071,23 +1082,23 @@ public class Element implements IElement {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * qc.automation.framework.widget.IElement#isElementNotPresent()
+	 * @see qc.automation.framework.widget.IElement#isElementNotPresent()
 	 */
 	@Override
 	public boolean isElementNotPresent() throws WidgetException {
 		if (!isElementPresent()) {
-            return true;
-        }else {
-            return false;
-        }
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * qc.automation.framework.widget.IElement#isElementNotPresent(java.lang.Long)
+	 * qc.automation.framework.widget.IElement#isElementNotPresent(java.lang
+	 * .Long)
 	 */
 	@Override
 	public boolean isElementNotPresent(long timeout) throws WidgetException {
@@ -1109,11 +1120,11 @@ public class Element implements IElement {
 		}
 	}
 
-
 	/**
 	 * Fires a javascript event on a web element
+	 * 
 	 * @param event
-	 * 		the javascript code for the event
+	 *            the javascript code for the event
 	 */
 	@Override
 	public void fireEvent(String event) throws WidgetException {
@@ -1139,7 +1150,7 @@ public class Element implements IElement {
 	 */
 	@Override
 	public String[] getChildNodesValuesText() throws WidgetException {
-		WebElement we =  new Element(getLocator()).getWebElement();
+		WebElement we = new Element(getLocator()).getWebElement();
 		List<WebElement> childNodes = we.findElements(By.xpath("./*"));
 		String[] childText = new String[childNodes.size()];
 		int i = 0;
@@ -1168,9 +1179,43 @@ public class Element implements IElement {
 	 * 
 	 * @see qc.automation.framework.widget.IElement#highlight(java.lang.String)
 	 */
+
 	@Override
-	public void highlight(String color) throws WidgetException {
-		setBackgroundColor(findElement(), color);
+	public void highlight(String colorMode) throws WidgetException {
+		doHighlight(colorMode);
+
+	}
+
+	/**
+	 * Find the current element and highlight it according to the mode
+	 * If mode is NONE, do nothing
+	 * @param mode
+	 * @throws WidgetException
+	 */
+	public void highlight(HIGHLIGHT_MODES mode) throws WidgetException {
+		if (mode.equals(HIGHLIGHT_MODES.NONE))
+			return;
+		else
+			highlight(mode.toString());
+
+	}
+	
+	/**
+	 * Highlight a web element by getting its color from the map loaded from
+	 * client properties file
+	 * @param colorMode
+	 *            the mode which decides the color of highlight
+	 * @throws WidgetException
+	 */
+
+	private void doHighlight(String colorMode) throws WidgetException {
+		if (!(getGUIDriver() instanceof HighlightProvider)) {
+			return;
+		}
+		HighlightProvider highDriver = (HighlightProvider) getGUIDriver();
+
+		if (highDriver.isHighlight()) {
+			setBackgroundColor(highDriver.getHighlightColor(colorMode));
+		}
 	}
 }
-

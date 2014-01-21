@@ -384,11 +384,12 @@ public class InteractiveElementTest {
     public void testHighlight() throws WidgetException{
     	wd.open(url);
     	HighlightProvider highDriver = (HighlightProvider) wd;
+    	if(highDriver.isHighlight()){
+    		IInteractiveElement b = new InteractiveElement("//button[@id='myButton']");
+        	b.click();
+        	Assert.assertEquals(getRgb(b.getCssValue("background-color")), highDriver.getHighlightColor("put"));
+    	}
     	
-    	IInteractiveElement b = new InteractiveElement("//button[@id='myButton']");
-    	b.click();
-    	Assert.assertEquals(getRgb(b.getCssValue("background-color")), highDriver.getHighlightColor("put"));
-//    	  	
     }
     
     public String getRgb(String rgba){

@@ -194,7 +194,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 	@Override
 	public String getHighlightColor(String highlightMode) {
-		return highlightColorMap.get(highlightMode);
+		return highlightColorMap.get(highlightMode.toUpperCase());
 	}
 
 	@Override
