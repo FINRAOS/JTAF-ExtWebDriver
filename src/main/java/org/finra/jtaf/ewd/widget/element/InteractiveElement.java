@@ -52,11 +52,11 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		        if (!getGUIDriver().isJavascriptClickMode()) {
 		            synchronized (InteractiveElement.class) {
 		                getGUIDriver().focus();
-		                highlight(webElement, HIGHLIGHT_MODES.PUT);
+		                highlight( HIGHLIGHT_MODES.PUT);
 		                webElement.click();
 		            }
 		        } else {
-                    highlight(webElement, HIGHLIGHT_MODES.PUT);
+                    highlight( HIGHLIGHT_MODES.PUT);
                     try {
                         eval("arguments[0].click();");
                     } catch (WidgetException we) {
@@ -288,7 +288,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	    	if (getGUIDriver().isJavascriptTypeMode()) {
 	            final WebElement webElement = getWebElement();
 	            final String theText = text;
-                highlight(webElement, HIGHLIGHT_MODES.PUT);
+                highlight( HIGHLIGHT_MODES.PUT);
                 try {
                     eval("arguments[0].value='" + theText + "';");
                 } catch (WidgetException we) {
@@ -304,7 +304,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	                getGUIDriver().focus();
 	                click();
 	                WebElement webElement = getWebElement();
-	                highlight(webElement, HIGHLIGHT_MODES.PUT);
+	                highlight( HIGHLIGHT_MODES.PUT);
 	                webElement.clear();
 	                webElement.sendKeys(text);
 	            }
