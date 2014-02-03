@@ -24,6 +24,19 @@
   		ga('create', 'UA-46470036-1', 'finraos.github.io');
   		ga('send', 'pageview');
 	</script>
+	<script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-46470036-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+  </script>
   </head>
 
   <body>
@@ -118,8 +131,8 @@ ExtWebDriver project was maintained by developers at FINRA for 5 years and it be
 				<td><img src="img/FINRA.jpg" alt="Increased Coverage">&nbsp;</td>
 				<td>
 					<p><font color="grey">The FINRA developer community is actively supporting the JTAF project. FINRA has graciously allocated time for their internal development resources to enhance JTAF&ndash;and encourages participation in the open source community.</font></p>
-					<p><a href="http://www.finra.org" target="_new">http://www.finra.org</a></p>
-					<p><font color="grey">Want to join FINRA? </font><a href=" http://www.finra.org/AboutFINRA/Careers/" target="_new" >Careers@FINRA</a></p>
+					<p><a href="http://www.finra.org" target="_new" onClick="_gaq.push(['_trackEvent', 'Visit', 'ExtWebDriver About to finra.org']);">http://www.finra.org</a></p>
+					<p><font color="grey">Want to join FINRA? </font><a href=" http://www.finra.org/AboutFINRA/Careers/" target="_new" onClick="_gaq.push(['_trackEvent', 'Visit', 'ExtWebDriver About to FINRA careers']);">Careers@FINRA</a></p>
 				</td>
 			</tr>	
 		</table>
