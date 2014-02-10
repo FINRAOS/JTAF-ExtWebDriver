@@ -1,4 +1,4 @@
-JTAF-ExtWebDriver
+JTAF-ExtWebDriver [![Build Status](https://secure.travis-ci.org/FINRAOS/JTAF-ExtWebDriver.png?branch=master)](http://travis-ci.org/FINRAOS/JTAF-ExtWebDriver)
 ==================
 [Extensions for WebDriver](http://finraos.github.io/JTAF-ExtWebDriver/) is an enhancement to the powerful WebDriver API, with robust features that keep your browser automation running smoothly. It includes a widget library, improved session management and extended functions over the existing WebDriver API.
 
