@@ -109,6 +109,14 @@ public interface IElement {
      */
     public boolean isElementVisible(long time) throws WidgetException;
 
+    /***
+     * Implementing this method would allow for checking whether an element
+     * is visible within the bounds of the window
+     * @return
+     * @throws WidgetException
+     */
+    public boolean isVisibleWithinBoundsOfWindow() throws WidgetException;
+    
     /**
      * Implementing this method would allow for the test to wait until the
      * element is present before progressing
@@ -482,5 +490,19 @@ public interface IElement {
      * @throws WidgetException
      */
     public void eval(String javascript) throws WidgetException;
+    
+    /**
+     * Implementing this method would allow for the element to be scrolled to on the page
+     * 
+     * @throws WidgetException
+     */
+    public void scrollTo() throws WidgetException;
+    
+    /**
+     * Implementing this method would allow for the element to be brought into focus
+     * 
+     * @throws WidgetException
+     */
+    public void focusOn() throws WidgetException;
 
 }

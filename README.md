@@ -1,17 +1,9 @@
-JTAF-ExtWebDriver [![Build Status](https://secure.travis-ci.org/FINRAOS/JTAF-ExtWebDriver.png?branch=master)](http://travis-ci.org/FINRAOS/JTAF-ExtWebDriver)
+JTAF-ExtWebDriver
 ==================
+
 [Extensions for WebDriver](http://finraos.github.io/JTAF-ExtWebDriver/) is an enhancement to the powerful WebDriver API, with robust features that keep your browser automation running smoothly. It includes a widget library, improved session management and extended functions over the existing WebDriver API.
 
 Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver/howitworks.html)
-
-Releases
-========
-We will be having monthly scheduled releases.
->[Release 1.0](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.0) is available on Maven central repository! - 12/13/2013
-
->[Release 1.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.1) has been released! - 02/03/2014
-
->Release 1.2 is scheduled for 02/28/2014
 
 Contributing
 =============

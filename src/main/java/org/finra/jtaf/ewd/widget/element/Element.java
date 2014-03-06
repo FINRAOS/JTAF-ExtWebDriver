@@ -16,9 +16,16 @@
  */
 package org.finra.jtaf.ewd.widget.element;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -39,11 +46,14 @@ import org.finra.jtaf.ewd.timer.WidgetTimeoutException;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By.ByXPath;
+import org.openqa.selenium.internal.Locatable;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -210,6 +220,43 @@ public class Element implements IElement {
 	 */
 	private boolean isVisible() throws WidgetException {
 		return findElement().isDisplayed();
+	}
+	
+	/***
+	 * Determine if the element is within the bounds of the window
+	 * 
+	 * @return true or false
+	 * @throws WidgetException
+	 */
+	public boolean isVisibleWithinBoundsOfWindow() throws WidgetException {
+		
+		JavascriptExecutor js = ((JavascriptExecutor) getGUIDriver().getWrappedDriver());
+		
+		// execute javascript to get scroll values
+		Object top = js.executeScript("return document.body.scrollTop;");
+		Object left = js.executeScript("return document.body.scrollLeft;");
+		
+		int scrollTop;
+		int scrollLeft;
+		try {
+			scrollTop = Integer.parseInt(top+"");
+			scrollLeft = Integer.parseInt(left+"");
+		}
+		catch(Exception e) {
+			throw new WidgetException("There was an error parsing the scroll values from the page", getLocator());
+		}
+		
+		// calculate bounds
+		Dimension dim = getGUIDriver().getWrappedDriver().manage().window().getSize();
+		int windowWidth = dim.getWidth();
+		int windowHeight = dim.getHeight();
+		int x = ((Locatable)getWebElement()).getCoordinates().onPage().getX();
+		int y = ((Locatable)getWebElement()).getCoordinates().onPage().getY();
+		int relX = x - scrollLeft;
+		int relY = y - scrollTop;
+		return relX + findElement().getSize().getWidth() <= windowWidth && 
+				relY + findElement().getSize().getHeight() <= windowHeight && 
+					relX >= 0 && relY >= 0;
 	}
 
 	/*
@@ -1217,5 +1264,25 @@ public class Element implements IElement {
 		if (highDriver.isHighlight()) {
 			setBackgroundColor(highDriver.getHighlightColor(colorMode));
 		}
+	}
+
+	/***
+	 * Scroll to this element
+	 */
+	@Override
+	public void scrollTo() throws WidgetException {
+		WebElement we = findElement();	
+		Locatable l = ((Locatable)we);
+		l.getCoordinates().inViewPort();
+	}
+
+	/***
+	 * Focus on this element
+	 */
+	@Override
+	public void focusOn() throws WidgetException {
+		WebDriver driver = SessionManager.getInstance().getCurrentSession().getWrappedDriver();
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].focus();", findElement());
 	}
 }
