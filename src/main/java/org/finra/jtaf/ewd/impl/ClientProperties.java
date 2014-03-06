@@ -318,30 +318,49 @@ public class ClientProperties {
 	 * load the color mode and rgb values from the client properties file as
 	 * key/value pairs in the highlighColorMap
 	 * 
-	 * if no property starting with 'highlight' is found, the error is logged 
 	 */
     private final void loadColorMapRgb() {
         Iterator<String> colorKeys = config.getKeys("highlight");
-        while(colorKeys.hasNext()){
-      	  String[] splits = colorKeys.next().split(".");
-      	  if(splits.length > 1){
-      		  if(config.getString(colorKeys.next()).startsWith("("))
-      			  highlightColorMap.put(splits[1], config.getString(colorKeys.next()));
-      		  else
-      			logger.fatal("The highlight color has to specify RGB values in this format: eg. highlight.find=(255,255,0)");
-      	  }     		 
-      	  else
-      		logger.fatal("Error getting mode for client property 'highlight'. Please provide a mode for highlight : eg. highlight.find=(255,255,0)");
+        if(colorKeys!=null){
+            while(colorKeys.hasNext()){
+            	String current = colorKeys.next();
+          	  String[] splits = current.split("\\.");
+          	  if(splits.length > 1){
+          		  String val = config.getString(current);
+          		  if(val.startsWith("rgb"))
+          			  highlightColorMap.put(splits[1].toUpperCase(), val);
+          		  else
+          			logger.warn("Please check property " +current+ ". The highlight color has to specify RGB values in this format: eg. highlight.find=rgb(255,255,0)");
+          	  }     		 
+          	  else if(splits[0].equals("highlight")){
+        
+          		continue;
+          	  }
+            }
         }
+
+        
+        	//default load
+      		logger.warn("No RGB property for highlight was provided. Colors set to default.");
+        	if(!highlightColorMap.containsKey("find"))		
+            	highlightColorMap.put("find".toUpperCase(), load("highlight.find", "rgb(255, 255, 0)", "color for highlight element during finding"));
+            if(!highlightColorMap.containsKey("get"))		
+            	highlightColorMap.put("get".toUpperCase(), load("highlight.get", "rgb(135, 206, 250)", "color for highlight element during finding"));
+            if(!highlightColorMap.containsKey("put"))		
+            	highlightColorMap.put("put".toUpperCase(), load("highlight.put", "rgb(152, 251, 152)", "color for highlight element during finding"));
+       
+        
+     
       }
 
       public String getHighlightColor(String colorMode){
-      	return highlightColorMap.get("highlight."+ colorMode);
+      	return highlightColorMap.get( colorMode.toUpperCase());
       }
       
       public Map<String, String> getHighlightColorMap(){
       	return this.highlightColorMap;
       }
+      
     /**
      * Returns the name of the browser.
      * 

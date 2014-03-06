@@ -41,6 +41,7 @@ public class SessionManagerTests {
 				SessionManager.getInstance().removeSession(ewd);
 			}
 		}
+		SessionManager.getInstance().setSessionFactory(new DefaultSessionFactory());
 	}
 
 	@Test
@@ -93,7 +94,8 @@ public class SessionManagerTests {
 
 	@Test
 	public void testNewSessionConstructionWithOverrideOptions() throws Exception {
-		ExtWebDriver ewd = SessionManager.getInstance().setSessionFactory(new TestFactory()).getNewSession();
+		SessionManager.getInstance().setSessionFactory(new TestFactory());
+		ExtWebDriver ewd = SessionManager.getInstance().getCurrentSession();
 		Assert.assertNotNull(ewd);
 		Assert.assertTrue(ewd.isJavascriptClickMode());
 
