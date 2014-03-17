@@ -18,7 +18,6 @@ package org.finra.jtaf.ewd.widget.element;
 
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.HighlightProvider;
-import org.finra.jtaf.ewd.impl.ClientProperties;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;

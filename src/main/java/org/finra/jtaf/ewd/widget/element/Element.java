@@ -16,16 +16,9 @@
  */
 package org.finra.jtaf.ewd.widget.element;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -52,7 +45,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.internal.Locatable;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -242,7 +234,7 @@ public class Element implements IElement {
 			scrollTop = Integer.parseInt(top+"");
 			scrollLeft = Integer.parseInt(left+"");
 		}
-		catch(Exception e) {
+		catch(NumberFormatException e) {
 			throw new WidgetException("There was an error parsing the scroll values from the page", getLocator());
 		}
 		

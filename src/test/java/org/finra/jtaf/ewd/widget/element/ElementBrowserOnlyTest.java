@@ -22,6 +22,7 @@ import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.utils.ScreenshotUtils;
 import org.finra.jtaf.ewd.widget.IElement;
+import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.html.Image;
 import org.junit.After;
 import org.junit.Assert;
@@ -53,7 +54,7 @@ public class ElementBrowserOnlyTest {
     }
 
     @Test
-    public void testScrollTo() throws Exception{
+    public void testScrollTo() throws WidgetException {
     	wd.open(url);
 
         IElement e = new Element(getDiv("scroll"));
@@ -71,7 +72,8 @@ public class ElementBrowserOnlyTest {
     	Image im = new Image("//img[@src=\"finralogo.jpg\"]");
     	im.waitForVisible();
     	
-        ScreenshotUtils.assertSimilarToScreenshot(im.getLocator(), 
-        		new File("src/test/resources/webapp/finralogo.jpg"), new File("testScreenshots/screenshot.png"));
+    	Assert.assertTrue("The screenshots are similar", ScreenshotUtils.isSimilarToScreenshot(
+    			im.getLocator(), new File("src/test/resources/webapp/finralogo.jpg"), 
+    			new File("testScreenshots/screenshot.png")));
     }
 }

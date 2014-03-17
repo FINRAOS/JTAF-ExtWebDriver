@@ -20,15 +20,16 @@ package org.finra.jtaf.ewd.utils;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
-
-import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.finra.jtaf.ewd.session.SessionManager;
+import org.finra.jtaf.ewd.timer.WidgetTimeoutException;
 import org.finra.jtaf.ewd.widget.IElement;
+import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.Element;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
@@ -53,9 +54,12 @@ public class ScreenshotUtils {
 	 * 
 	 * @param locatorOfElement
 	 * @param toSaveAs
+	 * @throws IOException 
+	 * @throws WidgetException 
+	 * @throws WidgetTimeoutException 
 	 * @throws Exception
 	 */
-	public static void takeScreenshotOfElement(String locatorOfElement, File toSaveAs) throws Exception {
+	public static void takeScreenshotOfElement(String locatorOfElement, File toSaveAs) throws IOException, WidgetException {
 		
 		//Scroll element into view
 		IElement e = new Element(locatorOfElement);
@@ -109,7 +113,7 @@ public class ScreenshotUtils {
 	 * Prereq: The page on which you are taking the screenshot is fully loaded
 	 * 
 	 * Take a screenshot of the element identified by locatorOfElement and save the file as toSaveAs.
-	 * Assert that the control picture, controlPicture, is both the same size as,
+	 * Test that the control picture, controlPicture, is both the same size as,
 	 * and, has a similarity value greater than or equal to the threshold.
 	 * 
 	 * @param locatorOfElement - the XPath of the element to be tested
@@ -119,8 +123,8 @@ public class ScreenshotUtils {
 	 * is a double greater than or equal to this double (between 0.0 and 1.0)
 	 * @throws Exception 
 	 */
-	public static void assertSimilarToScreenshot(String locatorOfElement, File controlPicture, File
-			toSaveAs, double threshold) throws Exception {
+	public static boolean isSimilarToScreenshot(String locatorOfElement, File controlPicture, File
+			toSaveAs, double threshold) throws IOException, WidgetException {
 		
 		takeScreenshotOfElement(locatorOfElement, toSaveAs);
 		
@@ -129,27 +133,29 @@ public class ScreenshotUtils {
 		BufferedImage var = ImageIO.read(toSaveAs);
 		BufferedImage cont = ImageIO.read(controlPicture);
 		
-		assertSimilar(var, cont, threshold);
+		return isSimilar(var, cont, threshold);
 	}
 	
 	/***
 	 * Prereq: The page on which you are taking the screenshot is fully loaded
 	 *
 	 * Take a screenshot of the element identified by locatorOfElement and save the file as toSaveAs.
-	 * Assert that the control picture, controlPicture, is both the same size as,
+	 * Test that the control picture, controlPicture, is both the same size as,
 	 * and, has a similarity value greater than or equal to the default threshold of .85.
 	 * 
 	 * @param locatorOfElement - the XPath of the element to be tested
 	 * @param controlPicture - the file of the picture that will serve as the control
 	 * @param toSaveAs - for example, save the file at "testData/textFieldWidget/screenshot.png"
+	 * @throws WidgetException 
+	 * @throws IOException 
 	 * @throws Exception 
 	 */
-	public static void assertSimilarToScreenshot(String locatorOfElement, File controlPicture, 
-			File toSaveAs) throws Exception {
-		assertSimilarToScreenshot(locatorOfElement, controlPicture, toSaveAs, .85);
+	public static boolean isSimilarToScreenshot(String locatorOfElement, File controlPicture, 
+			File toSaveAs) throws IOException, WidgetException {
+		return isSimilarToScreenshot(locatorOfElement, controlPicture, toSaveAs, .85);
 	}
 	
-	private static boolean isBlack(BufferedImage var) throws Exception {
+	private static boolean isBlack(BufferedImage var) {
 		double[] varArr = new double[var.getWidth()*var.getHeight()*3];
 		//unroll pixels
 		for(int i = 0; i < var.getHeight(); i++) {
@@ -168,19 +174,18 @@ public class ScreenshotUtils {
 		return true;
 	}
 	
-	private static void assertSimilar(BufferedImage var, BufferedImage cont, double threshold) throws Exception {
-		Assert.assertTrue("The images were past the threshold of " + threshold + ". The diff was: " + 
-		similarity(var, cont), similarity(var, cont) >= threshold);
+	private static boolean isSimilar(BufferedImage var, BufferedImage cont, double threshold) {
+		return similarity(var, cont) >= threshold;
 	}
 	
 	//Returns a double between 0 and 1.0
-	private static double similarity(BufferedImage var, BufferedImage cont) throws Exception {
+	private static double similarity(BufferedImage var, BufferedImage cont) {
 		
 		double[] varArr = new double[var.getWidth()*var.getHeight()*3];
 		double[] contArr = new double[cont.getWidth()*cont.getHeight()*3];
 		
 		if (varArr.length!=contArr.length)
-			throw new Exception("The pictures are different sizes!");
+			throw new IllegalStateException("The pictures are different sizes!");
 		
 		//unroll pixels
 		for(int i = 0; i < var.getHeight(); i++) {
