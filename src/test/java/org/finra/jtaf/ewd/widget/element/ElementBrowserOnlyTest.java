@@ -59,10 +59,10 @@ public class ElementBrowserOnlyTest {
 
         IElement e = new Element(getDiv("scroll"));
         e.waitForElementPresent();
-        Assert.assertTrue(!e.isVisibleWithinBoundsOfWindow());
+        Assert.assertTrue(!e.isWithinBoundsOfWindow());
         
         e.scrollTo();
-        Assert.assertTrue(e.isVisibleWithinBoundsOfWindow());
+        Assert.assertTrue(e.isWithinBoundsOfWindow());
     }
     
     @Test

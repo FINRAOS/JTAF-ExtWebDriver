@@ -220,7 +220,7 @@ public class Element implements IElement {
 	 * @return true or false
 	 * @throws WidgetException
 	 */
-	public boolean isVisibleWithinBoundsOfWindow() throws WidgetException {
+	public boolean isWithinBoundsOfWindow() throws WidgetException {
 		
 		JavascriptExecutor js = ((JavascriptExecutor) getGUIDriver().getWrappedDriver());
 		

@@ -111,11 +111,11 @@ public interface IElement {
 
     /***
      * Implementing this method would allow for checking whether an element
-     * is visible within the bounds of the window
+     * is within the bounds of the window
      * @return
      * @throws WidgetException
      */
-    public boolean isVisibleWithinBoundsOfWindow() throws WidgetException;
+    public boolean isWithinBoundsOfWindow() throws WidgetException;
     
     /**
      * Implementing this method would allow for the test to wait until the
