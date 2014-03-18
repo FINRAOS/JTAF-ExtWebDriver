@@ -57,12 +57,6 @@
             <email>mchao47@gmail.com</email>
             <url>http://github.com/mchao47</url>
         </developer>
-        <developer>
-            <id>dpulitano</id>
-            <name>Daniel Pulitano</name>
-            <email>dan3124@gmail.com</email>
-            <url>http://github.com/dpulitano</url>
-        </developer>
     </developers>
 
     <parent>
