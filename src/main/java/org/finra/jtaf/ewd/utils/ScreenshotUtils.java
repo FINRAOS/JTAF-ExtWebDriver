@@ -30,7 +30,6 @@ import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.timer.WidgetTimeoutException;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.Element;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -38,6 +37,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.internal.Locatable;
 import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 /***
  * Utilities to take and compare screenshots of elements
@@ -50,37 +50,35 @@ public class ScreenshotUtils {
 	private static Logger log = Logger.getLogger(ScreenshotUtils.class);
 	
 	/***
-	 * You can use this method to take your control pictures
+	 * You can use this method to take your control pictures. Note that the file should be a png.
 	 * 
-	 * @param locatorOfElement
+	 * @param element
 	 * @param toSaveAs
 	 * @throws IOException 
 	 * @throws WidgetException 
 	 * @throws WidgetTimeoutException 
 	 * @throws Exception
 	 */
-	public static void takeScreenshotOfElement(String locatorOfElement, File toSaveAs) throws IOException, WidgetException {
-		
-		//Scroll element into view
-		IElement e = new Element(locatorOfElement);
+	public static void takeScreenshotOfElement(IElement element, File toSaveAs) throws IOException, WidgetException {
 		
 		for(int i = 0; i < 10; i++) { //Loop up to 10x to ensure a clean screenshot was taken
-			log.info("Taking screen shot of locator " + locatorOfElement + " ... attempt #" + (i+1));
+			log.info("Taking screen shot of locator " + element.getLocator() + " ... attempt #" + (i+1));
 			
 			//Take picture of the page
 			WebDriver wd = SessionManager.getInstance().getCurrentSession().getWrappedDriver();
 			File screenshot;
 			boolean isRemote = false;
-			try {
+			if(!(wd instanceof RemoteWebDriver)) {
 				screenshot = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);		
-			} catch(ClassCastException ex) {
+			}
+			else {
 				Augmenter augmenter = new Augmenter();
 				screenshot = ((TakesScreenshot) augmenter.augment(wd)).getScreenshotAs(OutputType.FILE);
 				isRemote = true;
 			}
 			BufferedImage fullImage = ImageIO.read(screenshot);
-			e.waitForElementPresent();
-			WebElement ele = e.getWebElement();
+			element.waitForElementPresent();
+			WebElement ele = element.getWebElement();
 			
 			//Parse out the picture of the element
 			Point point = ele.getLocation();
@@ -95,7 +93,7 @@ public class ScreenshotUtils {
 			else {
 				x = point.getX();
 				y = point.getY();
-				e.scrollTo();
+				element.scrollTo();
 			}
 			log.debug("Screenshot coordinates x: "+x+", y: "+y);
 			BufferedImage eleScreenshot = fullImage.getSubimage(x, y, eleWidth, eleHeight);	
@@ -112,21 +110,22 @@ public class ScreenshotUtils {
 	/***
 	 * Prereq: The page on which you are taking the screenshot is fully loaded
 	 * 
-	 * Take a screenshot of the element identified by locatorOfElement and save the file as toSaveAs.
+	 * Take a screenshot of the element identified by element and save the file as toSaveAs
+	 * (Note that this file should be saved as a png).
 	 * Test that the control picture, controlPicture, is both the same size as,
 	 * and, has a similarity value greater than or equal to the threshold.
 	 * 
-	 * @param locatorOfElement - the XPath of the element to be tested
+	 * @param element - the element to be tested
 	 * @param controlPicture - the file of the picture that will serve as the control
 	 * @param toSaveAs - for example, save the file at "testData/textFieldWidget/screenshot.png"
 	 * @param threshold - you are asserting that the similarity between the two pictures
 	 * is a double greater than or equal to this double (between 0.0 and 1.0)
 	 * @throws Exception 
 	 */
-	public static boolean isSimilarToScreenshot(String locatorOfElement, File controlPicture, File
+	public static boolean isSimilarToScreenshot(IElement element, File controlPicture, File
 			toSaveAs, double threshold) throws IOException, WidgetException {
 		
-		takeScreenshotOfElement(locatorOfElement, toSaveAs);
+		takeScreenshotOfElement(element, toSaveAs);
 		
 		log.info("Screenshot was successful. Comparing against control...");
 
@@ -139,20 +138,21 @@ public class ScreenshotUtils {
 	/***
 	 * Prereq: The page on which you are taking the screenshot is fully loaded
 	 *
-	 * Take a screenshot of the element identified by locatorOfElement and save the file as toSaveAs.
+	 * Take a screenshot of the element identified by element and save the file as toSaveAs
+	 * (Note that this file should be saved as a png).
 	 * Test that the control picture, controlPicture, is both the same size as,
 	 * and, has a similarity value greater than or equal to the default threshold of .85.
 	 * 
-	 * @param locatorOfElement - the XPath of the element to be tested
+	 * @param element - the element to be tested
 	 * @param controlPicture - the file of the picture that will serve as the control
 	 * @param toSaveAs - for example, save the file at "testData/textFieldWidget/screenshot.png"
 	 * @throws WidgetException 
 	 * @throws IOException 
 	 * @throws Exception 
 	 */
-	public static boolean isSimilarToScreenshot(String locatorOfElement, File controlPicture, 
+	public static boolean isSimilarToScreenshot(IElement element, File controlPicture, 
 			File toSaveAs) throws IOException, WidgetException {
-		return isSimilarToScreenshot(locatorOfElement, controlPicture, toSaveAs, .85);
+		return isSimilarToScreenshot(element, controlPicture, toSaveAs, .85);
 	}
 	
 	private static boolean isBlack(BufferedImage var) {

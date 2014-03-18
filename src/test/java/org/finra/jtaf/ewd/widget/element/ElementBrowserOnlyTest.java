@@ -73,7 +73,7 @@ public class ElementBrowserOnlyTest {
     	im.waitForVisible();
     	
     	Assert.assertTrue("The screenshots are similar", ScreenshotUtils.isSimilarToScreenshot(
-    			im.getLocator(), new File("src/test/resources/webapp/finralogo.jpg"), 
+    			im, new File("src/test/resources/webapp/finralogo.jpg"), 
     			new File("testScreenshots/screenshot.png")));
     }
 }
