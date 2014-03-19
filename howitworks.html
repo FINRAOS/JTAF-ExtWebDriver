@@ -97,6 +97,7 @@
 <code>package org.finra.jtaf.extwebdriver.example;
 
 import org.finra.jtaf.ewd.ExtWebDriver;
+import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IButton;
 import org.finra.jtaf.ewd.widget.element.html.Button;
 import org.junit.Assert;
@@ -108,7 +109,7 @@ import org.junit.Test;
  public class ExtWebDriverHomeTest {
 
     @Test
-    public void testLearnMoreButton() {
+    public void testLearnMoreButton() throws Exception {
       // Get a new ExtWebDriver session
       ExtWebDriver ewd = SessionManager.getInstance().getNewSession();
 
