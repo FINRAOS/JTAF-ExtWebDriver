@@ -64,6 +64,9 @@ public class ScreenshotUtils {
 		for(int i = 0; i < 10; i++) { //Loop up to 10x to ensure a clean screenshot was taken
 			log.info("Taking screen shot of locator " + element.getLocator() + " ... attempt #" + (i+1));
 			
+			//Scroll to element
+			element.scrollTo();
+			
 			//Take picture of the page
 			WebDriver wd = SessionManager.getInstance().getCurrentSession().getWrappedDriver();
 			File screenshot;
@@ -93,7 +96,6 @@ public class ScreenshotUtils {
 			else {
 				x = point.getX();
 				y = point.getY();
-				element.scrollTo();
 			}
 			log.debug("Screenshot coordinates x: "+x+", y: "+y);
 			BufferedImage eleScreenshot = fullImage.getSubimage(x, y, eleWidth, eleHeight);	
