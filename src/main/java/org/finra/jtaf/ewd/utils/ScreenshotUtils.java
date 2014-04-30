@@ -80,7 +80,6 @@ public class ScreenshotUtils {
 				isRemote = true;
 			}
 			BufferedImage fullImage = ImageIO.read(screenshot);
-			element.waitForElementPresent();
 			WebElement ele = element.getWebElement();
 			
 			//Parse out the picture of the element
