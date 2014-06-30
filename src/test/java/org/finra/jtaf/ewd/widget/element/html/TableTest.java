@@ -29,6 +29,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.NoSuchElementException;
 
 public class TableTest {
 
@@ -37,6 +38,7 @@ public class TableTest {
 	
 	protected String tableLocator = "//table[@id=\"tableTest1\"]";
 	protected String badTableLocator = "//table[@id=\"badTable\"]";
+	protected String noSuchTableLocator = "//table[@id=\"noSuchTable\"]";
 	protected List<String> expectedTableTest1Headers = new ArrayList<String>();
     
 	@Before
@@ -53,6 +55,18 @@ public class TableTest {
     public void teardown() {
         wd.close();
         SessionManager.getInstance().removeSession(wd);
+    }
+    
+    @Test
+    public void testConstructorNoSuchTable() throws WidgetException{
+    	boolean exceptionThrown = false;
+    	try {
+    		wd.open(url);
+    		new Table(noSuchTableLocator);
+    	} catch (NoSuchElementException nsee){
+    		exceptionThrown = true;
+    	}
+    	Assert.assertFalse(exceptionThrown);
     }
     
     @Test
@@ -132,6 +146,13 @@ public class TableTest {
     	map.put("Header 1", "Row 1: Cell 1");
     	int rowNumber = table.getRowNumber(map);
     	Assert.assertEquals(rowNumber, 1);
+    }
+    
+    @Test
+    public void testIsElementPresentNoSuchTable() throws WidgetException{
+    	wd.open(url);
+    	ITable table = new Table(noSuchTableLocator);
+    	Assert.assertFalse(table.isElementPresent());
     }
     
     @Test

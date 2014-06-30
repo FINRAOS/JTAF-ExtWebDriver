@@ -52,6 +52,8 @@ import org.xml.sax.XMLReader;
  */
 public class Table extends InteractiveElement implements ITable {
 
+	private String xPathLocator = null;
+	
     /**
      * 
      * @param locator
@@ -59,11 +61,7 @@ public class Table extends InteractiveElement implements ITable {
      * @throws WidgetException
      */
     public Table(String locator) throws WidgetException {
-        // Since the methods are implemented based on XPath locator type, we
-        // need to regenerate the locator using
-        // unique attribute value
-        super(generateXPathLocator(locator));
-
+        super(locator);
     }
 
     /**
@@ -73,12 +71,19 @@ public class Table extends InteractiveElement implements ITable {
      * @return String of the xpath
      * @throws WidgetException
      */
-    private static String generateXPathLocator(String locator) throws WidgetException {
-        IElement elem = new Element(locator);
-        String key = "tablewidgetattribute";
-        long value = System.currentTimeMillis();
-        elem.eval("arguments[0].setAttribute('" + key + "', '" + value + "')");
-        return "//*[@" + key + "='" + value + "']";
+    // Since the methods are implemented based on XPath locator type, we
+    // need to regenerate the locator using
+    // unique attribute value
+    private String generateXPathLocator() throws WidgetException {
+    	if(xPathLocator == null)
+    	{
+            IElement elem = new Element(getLocator());
+            String key = "tablewidgetattribute";
+            long value = System.currentTimeMillis();
+            elem.eval("arguments[0].setAttribute('" + key + "', '" + value + "')");
+            xPathLocator = "//*[@" + key + "='" + value + "']";
+    	}
+    	return xPathLocator;
     }
 
     /*
@@ -92,14 +97,14 @@ public class Table extends InteractiveElement implements ITable {
 
         try {
 
-            NodeList nodes = getNodeListUsingJavaXPath(getTableXPath(getLocator())
+            NodeList nodes = getNodeListUsingJavaXPath(getTableXPath(generateXPathLocator())
                     + "//thead[not(contains(@style,'display: none') or contains(@style,'visibility: hidden'))]//th");
             if (nodes.getLength() == 0) {
-                nodes = getNodeListUsingJavaXPath(getTableXPath(getLocator()) + "//th");
+                nodes = getNodeListUsingJavaXPath(getTableXPath(generateXPathLocator()) + "//th");
             }
 
             if(nodes.getLength() == 0) {
-                throw new WidgetException("Table headers do not exist", getLocator());
+                throw new WidgetException("Table headers do not exist", generateXPathLocator());
             }
 
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -121,7 +126,7 @@ public class Table extends InteractiveElement implements ITable {
                 }
             }
         } catch (Exception e) {
-            throw new WidgetException("Error fetching table headers", getLocator(), e);
+            throw new WidgetException("Error fetching table headers", generateXPathLocator(), e);
         }
 
         return list;
@@ -140,7 +145,7 @@ public class Table extends InteractiveElement implements ITable {
             return data[columnNumber - 1];
         } catch (Exception e) {
             throw new WidgetException("Error while getting table row column data at row="
-                    + rowNumber + " column=" + columnNumber, getLocator(), e);
+                    + rowNumber + " column=" + columnNumber, generateXPathLocator(), e);
         }
     }
 
@@ -155,7 +160,7 @@ public class Table extends InteractiveElement implements ITable {
     public List<String[]> getTableDataInArray() throws WidgetException {
         try {
             List<String[]> list = new ArrayList<String[]>();
-            NodeList nodes = getNodeListUsingJavaXPath(getTableXPath(getLocator()) + "/tbody[1]");
+            NodeList nodes = getNodeListUsingJavaXPath(getTableXPath(generateXPathLocator()) + "/tbody[1]");
             NodeList tbodyChildNodes = nodes.item(0).getChildNodes();
             for (int i = 0; i < tbodyChildNodes.getLength(); i++) {
                 Node n = tbodyChildNodes.item(i);
@@ -209,7 +214,7 @@ public class Table extends InteractiveElement implements ITable {
 
             return list;
         } catch (Exception e) {
-            throw new WidgetException("Error while getting table data in array", getLocator(), e);
+            throw new WidgetException("Error while getting table data in array", generateXPathLocator(), e);
         }
     }
 
@@ -237,7 +242,7 @@ public class Table extends InteractiveElement implements ITable {
 
             return tableDataInMap;
         } catch (Exception e) {
-            throw new WidgetException("Error while getting table data in map", getLocator(), e);
+            throw new WidgetException("Error while getting table data in map", generateXPathLocator(), e);
         }
     }
 
@@ -251,7 +256,7 @@ public class Table extends InteractiveElement implements ITable {
         try {
             return getTableDataInArray().size();
         } catch (Exception e) {
-            throw new WidgetException("Error while getting table row count", getLocator(), e);
+            throw new WidgetException("Error while getting table row count", generateXPathLocator(), e);
         }
     }
 
@@ -284,7 +289,7 @@ public class Table extends InteractiveElement implements ITable {
             return false;
         } catch (Exception e) {
             throw new WidgetException("Error while determining whether item " + item
-                    + " exists in table", getLocator(), e);
+                    + " exists in table", generateXPathLocator(), e);
         }
     }
 
@@ -320,7 +325,7 @@ public class Table extends InteractiveElement implements ITable {
             return -1;
         } catch (Exception e) {
             throw new WidgetException("Error while determining row number matching item " + item
-                    + " in table", getLocator(), e);
+                    + " in table", generateXPathLocator(), e);
         }
     }
 
@@ -334,7 +339,7 @@ public class Table extends InteractiveElement implements ITable {
         try {
             return getTableHeaders().size();
         } catch (Exception e) {
-            throw new WidgetException("Error while getting table headers", getLocator(), e);
+            throw new WidgetException("Error while getting table headers", generateXPathLocator(), e);
         }
     }
 

@@ -11,7 +11,13 @@ We will be having monthly scheduled releases.
 
 >[Release 1.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.1) has been released! - 02/03/2014
 
->Release 1.2 is scheduled for 02/28/2014
+>[Release 1.2](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.2) has been released! - 04/07/2014
+
+>[Release 1.2.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.2.1) patch release - 04/10/2014
+
+>[Release 1.3](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.3) has been released! - 05/02/2014
+
+>Release 1.4 - Scheduled for June
 
 Contributing
 =============

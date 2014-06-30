@@ -18,12 +18,12 @@ package org.finra.jtaf.ewd.widget.element;
 
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.HighlightProvider;
-import org.finra.jtaf.ewd.impl.ClientProperties;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.html.Button;
+import org.finra.jtaf.ewd.widget.element.html.Input;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -551,6 +551,15 @@ public class ElementTest {
     	}
     	
     	
+    }
+	
+	@Test
+    public void testFocusOn() throws WidgetException {
+    	wd.open(url);
+    	Input in = new Input("//input[@id=\"focusOnMe\"]");
+    	Assert.assertEquals(in.getValue(), "");
+    	in.focusOn();
+    	Assert.assertEquals(in.getValue(), "you focused!");
     }
     
     public String getRgb(String rgba){
