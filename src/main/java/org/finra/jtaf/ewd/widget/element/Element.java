@@ -292,7 +292,7 @@ public class Element implements IElement {
 				}
 			}, time);
 		} catch (WidgetTimeoutException e) {
-			throw new WidgetException("Error while waiting for element to be not present", locator, e);
+			throw new WidgetException("Error while waiting for element to be present", locator, e);
 		}
 	}
 
