@@ -118,20 +118,20 @@ public class ClientProperties {
                 "Horizontal position for moving browser to. Useful for debugging tests.");
         try {
             browserInitPositionX = Integer.parseInt(browserInitPositionXStr);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             logger.fatal("Error parsing '"
                     + browserInitPositionXStr
-                    + "' (value of 'browser.init.position.x' property from client properties file) as integer. Please fix your test configuration.");
+                    + "' (value of 'browser.init.position.x' property from client properties file) as integer. Please fix your test configuration.",e);
         }
 
         String browserInitPositionYStr = load("browser.init.position.y", "0",
                 "Vertical position for moving browser to. Useful for debugging tests.");
         try {
             browserInitPositionY = Integer.parseInt(browserInitPositionYStr);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             logger.fatal("Error parsing '"
                     + browserInitPositionYStr
-                    + "' (value of 'browser.init.position.y' property from client properties file) as integer. Please fix your test configuration.");
+                    + "' (value of 'browser.init.position.y' property from client properties file) as integer. Please fix your test configuration.",e);
         }
 
         os = load("os", null, null);
@@ -140,14 +140,20 @@ public class ClientProperties {
                 "Standard maximum page wait timeout throughout your automation project (in milliseconds)");
         try {
             maxPageWait = Integer.parseInt(maxPageWaitString);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            logger.fatal("Error parsing '"
+                    + maxPageWaitString
+                    + "'",e);
         }
 
         appearWaitTimeString = load("appearWaitTime", "5000",
                 "Maximum time for waiting of element appear (in milliseconds)");
         try {
             appearWaitTime = Integer.parseInt(appearWaitTimeString);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            logger.fatal("Error parsing '"
+                    + appearWaitTimeString
+                    + "'",e);
         }
 
         maxRequestTimeoutString = load("maxRequestTimeout", "30000",
