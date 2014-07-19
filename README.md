@@ -45,6 +45,10 @@ mvn verify
 ```
 You can run individual tests by executing it from your IDE or through command line. If you want to run an integration test, you need to deploy the app locally first before execution.
 
+Requirements
+==============
+ExtWebDriver requires Java SE version 7 or above available here [Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+
 License Type
 =============
 JTAF projects including ExtWebDriver is licensed under [Apache License Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
