@@ -119,7 +119,7 @@ public class ClientProperties {
         try {
             browserInitPositionX = Integer.parseInt(browserInitPositionXStr);
         } catch (NumberFormatException e) {
-            logger.fatal("Error parsing '"
+            logger.error("Error parsing '"
                     + browserInitPositionXStr
                     + "' (value of 'browser.init.position.x' property from client properties file) as integer. Please fix your test configuration.",e);
         }
@@ -129,7 +129,7 @@ public class ClientProperties {
         try {
             browserInitPositionY = Integer.parseInt(browserInitPositionYStr);
         } catch (NumberFormatException e) {
-            logger.fatal("Error parsing '"
+            logger.error("Error parsing '"
                     + browserInitPositionYStr
                     + "' (value of 'browser.init.position.y' property from client properties file) as integer. Please fix your test configuration.",e);
         }
@@ -141,7 +141,7 @@ public class ClientProperties {
         try {
             maxPageWait = Integer.parseInt(maxPageWaitString);
         } catch (NumberFormatException e) {
-            logger.fatal("Error parsing '"
+            logger.error("Error parsing '"
                     + maxPageWaitString
                     + "'",e);
         }
@@ -151,7 +151,7 @@ public class ClientProperties {
         try {
             appearWaitTime = Integer.parseInt(appearWaitTimeString);
         } catch (NumberFormatException e) {
-            logger.fatal("Error parsing '"
+            logger.error("Error parsing '"
                     + appearWaitTimeString
                     + "'",e);
         }
@@ -160,7 +160,10 @@ public class ClientProperties {
                 "Standard maximum request wait timeout throughout your automation project (in milliseconds)");
         try {
             maxRequestTimeout = Integer.parseInt(maxRequestTimeoutString);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            logger.error("Error parsing '"
+                    + maxRequestTimeoutString
+                    + "'",e);
         }
 
         maxDownloadWaitTime = Integer.parseInt(load("download.time", "30000",
@@ -192,11 +195,7 @@ public class ClientProperties {
         // Check before 'webdriver.doTaskKill'
         String useGridStr = load("useGrid", "false",
                 "Setting for running tests against Selenium Grid or Sauce Labs");
-        if (useGridStr != null && useGridStr.equalsIgnoreCase("true")) {
-            useGrid = true;
-        } else {
-            useGrid = false;
-        }
+        useGrid = (useGridStr != null && useGridStr.equalsIgnoreCase("true"));
 
         // Check after 'useGrid'
         String taskCheck = load("webdriver.doTaskKill", "true",
