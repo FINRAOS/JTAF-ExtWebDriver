@@ -47,7 +47,7 @@ You can run individual tests by executing it from your IDE or through command li
 
 Requirements
 ==============
-ExtWebDriver requires Java SE version 7 or above available here [Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+ExtWebDriver requires Java SE version 7 or above available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 License Type
 =============
