@@ -292,17 +292,12 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 	@Override
 	public String selectPopupWindow() throws StaleWindowIdListException {
-		if (currentWindowIds == null && currentWindowIds.size() > 0) {
-			if (currentWindowIds == null) {
-				throw new NullPointerException(
-						"WebDriver returned a null set of WindowIds to storeCurrentWindowIds()");
-			}
-			throw new StaleWindowIdListException(
-					"Must set current window IDs by caling storeCurrentWindowIds() before using this function",
-					Lists.newArrayList(currentWindowIds), Lists.newArrayList(wd
-							.getWindowHandles()));
-		}
-		String windowId = null;
+        if (currentWindowIds == null) {
+            throw new NullPointerException(
+                "WebDriver returned a null set of WindowIds to storeCurrentWindowIds()");
+        }
+
+        String windowId = null;
 
 		Set<String> windowIds = null;
 		long endTime = System.currentTimeMillis() + maxRequestTimeout;
