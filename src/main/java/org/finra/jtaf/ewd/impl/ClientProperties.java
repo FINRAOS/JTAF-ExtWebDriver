@@ -195,7 +195,7 @@ public class ClientProperties {
         // Check before 'webdriver.doTaskKill'
         String useGridStr = load("useGrid", "false",
                 "Setting for running tests against Selenium Grid or Sauce Labs");
-        useGrid = (useGridStr != null && useGridStr.equalsIgnoreCase("true"));
+        useGrid = useGridStr != null && useGridStr.equalsIgnoreCase("true");
 
         // Check after 'useGrid'
         String taskCheck = load("webdriver.doTaskKill", "true",
@@ -204,8 +204,8 @@ public class ClientProperties {
             if (taskCheck.equalsIgnoreCase("false") || taskCheck.equalsIgnoreCase("0")
                     || taskCheck.equalsIgnoreCase("no") || useGrid) {
                 doTaskKill = false;
-            } else if ((taskCheck.equalsIgnoreCase("true") || taskCheck.equalsIgnoreCase("1") || taskCheck
-                    .equalsIgnoreCase("yes"))) {
+            } else if (taskCheck.equalsIgnoreCase("true") || taskCheck.equalsIgnoreCase("1") || taskCheck
+                    .equalsIgnoreCase("yes")) {
                 doTaskKill = true;
             } else {
                 logger.fatal("Property 'doTaskKill' is not within range of accepted values. (Range of accepted values are '1'/'0', 'Yes'/'No' and 'True'/'False')");
@@ -222,7 +222,10 @@ public class ClientProperties {
                 "Specify the period of which you want to keep temporary WebDriver folders created in temp directory");
         try {
             numberOfDaysToKeepTempFolders = Integer.parseInt(numberOfDaysToKeepTempFoldersStr);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            logger.error("Error parsing '"
+                    + numberOfDaysToKeepTempFoldersStr
+                    + "'",e);
         }
 
         tempFolderNameContainsList = load("tempFolderNameContainsList", null,
