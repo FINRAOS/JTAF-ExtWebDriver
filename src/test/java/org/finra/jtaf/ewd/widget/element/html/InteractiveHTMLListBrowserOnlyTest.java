@@ -25,8 +25,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
 public class InteractiveHTMLListBrowserOnlyTest {
     public static String url = "http://localhost:29090/simpleapp/interactiveelements.html";
 	public ExtWebDriver wd;

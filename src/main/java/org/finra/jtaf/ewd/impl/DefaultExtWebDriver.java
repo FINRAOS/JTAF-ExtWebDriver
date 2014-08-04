@@ -39,14 +39,11 @@ import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.HighlightProvider;
 import org.finra.jtaf.ewd.TimeOutException;
 import org.finra.jtaf.ewd.widget.IElement;
-import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.Element;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.w3c.dom.Node;
@@ -410,49 +407,6 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 			while (!success && System.currentTimeMillis() < time) {
 				try {
 					((JavascriptExecutor) wd).executeScript(javaScript);
-					success = true;
-				} catch (Exception e2) {
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						// TODO: log
-					}
-					e = e2;
-				}
-			}
-
-			if (!success) {
-				// TODO: use specific exception type(s) for eval issues
-				throw new RuntimeException(e);
-			}
-		}
-	}
-
-	/**
-	 * Executes JavaScript in the context of an element
-	 * 
-	 * @param javaScript
-	 *            the script to execute
-	 * @param element
-	 *            the object on which to execute
-	 * 
-	 *            TODO: use
-	 *            {@link org.finra.jtaf.ewd.timer.WaitForConditionTimer}
-	 */
-	private void eval(String javaScript, WebElement element) {
-		try {
-			// TODO: add configuration for JavaScript executor
-			((JavascriptExecutor) wd).executeScript(javaScript);
-
-			// TODO: catch specific exceptions. If wd is not a JavaScript
-			// executor, don't bother waiting.
-		} catch (Exception e) {
-			long time = System.currentTimeMillis() + 2000;
-			boolean success = false;
-			while (!success && System.currentTimeMillis() < time) {
-				try {
-					((JavascriptExecutor) wd)
-							.executeScript(javaScript, element);
 					success = true;
 				} catch (Exception e2) {
 					try {

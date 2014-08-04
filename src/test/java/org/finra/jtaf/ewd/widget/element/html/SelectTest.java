@@ -62,7 +62,7 @@ public class SelectTest {
     public void testGetOptionsException() throws WidgetException{
     	wd.open(url);
     	Select s = new Select(brokeLocator);
-    	List<String> options = s.getOptions();    	
+    	s.getOptions();    	
     }
     @Test
     public void testGetSelectedOptions() throws WidgetException{
@@ -75,7 +75,7 @@ public class SelectTest {
     public void testGetSelectedOptionsException() throws WidgetException{
     	wd.open(url);
     	Select s = new Select(brokeLocator);
-    	List<String> options = s.getSelectedOptions();    	
+    	s.getSelectedOptions();    	
     }
     @Test
     public void testSelectOption() throws WidgetException{
@@ -102,9 +102,10 @@ public class SelectTest {
     public void testGetSelectedOptionException() throws WidgetException{
     	wd.open(url);
     	Select s = new Select(brokeLocator);
-    	String selectedOption = s.getSelectedOption();
-    	
+    	s.getSelectedOption();
     }
+    
+    
     @Test
     public void testSelectMultipleOptions() throws WidgetException{
     	wd.open(url);
