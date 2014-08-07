@@ -68,6 +68,16 @@ public class Table extends InteractiveElement implements ITable {
      * 
      * @param locator
      *            XPath, ID, name, CSS Selector, class name, or tag name
+     * @throws WidgetException
+     */
+    public Table(By locator) throws WidgetException {
+        super(locator);
+    }
+    
+    /**
+     * 
+     * @param locator
+     *            XPath, ID, name, CSS Selector, class name, or tag name
      * @return String of the xpath
      * @throws WidgetException
      */
@@ -77,7 +87,7 @@ public class Table extends InteractiveElement implements ITable {
     private String generateXPathLocator() throws WidgetException {
     	if(xPathLocator == null)
     	{
-            IElement elem = new Element(getLocator());
+            IElement elem = new Element(getByLocator());
             String key = "tablewidgetattribute";
             long value = System.currentTimeMillis();
             elem.eval("arguments[0].setAttribute('" + key + "', '" + value + "')");

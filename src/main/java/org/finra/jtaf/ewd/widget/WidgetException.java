@@ -17,6 +17,8 @@
 
 package org.finra.jtaf.ewd.widget;
 
+import org.openqa.selenium.By;
+
 /**
  * Thrown by many {@link IElement Widget} interface methods to indicate a
  * general {@link Exception}.
@@ -41,6 +43,22 @@ public class WidgetException extends Exception {
         super(message + ": at " + locator);
     }
 
+    
+    /**
+     * Constructs a {@code WidgetException} with the specified detail message
+     * and the locator of the element being used when the {@code Exception} was
+     * thrown.
+     * 
+     * @param message
+     *            the detail message
+     * @param locator
+     *            the element locator being used when the {@code Exception} was
+     *            thrown
+     */
+    public WidgetException(String message, By locator) {
+        super(message + ": at " + locator);
+    }
+    
     /**
      * Constructs a {@code WidgetException} with the specified detail message,
      * the element locator being used when the {@code Exception} was thrown, and
@@ -56,6 +74,24 @@ public class WidgetException extends Exception {
      *            the underlying cause for this {@code Exception} being thrown
      */
     public WidgetException(String message, String locator, Exception cause) {
+        super(message + ": at " + locator, cause);
+    }
+
+    /**
+     * Constructs a {@code WidgetException} with the specified detail message,
+     * the element locator being used when the {@code Exception} was thrown, and
+     * the {@code Exception} serving as the underlying cause for this
+     * {@code WidgetException} being thrown.
+     * 
+     * @param message
+     *            the detail message
+     * @param locator
+     *            the element locator being used when the {@code Exception} was
+     *            thrown
+     * @param cause
+     *            the underlying cause for this {@code Exception} being thrown
+     */
+    public WidgetException(String message, By locator, Exception cause) {
         super(message + ": at " + locator, cause);
     }
 }

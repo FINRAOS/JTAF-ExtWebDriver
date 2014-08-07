@@ -46,14 +46,23 @@ public class HtmlList extends Element implements IElement {
 
     /**
      * 
+     * @param locator
+     *            XPath, ID, name, CSS Selector, class name, or tag name
+     */
+    public HtmlList(By locator) {
+        super(locator);
+    }
+
+    /**
+     * 
      * @return int of the count of items
      * @throws WidgetException
      */
     public int getItemCount() throws WidgetException {
         if (isElementNotPresent()) {
-            throw new WidgetException("Element doesn't exist", getLocator());
+            throw new WidgetException("Element doesn't exist", getByLocator());
         }
-
+        //TOOD PERF I assume xpath is not the fastest method. By.tagName("li")
         List<WebElement> elements = super.getWebElement().findElements(By.xpath("./li"));
         return elements.size();
     }
@@ -65,12 +74,12 @@ public class HtmlList extends Element implements IElement {
      * @throws WidgetException
      */
     public IElement getItem(int iterator) throws WidgetException {
-        IElement e = new Element(getLocator());
+        IElement e = new Element(getByLocator());
         List<WebElement> elements = null;
         try {
             elements = e.getWebElement().findElements(By.xpath("./li"));
         } catch (Exception exc) {
-            throw new WidgetException("Element not found", getLocator(), exc);
+            throw new WidgetException("Element not found", getByLocator(), exc);
         }
 
         if (iterator <= elements.size()) {
@@ -80,7 +89,7 @@ public class HtmlList extends Element implements IElement {
             eval("arguments[0].setAttribute('" + key + "', '" + value + "')", we);
             return new Element("//*[@htmllistitemattribute='" + value + "']");
         } else {
-            throw new WidgetException("No element at number: " + iterator, getLocator());
+            throw new WidgetException("No element at number: " + iterator, getByLocator());
         }
     }
 
@@ -91,11 +100,11 @@ public class HtmlList extends Element implements IElement {
      */
     public List<IElement> getItems() throws WidgetException {
         if (isElementNotPresent()) {
-            throw new WidgetException("Element doesn't exist", getLocator());
+            throw new WidgetException("Element doesn't exist", getByLocator());
         }
 
         List<IElement> l = new ArrayList<IElement>();
-        IElement e = new Element(getLocator());
+        IElement e = new Element(getByLocator());
         List<WebElement> elements = e.getWebElement().findElements(By.xpath("./li"));
         for (WebElement we : elements) {
             String key = "htmllistitemattribute";

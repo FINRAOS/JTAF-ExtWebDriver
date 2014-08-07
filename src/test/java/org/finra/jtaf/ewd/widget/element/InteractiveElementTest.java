@@ -348,7 +348,7 @@ public class InteractiveElementTest {
         field.waitForElementPresent();
     	field.type("hello");
     	wd.setTypeMode(false);
-    	Input i = new Input(field.getLocator());
+    	Input i = new Input(field.getByLocator());
         Assert.assertEquals("hello", i.getValue());
     }
     

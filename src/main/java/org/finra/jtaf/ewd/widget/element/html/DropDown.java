@@ -26,6 +26,7 @@ import org.finra.jtaf.ewd.widget.IDropDown;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.WidgetRuntimeException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 
 public class DropDown extends InteractiveElement implements IDropDown {
 
@@ -33,6 +34,11 @@ public class DropDown extends InteractiveElement implements IDropDown {
         super(locator);
     }
 
+    public DropDown(By locator) {
+        super(locator);
+    }
+
+    
     /*
      * (non-Javadoc)
      * 
@@ -44,13 +50,13 @@ public class DropDown extends InteractiveElement implements IDropDown {
     public void setValue(Object value) throws WidgetException {
         try {
             if (value instanceof String) {
-                Select select = new Select(getLocator());
+                Select select = new Select(getByLocator());
                 select.selectOption((String) value);
             } else {
-                throw new WidgetRuntimeException("value must be a String type", getLocator());
+                throw new WidgetRuntimeException("value must be a String type", getByLocator());
             }
         } catch (Exception e) {
-            throw new WidgetException("Error while seleting option on drop down", getLocator(), e);
+            throw new WidgetException("Error while seleting option on drop down", getByLocator(), e);
         }
     }
 
@@ -65,7 +71,7 @@ public class DropDown extends InteractiveElement implements IDropDown {
         try {
             return getSelectedOption();
         } catch (Exception e) {
-            throw new WidgetException("Error while getting dropdown value", getLocator(), e);
+            throw new WidgetException("Error while getting dropdown value", getByLocator(), e);
         }
     }
 
@@ -88,10 +94,10 @@ public class DropDown extends InteractiveElement implements IDropDown {
     @Override
     public List<String> getOptions() throws WidgetException {
         try {
-            Select select = new Select(getLocator());
+            Select select = new Select(getByLocator());
             return select.getOptions();
         } catch (Exception e) {
-            throw new WidgetException("Error while fetching drop down options", getLocator(), e);
+            throw new WidgetException("Error while fetching drop down options", getByLocator(), e);
         }
     }
 
@@ -103,7 +109,7 @@ public class DropDown extends InteractiveElement implements IDropDown {
     @Override
     public String getSelectedOption() throws WidgetException {
         try {
-            Select select = new Select(getLocator());
+            Select select = new Select(getByLocator());
             List<String> selectedOptions = select.getSelectedOptions();
             if (selectedOptions != null && selectedOptions.size() > 0) {
                 return selectedOptions.get(0);
@@ -111,7 +117,7 @@ public class DropDown extends InteractiveElement implements IDropDown {
                 return "";
             }
         } catch (Exception e) {
-            throw new WidgetException("Error while fetching selected options", getLocator(), e);
+            throw new WidgetException("Error while fetching selected options", getByLocator(), e);
         }
     }
 

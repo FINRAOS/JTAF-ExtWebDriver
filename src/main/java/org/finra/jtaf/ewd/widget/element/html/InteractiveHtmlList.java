@@ -23,6 +23,7 @@ import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 
 /**
  * 
@@ -43,13 +44,22 @@ public class InteractiveHtmlList extends HtmlList implements IElement {
 
     /**
      * 
+     * @param locator
+     *            XPath, ID, name, CSS Selector, class name, or tag name
+     */
+    public InteractiveHtmlList(By locator) {
+        super(locator);
+    }
+    
+    /**
+     * 
      * @param index the index of the item you want to get
      * @return new interactive element based on the index
      * @throws WidgetException
      */
     public IInteractiveElement getInteractiveItem(int index) throws WidgetException {
         IElement elem = getItem(index);
-        return new InteractiveElement(elem.getLocator());
+        return new InteractiveElement(elem.getByLocator());
     }
 
     /**
@@ -62,7 +72,7 @@ public class InteractiveHtmlList extends HtmlList implements IElement {
         List<IInteractiveElement> interactiveItems = new ArrayList<IInteractiveElement>();
 
         for (IElement e : items) {
-            interactiveItems.add(new InteractiveElement(e.getLocator()));
+            interactiveItems.add(new InteractiveElement(e.getByLocator()));
         }
 
         return interactiveItems;
