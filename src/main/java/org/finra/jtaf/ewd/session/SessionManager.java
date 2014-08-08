@@ -355,21 +355,6 @@ public class SessionManager {
             doCleanup = false;
         }
 
-        // This is workaround for error
-        // org.openqa.selenium.remote.UnreachableBrowserException: Could not
-        // start a new session. Possible causes are invalid address of the
-        // remote server or browser start-up failure
-        // see http://code.google.com/p/selenium/wiki/ScalingWebDriver
-        // see http://seleniumhq.org/docs/04_webdriver_advanced.webapp
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e1) {
-            log.error("Can't sleep before starting new webDriver...");
-        }
-
-        // Get the current factory impl setting
-
         // Get capabilities
         DesiredCapabilities dc = sessionFactory.get().createCapabilities(options);
 
