@@ -62,7 +62,7 @@ public class ScreenshotUtils {
 	public static void takeScreenshotOfElement(IElement element, File toSaveAs) throws IOException, WidgetException {
 		
 		for(int i = 0; i < 10; i++) { //Loop up to 10x to ensure a clean screenshot was taken
-			log.info("Taking screen shot of locator " + element.getLocator() + " ... attempt #" + (i+1));
+			log.info("Taking screen shot of locator " + element.getByLocator() + " ... attempt #" + (i+1));
 			
 			//Scroll to element
 			element.scrollTo();

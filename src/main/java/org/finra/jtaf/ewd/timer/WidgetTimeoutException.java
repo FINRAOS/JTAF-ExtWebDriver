@@ -19,6 +19,7 @@ package org.finra.jtaf.ewd.timer;
 
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
+import org.openqa.selenium.By;
 
 /**
  * Thrown to indicate that a {@link IElement Widget} operation has timed out.
@@ -40,6 +41,21 @@ public class WidgetTimeoutException extends WidgetException {
      *            thrown
      */
     public WidgetTimeoutException(String message, String locator) {
+        super(message, locator);
+    }
+    
+    /**
+     * Constructs a {@code WidgetTimeoutException} with the specified detail
+     * message and the element locator being used when the {@code Exception} was
+     * thrown.
+     * 
+     * @param message
+     *            the detail message
+     * @param locator
+     *            the element locator being used when the {@code Exception} was
+     *            thrown
+     */
+    public WidgetTimeoutException(String message, By locator) {
         super(message, locator);
     }
 

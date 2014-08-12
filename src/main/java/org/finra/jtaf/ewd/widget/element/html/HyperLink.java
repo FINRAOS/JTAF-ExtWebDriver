@@ -19,6 +19,7 @@ package org.finra.jtaf.ewd.widget.element.html;
 import org.finra.jtaf.ewd.widget.IHyperLink;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 
 /**
  * HTML Anchor link element
@@ -28,6 +29,16 @@ public class HyperLink extends InteractiveElement implements IHyperLink {
     public HyperLink(String locator) {
         super(locator);
     }
+    
+    
+    /**
+     * @param locator
+     */
+    public HyperLink(By locator) {
+        super(locator);
+    }
+
+
 
     /*
      * (non-Javadoc)
