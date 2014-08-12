@@ -43,9 +43,12 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.support.pagefactory.ByAll;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -55,8 +58,9 @@ import org.xml.sax.XMLReader;
  * This is the base class for any element
  */
 public class Element implements IElement {
-	private ExtWebDriver gd;
-	private final String locator;
+	
+    private ExtWebDriver gd;
+	private final By locator;
 	private static final long DEFAULT_INTERVAL = 100;
 
 	protected enum HIGHLIGHT_MODES {
@@ -69,8 +73,13 @@ public class Element implements IElement {
 	 *            XPath, ID, name, CSS Selector, class name, or tag name
 	 */
 	public Element(String locator) {
-		this.locator = locator;
+		this.locator = ByLegacy.create(locator);
 	}
+	
+	public Element(By locator) {
+	    this.locator = locator;
+	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -79,8 +88,15 @@ public class Element implements IElement {
 	 */
 	@Override
 	public String getLocator() {
-		return locator;
+		return locator == null ? null : locator.toString();
 	}
+	
+	@Override
+	public By getByLocator() {
+	    return locator;
+	}
+	
+	
 
 	/*
 	 * (non-Javadoc)
@@ -106,7 +122,7 @@ public class Element implements IElement {
 	private boolean isElementPresent_internal() throws WidgetException {
 		try {
 			try {
-				if (isElementPresentJavaXPath())
+				if (locator instanceof ByLegacy && isElementPresentJavaXPath())
 					return true;
 			} catch (Exception e) {
 				// Continue
@@ -235,7 +251,7 @@ public class Element implements IElement {
 			scrollLeft = Integer.parseInt(left+"");
 		}
 		catch(NumberFormatException e) {
-			throw new WidgetException("There was an error parsing the scroll values from the page", getLocator());
+			throw new WidgetException("There was an error parsing the scroll values from the page", getByLocator());
 		}
 		
 		// calculate bounds
@@ -540,7 +556,7 @@ public class Element implements IElement {
 	 */
 	public boolean hasText(String text) throws WidgetException {
 		try {
-			Element element = new Element(getLocator());
+			Element element = new Element(getByLocator());
 			List<WebElement> childElements = element.getWebElement().findElements(By.xpath(".//*"));
 			for (WebElement we : childElements) {
 				if (we.getText().contains(text)) {
@@ -550,7 +566,7 @@ public class Element implements IElement {
 
 			return false;
 		} catch (Exception e2) {
-			throw new WidgetException("Error while determining if element has text '" + text + "'", getLocator(), e2);
+			throw new WidgetException("Error while determining if element has text '" + text + "'", getByLocator(), e2);
 		}
 	}
 
@@ -563,7 +579,8 @@ public class Element implements IElement {
 	@Override
 	public String getCssValue(String propertyName) throws WidgetException {
 		try {
-			return getGUIDriver().getWrappedDriver().findElement(By.xpath(locator)).getCssValue(propertyName);
+		    //HUUPS I changed the implementation (FIX abug?) Why not use findElement?
+			return getGUIDriver().getWrappedDriver().findElement(locator).getCssValue(propertyName);
 		} catch (Exception e) {
 			throw new WidgetException("Error while getting CSS value", locator, e);
 		}
@@ -656,62 +673,17 @@ public class Element implements IElement {
 		else if (!doHighlight)
 			highlightMode = HIGHLIGHT_MODES.NONE;
 
-		String locator = getLocator();
 		getGUIDriver().selectLastFrame();
 		WebDriver wd = getGUIDriver().getWrappedDriver();
-
-		WebElement webElement;
-		try {
-			webElement = wd.findElement(By.xpath(locator));
-			if (webElement != null) {
-				highlight(highlightMode);
-				return webElement;
-			}
-		} catch (Exception e) {
-		}
-
-		try {
-			webElement = wd.findElement(By.id(locator));
-			if (webElement != null) {
-				highlight(highlightMode);
-				return webElement;
-			}
-		} catch (Exception e) {
-		}
-		try {
-			webElement = wd.findElement(By.name(locator));
-			if (webElement != null) {
-				highlight(highlightMode);
-				return webElement;
-			}
-		} catch (Exception e) {
-		}
-
-		try {
-			webElement = wd.findElement(By.cssSelector(locator));
-			if (webElement != null) {
-				highlight(highlightMode);
-				return webElement;
-			}
-		} catch (Exception e) {
-		}
-
-		try {
-			webElement = wd.findElement(By.className(locator));
-			if (webElement != null) {
-				highlight(highlightMode);
-				return webElement;
-			}
-		} catch (Exception e) {
-		}
-
-		try {
-			webElement = wd.findElement(By.tagName(locator));
-			if (webElement != null) {
-				highlight(highlightMode);
-				return webElement;
-			}
-		} catch (Exception e) {
+		
+		final WebElement webElement = wd.findElement(locator);
+		if (webElement != null) {
+			try {
+                highlight(highlightMode);
+            } catch (WidgetException e) {
+                //TODO Log would be nice.
+            }
+			return webElement;
 		}
 
 		throw new NoSuchElementException("Could not find element at " + locator);
@@ -820,7 +792,7 @@ public class Element implements IElement {
 	 * @throws WidgetTimeoutException
 	 */
 	protected void waitForCommand(ITimerCallback callback, long timeout) throws WidgetTimeoutException {
-		WaitForConditionTimer t = new WaitForConditionTimer(getLocator(), callback);
+		WaitForConditionTimer t = new WaitForConditionTimer(getByLocator(), callback);
 		t.waitUntil(timeout);
 	}
 
@@ -831,7 +803,7 @@ public class Element implements IElement {
 	 * @throws Exception
 	 */
 	private boolean isElementPresentJavaXPath() throws Exception {
-		String xpath = getLocator();
+		String xpath = ((ByLegacy)getByLocator()).getLocator();
 		try {
 			xpath = formatXPathForJavaXPath(xpath);
 			NodeList nodes = getNodeListUsingJavaXPath(xpath);
@@ -1178,7 +1150,7 @@ public class Element implements IElement {
 			}
 			eval(javaScript);
 		} catch (Exception e) {
-			throw new WidgetException("Error while trying to fire event", getLocator(), e);
+			throw new WidgetException("Error while trying to fire event", getByLocator(), e);
 		}
 	}
 
@@ -1189,7 +1161,7 @@ public class Element implements IElement {
 	 */
 	@Override
 	public String[] getChildNodesValuesText() throws WidgetException {
-		WebElement we = new Element(getLocator()).getWebElement();
+		WebElement we = new Element(getByLocator()).getWebElement();
 		List<WebElement> childNodes = we.findElements(By.xpath("./*"));
 		String[] childText = new String[childNodes.size()];
 		int i = 0;
@@ -1277,4 +1249,94 @@ public class Element implements IElement {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].focus();", findElement());
 	}
+	
+	
+	/**
+	 * By implementation for legacy behaviour.
+	 * @author niels
+	 *
+	 */
+    private static class ByLegacy extends By {
+
+        final String locator;
+
+
+        final By[] bys;
+
+        /**
+         * @param locator
+         */
+        private ByLegacy(String locator, By... bys) {
+            this.bys = bys;
+            this.locator = locator;
+        }
+        
+        
+        /**
+         * @return the locator
+         */
+        public String getLocator() {
+            return locator;
+        }
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.openqa.selenium.support.pagefactory.ByAll#findElement(org.openqa
+         * .selenium.SearchContext)
+         */
+        @Override
+        public WebElement findElement(SearchContext context) {
+            for (By by : bys) {
+                try {
+                    final WebElement element = by.findElement(context);
+                    if (element != null) {
+                        return element;
+                    }
+                } catch (Exception e) {
+                    // ignored
+                }
+            }
+            return null;
+        }
+        
+        
+
+        /* (non-Javadoc)
+         * @see org.openqa.selenium.support.pagefactory.ByAll#findElements(org.openqa.selenium.SearchContext)
+         */
+        @Override
+        public List<WebElement> findElements(SearchContext context) {
+            for (By by : bys) {
+                try {
+                    final List<WebElement> element = by.findElements(context);
+                    if (element != null && element.size() > 0) {
+                        return element;
+                    }
+                } catch (Exception e) {
+                    // ignored
+                }
+            }
+            return null;
+        }
+
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.openqa.selenium.By#toString()
+         */
+        @Override
+        public String toString() {
+            return locator;
+        }
+
+        static ByLegacy create(String locator) {
+            return new ByLegacy(locator, By.xpath(locator), By.id(locator),
+                    By.name(locator), By.cssSelector(locator),
+                    By.className(locator), By.className(locator),
+                    By.tagName(locator));
+        }
+    }
+
 }

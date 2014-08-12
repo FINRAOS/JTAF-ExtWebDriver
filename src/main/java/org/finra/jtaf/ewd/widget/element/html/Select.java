@@ -23,6 +23,7 @@ import org.finra.jtaf.ewd.widget.ISelectList;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.WidgetRuntimeException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -34,6 +35,11 @@ public class Select extends InteractiveElement implements ISelectList {
         super(locator);
     }
 
+    
+    public Select(By locator) {
+        super(locator);
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -50,10 +56,10 @@ public class Select extends InteractiveElement implements ISelectList {
                 selectMultiple((List<String>) value);
             } else {
                 throw new WidgetRuntimeException(
-                        "Invalid type. 'value' must be either 'String' type of 'List<String>'.", getLocator());
+                        "Invalid type. 'value' must be either 'String' type of 'List<String>'.", getByLocator());
             }
         } catch (Exception e) {
-            throw new WidgetException("Error while selecting option on select", getLocator(), e);
+            throw new WidgetException("Error while selecting option on select", getByLocator(), e);
         }
     }
 
@@ -80,7 +86,7 @@ public class Select extends InteractiveElement implements ISelectList {
         try {
             setValue(options);
         } catch (Exception e) {
-            throw new WidgetException("Error while selecting multiple options", getLocator(), e);
+            throw new WidgetException("Error while selecting multiple options", getByLocator(), e);
         }
     }
 
@@ -98,7 +104,7 @@ public class Select extends InteractiveElement implements ISelectList {
 
         } catch (Exception e) {
             throw new WidgetException("Error while fetching selected value on select",
-                    getLocator(), e);
+                    getByLocator(), e);
         }
 
         if (selectedOptions.size() == 0) {
@@ -122,7 +128,7 @@ public class Select extends InteractiveElement implements ISelectList {
             if (value instanceof String) {
                 return (String) value;
             } else {
-                throw new WidgetException("More than one option selected", getLocator());
+                throw new WidgetException("More than one option selected", getByLocator());
             }
         } else {
             return null;
@@ -148,7 +154,7 @@ public class Select extends InteractiveElement implements ISelectList {
 
             return optionsTextValues;
         } catch (Exception e) {
-            throw new WidgetException("Error while fetching select options", getLocator(), e);
+            throw new WidgetException("Error while fetching select options", getByLocator(), e);
         }
     }
 
@@ -174,7 +180,7 @@ public class Select extends InteractiveElement implements ISelectList {
                 return null;
             }
         } catch (Exception e) {
-            throw new WidgetException("Error while fetching selected options", getLocator(), e);
+            throw new WidgetException("Error while fetching selected options", getByLocator(), e);
         }
     }
 
@@ -190,7 +196,7 @@ public class Select extends InteractiveElement implements ISelectList {
                     findElement());
             selectBox.deselectAll();
         } catch (Exception e) {
-            throw new WidgetException("Error while deselecting all selected options", getLocator(),
+            throw new WidgetException("Error while deselecting all selected options", getByLocator(),
                     e);
         }
     }
@@ -210,7 +216,7 @@ public class Select extends InteractiveElement implements ISelectList {
         org.openqa.selenium.support.ui.Select selectBox = new org.openqa.selenium.support.ui.Select(
                 findElement());
         if (!selectBox.isMultiple()) {
-            throw new WidgetException("This is not multiple select box", getLocator());
+            throw new WidgetException("This is not multiple select box", getByLocator());
         }
 
         for (String option : options) {

@@ -20,6 +20,7 @@ import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
 import org.finra.jtaf.ewd.widget.Keys;
 import org.finra.jtaf.ewd.widget.WidgetException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -38,6 +39,14 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	public InteractiveElement(String locator) {
 		super(locator);
 	}
+	
+   /**
+    * 
+    * @param locator an By-expression.
+    */
+    public InteractiveElement(By locator) {
+        super(locator);
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -67,7 +76,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		        getGUIDriver().selectLastFrame();
 		} catch (Exception e) {
 			throw new WidgetException("Error while clicking element",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -86,7 +95,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	        }
 		} catch (Exception e) {
 			throw new WidgetException("Error while double clicking element",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -105,7 +114,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		        }
 		} catch (Exception e) {
 			throw new WidgetException("Error while right clicking element",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -121,7 +130,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		} catch (Exception e) {
 			throw new WidgetException(
 					"Error while determing whether element is enabled",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -138,12 +147,12 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	        synchronized (InteractiveElement.class) {
 	            getGUIDriver().focus();
 	            builder.dragAndDrop(this.getWebElement(), 
-	            		new InteractiveElement(element.getLocator()).getWebElement()).build().perform();
+	            		new InteractiveElement(element.getByLocator()).getWebElement()).build().perform();
 	        }
 		} catch (Exception e) {
 			throw new WidgetException(
-					"Error while performing drag and drop from " + getLocator()
-							+ " to " + element.getLocator(), getLocator(), e);
+					"Error while performing drag and drop from " + getByLocator()
+							+ " to " + element.getByLocator(), getByLocator(), e);
 		}
 	}
 
@@ -162,8 +171,8 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		  }
 		} catch (Exception e) {
 			throw new WidgetException(
-					"Error while performing drag and drop from " + getLocator()
-							+ " offset by X: " + xOffset + " Y: " + yOffset, getLocator(), e);
+					"Error while performing drag and drop from " + getByLocator()
+							+ " offset by X: " + xOffset + " Y: " + yOffset, getByLocator(), e);
 		}
 	 }
 	/*
@@ -186,7 +195,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	        }
 	    } catch (Exception e) {
 			throw new WidgetException("Error while performing key down using "
-					+ theKey.name(), getLocator(), e);
+					+ theKey.name(), getByLocator(), e);
 		}
 	}
 
@@ -211,7 +220,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 		} catch (Exception e) {
 			throw new WidgetException("Error while performing key up using "
-					+ theKey.name(), getLocator(), e);
+					+ theKey.name(), getByLocator(), e);
 		}
 	}
 
@@ -230,7 +239,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		        }
 		} catch (Exception e) {
 			throw new WidgetException("Error while performing click and hold",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -250,7 +259,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		    }
 		} catch (Exception e) {
 			throw new WidgetException("Error while releasing click and hold",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -270,7 +279,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 		            builder.sendKeys(getWebElement(), keysToSend).build().perform();
 		        }
 		} catch (Exception e) {
-			throw new WidgetException("Error while sending keys", getLocator(),
+			throw new WidgetException("Error while sending keys", getByLocator(),
 					e);
 		}
 
@@ -309,7 +318,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	            }
 	        }
         }catch(Exception e){
-        	throw new WidgetException("Error while trying to type at " + getLocator(), getLocator(), e);
+        	throw new WidgetException("Error while trying to type at " + getByLocator(), getByLocator(), e);
         }
     }
     
@@ -328,7 +337,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	            e.sendKeys(text);
 	        }
         }catch(Exception e){
-        	throw new WidgetException("Error while trying to type append ", getLocator(), e);
+        	throw new WidgetException("Error while trying to type append ", getByLocator(), e);
         }
     }
 
@@ -347,7 +356,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	        }
 		} catch (Exception e) {
 			throw new WidgetException("Error while performing mouse move to",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -372,7 +381,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	        }
 		} catch (Exception e) {
 			throw new WidgetException("Error while performing mouse move out",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 
@@ -387,7 +396,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 			  fireEvent("mouseover");
 		} catch (Exception e) {
 			throw new WidgetException("Error while performing mouse over",
-					getLocator(), e);
+					getByLocator(), e);
 		}
 	}
 

@@ -19,6 +19,7 @@ package org.finra.jtaf.ewd.widget.element.html;
 import org.finra.jtaf.ewd.widget.IImage;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 
 /**
  * 
@@ -31,6 +32,10 @@ public class Image extends InteractiveElement implements IImage {
         super(locator);
     }
 
+    public Image(By locator) {
+        super(locator);
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -41,7 +46,7 @@ public class Image extends InteractiveElement implements IImage {
         try {
             return getAttribute("src");
         } catch (Exception e) {
-            throw new WidgetException("Error while fetching image source", getLocator(), e);
+            throw new WidgetException("Error while fetching image source", getByLocator(), e);
         }
     }
 

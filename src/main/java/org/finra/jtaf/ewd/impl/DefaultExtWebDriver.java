@@ -512,8 +512,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 				wd.switchTo().defaultContent();
 			}
 
-            FrameNode nextFrame = new FrameNode(currentFrame, "(//iframe)[" + i
-					+ "]", this.getWrappedDriver().findElement(By.xpath("(//iframe)[" + i + "]")));
+            FrameNode nextFrame = new FrameNode(currentFrame, By.xpath("(//iframe)[" + i + "]"), this.getWrappedDriver().findElement(By.xpath("(//iframe)[" + i + "]")));
 			String nextFrameId = currFrameId.substring(0,
 					currFrameId.length() - 1) + "-" + i + "]";
 
@@ -533,11 +532,11 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 			if (lastSelectedFrame != null) {
 				FrameNode parentNode = lastSelectedFrame;
-				lastSelectedFrame = new FrameNode(parentNode, element.getLocator(),
+				lastSelectedFrame = new FrameNode(parentNode, element.getByLocator(),
 						frameElement);
 			} else {
 				FrameNode parentNode = new FrameNode();
-				lastSelectedFrame = new FrameNode(parentNode, element.getLocator(),
+				lastSelectedFrame = new FrameNode(parentNode, element.getByLocator(),
 						frameElement);
 			}
 			// TODO: look for a specific exception
@@ -549,7 +548,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 				wd.switchTo().frame(frameElement);
 
 				FrameNode parentNode = new FrameNode();
-				lastSelectedFrame = new FrameNode(parentNode, element.getLocator(),
+				lastSelectedFrame = new FrameNode(parentNode, element.getByLocator(),
 						frameElement);
 			} else {
 				Stack<FrameNode> framesToSelect = new Stack<FrameNode>();
@@ -696,7 +695,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 		private boolean isRoot;
 		private final FrameNode parentNode;
-		private final String iframeLocator;
+		private final By iframeLocator;
 		private final WebElement frame;
 
 		/**
@@ -720,7 +719,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 		 * @param frame
 		 *            the WebElement frame itself
 		 */
-		FrameNode(FrameNode parentNode, String iframeLocator, WebElement frame) {
+		FrameNode(FrameNode parentNode, By iframeLocator, WebElement frame) {
 			this.setRoot(false);
 			this.parentNode = parentNode;
 			this.iframeLocator = iframeLocator;
@@ -750,7 +749,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 		 *
 		 * @return String representing the locator of the frame element
 		 */
-		String getFrameLocator() {
+		By getFrameLocator() {
 			return iframeLocator;
 		}
 

@@ -22,6 +22,7 @@ import org.finra.jtaf.ewd.widget.ICheckBox;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.WidgetRuntimeException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -45,6 +46,16 @@ public class CheckBox extends InteractiveElement implements ICheckBox {
         super(locator);
     }
 
+
+    /**
+     * 
+     * @param locator
+     *            XPath, ID, name, CSS Selector, class name, or tag name
+     */
+    public CheckBox(By locator) {
+        super(locator);
+    }
+    
     /**
      * 
      * @param check
@@ -83,16 +94,16 @@ public class CheckBox extends InteractiveElement implements ICheckBox {
                 set = true;
             } else {
                 throw new WidgetRuntimeException(
-                        "value must be a String of either 'check' or 'uncheck'", getLocator());
+                        "value must be a String of either 'check' or 'uncheck'", getByLocator());
             }
         } catch (Exception e) {
-            throw new WidgetException("Error while checking/unchecking", getLocator(), e);
+            throw new WidgetException("Error while checking/unchecking", getByLocator(), e);
         }
 
         if (!set)
             throw new WidgetException(
                     "Invalid set value for checkbox. It must be either 'check' or 'uncheck'",
-                    getLocator());
+                    getByLocator());
     }
 
     /*
@@ -140,7 +151,7 @@ public class CheckBox extends InteractiveElement implements ICheckBox {
         try {
             return isSelected(getWebElement());
         } catch (Exception e) {
-            throw new WidgetException("Error while checking if checkbox was checked", getLocator(),
+            throw new WidgetException("Error while checking if checkbox was checked", getByLocator(),
                     e);
         }
     }
@@ -206,7 +217,7 @@ public class CheckBox extends InteractiveElement implements ICheckBox {
 
             @Override
             public String toString() {
-                return "Waiting for element with the locator: " + getLocator() + "to be checked";
+                return "Waiting for element with the locator: " + getByLocator() + "to be checked";
             }
         }, time);
     }
@@ -250,7 +261,7 @@ public class CheckBox extends InteractiveElement implements ICheckBox {
 
             @Override
             public String toString() {
-                return "Waiting for element with the locator: " + getLocator() + "to be unchecked";
+                return "Waiting for element with the locator: " + getByLocator() + "to be unchecked";
             }
         }, time);
     }

@@ -17,6 +17,7 @@
 package org.finra.jtaf.ewd.widget;
 
 import org.finra.jtaf.ewd.timer.WidgetTimeoutException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -29,10 +30,17 @@ public interface IElement {
      * CSS Selector, class name, or tag name to the element
      * 
      * @return the locator to the element in the form of a String.
-     * @throws WidgetException
      */
     public String getLocator();
 
+    /**
+     * Implementing this method would allow for obtaining the XPath, ID, name,
+     * CSS Selector, class name, or tag name to the element as By-Object.
+     * 
+     * @return the locator to the element in the form of a {@link By}-Object.
+     */
+    public By getByLocator();
+    
     /**
      * Implementing this method would allow for checking if an element is
      * present or not
