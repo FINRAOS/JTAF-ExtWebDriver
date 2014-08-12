@@ -20,9 +20,7 @@ import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
-import org.finra.jtaf.ewd.widget.Keys;
 import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.html.Input;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,17 +34,6 @@ public class InteractiveElementBrowserOnlyTest {
 	public static String button = "//button[@id='myButton']";
 	public static String invisibleButton = "//button[@id='myInvisibleButton']";
 
-	private String getButton(String id){
-		return "//button[@id='" + id + "']";
-	}
-	
-	private String getInput(String id){
-		return "//input[@id='" + id + "']";
-	}
-	
-	private String getSpan(String id){
-		return "//span[@id='" + id + "']";
-	}
 	
 	private String getDiv(String id){
 		return "//div[@id='" + id + "']";

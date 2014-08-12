@@ -34,12 +34,13 @@ import javax.xml.xpath.XPathFactory;
 
 import org.ccil.cowan.tagsoup.Parser;
 import org.finra.jtaf.ewd.widget.IElement;
-import org.finra.jtaf.ewd.widget.IReadableElement;
 import org.finra.jtaf.ewd.widget.ITable;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.Element;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

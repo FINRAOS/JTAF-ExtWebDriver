@@ -295,7 +295,6 @@ public class InteractiveElement extends Element implements IInteractiveElement {
     public void type(String text) throws WidgetException{
         try{
 	    	if (getGUIDriver().isJavascriptTypeMode()) {
-	            final WebElement webElement = getWebElement();
 	            final String theText = text;
                 highlight( HIGHLIGHT_MODES.PUT);
                 try {

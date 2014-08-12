@@ -34,10 +34,6 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
         super(locator);
     }
 
-    public RadioGroup(By locator) {
-        super(locator);
-    }
-    
     /*
      * (non-Javadoc)
      * 
@@ -60,13 +56,13 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
 
                 if (!selected)
                     throw new WidgetException("Could not find desired option to select",
-                            getByLocator());
+                            getLocator());
             } else {
                 throw new WidgetException("Invalid type. 'value' must be a 'String' type of desired option to select",
-                        getByLocator());
+                        getLocator());
             }
         } catch (Exception e) {
-            throw new WidgetException("Error while selecting option on radio group", getByLocator(),
+            throw new WidgetException("Error while selecting option on radio group", getLocator(),
                     e);
         }
     }
@@ -88,7 +84,7 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
         }
 
         throw new WidgetException("Error while finding selected option on radio group",
-                getByLocator());
+                getLocator());
     }
 
     /*
@@ -135,18 +131,82 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
      * @throws WidgetException
      */
     private List<WebElement> findElements() throws WidgetException {
-        By locator = getByLocator();
+        String locator = getLocator();
         getGUIDriver().selectLastFrame();
         WebDriver wd = getGUIDriver().getWrappedDriver();
 
-        List<WebElement> webElements = wd.findElements(locator);
-        if (webElements != null && webElements.size() > 0) {
-            for (WebElement we : webElements) {
-                //TODO this looks wrong
-                highlight( HIGHLIGHT_MODES.FIND);
+        List<WebElement> webElements;
+        try {
+            webElements = wd.findElements(By.xpath(locator));
+            if (webElements != null && webElements.size() > 0) {
+                for (WebElement we : webElements) {
+                    //TODO the we is never used. So this makes no sense. 
+                    highlight( HIGHLIGHT_MODES.FIND);
+                }
+                return webElements;
             }
-            return webElements;
+        } catch (Exception e) {
         }
+
+        try {
+            webElements = wd.findElements(By.id(locator));
+            if (webElements != null && webElements.size() > 0) {
+                for (WebElement we : webElements) {
+                    //TODO the we is never used. So this makes no sense.
+                    highlight( HIGHLIGHT_MODES.FIND);
+                }
+                return webElements;
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            webElements = wd.findElements(By.name(locator));
+            if (webElements != null && webElements.size() > 0) {
+                for (WebElement we : webElements) {
+                    //TODO the we is never used. So this makes no sense.
+                    highlight( HIGHLIGHT_MODES.FIND);
+                }
+                return webElements;
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            webElements = wd.findElements(By.cssSelector(locator));
+            if (webElements != null && webElements.size() > 0) {
+                for (WebElement we : webElements) {
+                    highlight( HIGHLIGHT_MODES.FIND);
+                }
+                return webElements;
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            webElements = wd.findElements(By.className(locator));
+            if (webElements != null && webElements.size() > 0) {
+                for (WebElement we : webElements) {
+                  //TODO the we is never used. So this makes no sense.
+                    highlight( HIGHLIGHT_MODES.FIND);
+                }
+                return webElements;
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            webElements = wd.findElements(By.tagName(locator));
+            if (webElements != null && webElements.size() > 0) {
+                for (WebElement we : webElements) {
+                  //TODO the we is never used. So this makes no sense.
+                    highlight( HIGHLIGHT_MODES.FIND);
+                }
+                return webElements;
+            }
+        } catch (Exception e) {
+        }
+
         throw new NoSuchElementException("Could not find elements matching " + locator);
     }
 }

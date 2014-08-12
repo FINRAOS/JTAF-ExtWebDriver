@@ -19,7 +19,6 @@ package org.finra.jtaf.ewd.widget.element.html;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.finra.jtaf.ewd.widget.IReadableElement;
 import org.finra.jtaf.ewd.widget.ISelectList;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.WidgetRuntimeException;

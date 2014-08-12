@@ -21,7 +21,6 @@ import org.finra.jtaf.ewd.HighlightProvider;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
-import org.finra.jtaf.ewd.widget.ITextField;
 import org.finra.jtaf.ewd.widget.Keys;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.html.Input;
@@ -46,9 +45,6 @@ public class InteractiveElementTest {
 		return "//input[@id='" + id + "']";
 	}
 	
-	private String getSpan(String id){
-		return "//span[@id='" + id + "']";
-	}
 	
 	private String getDiv(String id){
 		return "//div[@id='" + id + "']";
