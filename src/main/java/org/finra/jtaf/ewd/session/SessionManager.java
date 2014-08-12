@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.impl.DefaultSessionFactory;
 import org.openqa.selenium.WebDriver;
@@ -35,7 +33,6 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
  */
 public class SessionManager {
 
-    private static final Log log = LogFactory.getLog(SessionManager.class);
     private Map<String, ExtWebDriver> sessions = new HashMap<String, ExtWebDriver>();
 
     private final static String DEFAULT_SESSION = "default";
