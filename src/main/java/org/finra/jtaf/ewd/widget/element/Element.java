@@ -46,9 +46,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.internal.Locatable;
-import org.openqa.selenium.support.pagefactory.ByAll;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -73,7 +71,7 @@ public class Element implements IElement {
 	 *            XPath, ID, name, CSS Selector, class name, or tag name
 	 */
 	public Element(String locator) {
-		this.locator = ByLegacy.create(locator);
+		this.locator = EByLegacy.create(locator);
 	}
 	
 	public Element(By locator) {
@@ -88,7 +86,13 @@ public class Element implements IElement {
 	 */
 	@Override
 	public String getLocator() {
-		return locator == null ? null : locator.toString();
+	    if (locator == null) {
+	        return null;
+	    } else if (locator instanceof StringLocatorAwareBy) {
+	        return ((StringLocatorAwareBy) locator).getLocator();
+	    } else {
+	        return locator.toString();
+	    }
 	}
 	
 	@Override
@@ -1251,6 +1255,21 @@ public class Element implements IElement {
 	}
 	
 	
+	public static class EByLegacy extends StringLocatorAwareBy {
+	    /**
+	     * Creates a new instance
+         * @param locator locator as String
+         * @param by locator as By.
+         */
+        public EByLegacy(String locator, By by) {
+            super(locator, by);
+        }
+
+        public static EByLegacy create(String locator) {
+	        return new EByLegacy(locator, ByLegacy.create(locator));
+	    }
+	}
+	
 	/**
 	 * By implementation for legacy behaviour.
 	 * @author niels
@@ -1328,7 +1347,16 @@ public class Element implements IElement {
          */
         @Override
         public String toString() {
-            return locator;
+            StringBuilder stringBuilder = new StringBuilder("ByLegacy(");
+            stringBuilder.append("{");
+
+            boolean first = true;
+            for (By by : bys) {
+              stringBuilder.append((first ? "" : ",")).append(by);
+              first = false;
+            }
+            stringBuilder.append("})");
+            return stringBuilder.toString();
         }
 
         static ByLegacy create(String locator) {
