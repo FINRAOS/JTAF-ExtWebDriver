@@ -73,7 +73,11 @@ public class Element implements IElement {
 	public Element(String locator) {
 		this.locator = EByLegacy.create(locator);
 	}
-	
+
+    /**
+     *
+     * @param locator a By which defines this element by its first match
+     */
 	public Element(By locator) {
 	    this.locator = locator;
 	}
@@ -83,6 +87,7 @@ public class Element implements IElement {
 	 * (non-Javadoc)
 	 * 
 	 * @see qc.automation.framework.widget.IElement#getLocator()
+	 * @deprecated getLocator is no longer reliable when Elements can be created from Bys
 	 */
 	@Override
 	public String getLocator() {
@@ -1275,54 +1280,49 @@ public class Element implements IElement {
 	 * @author niels
 	 *
 	 */
-    private static class ByLegacy extends By {
+    private static class ByLegacy extends StringLocatorAwareBy {
 
-        final String locator;
-
-
-        final By[] bys;
-
-        /**
-         * @param locator
-         */
-        private ByLegacy(String locator, By... bys) {
-            this.bys = bys;
-            this.locator = locator;
+        private ByLegacy(String locator) {
+            super(locator, new ByFirstMatching(By.xpath(locator), By.id(locator),
+                    By.name(locator), By.cssSelector(locator),
+                    By.className(locator), By.tagName(locator)));
         }
-        
-        
-        /**
-         * @return the locator
-         */
-        public String getLocator() {
-            return locator;
-        }
+
         /*
          * (non-Javadoc)
-         * 
-         * @see
-         * org.openqa.selenium.support.pagefactory.ByAll#findElement(org.openqa
-         * .selenium.SearchContext)
+         * return the locator value to avoid writing code where the toString() of by was used for this purpose
+         *
+         * @see org.openqa.selenium.By#toString()
          */
         @Override
-        public WebElement findElement(SearchContext context) {
-            for (By by : bys) {
-                try {
-                    final WebElement element = by.findElement(context);
-                    if (element != null) {
-                        return element;
-                    }
-                } catch (Exception e) {
-                    // ignored
-                }
-            }
-            return null;
+        public String toString() {
+            return getLocator();
         }
-        
-        
 
-        /* (non-Javadoc)
-         * @see org.openqa.selenium.support.pagefactory.ByAll#findElements(org.openqa.selenium.SearchContext)
+        /**
+         *
+         * @param locator a string locator for the construction of a legacy by
+         * @return a by to be used for the legacy construction from a string locator
+         */
+        static StringLocatorAwareBy create(String locator) {
+            return new ByLegacy(locator);
+        }
+
+    }
+
+    /**
+     * ByLegacy generic behavior split out
+     */
+    private static class ByFirstMatching extends By {
+        final By[] bys;
+
+        private ByFirstMatching(By... bys) {
+            this.bys = bys;
+        }
+
+        /*
+         * (non-Javadoc)
+         * @see org.openqa.selenium.By#findElements(org.openqa.selenium.SearchContext)
          */
         @Override
         public List<WebElement> findElements(SearchContext context) {
@@ -1342,28 +1342,17 @@ public class Element implements IElement {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see org.openqa.selenium.By#toString()
          */
         @Override
         public String toString() {
-            StringBuilder stringBuilder = new StringBuilder("ByLegacy(");
-            stringBuilder.append("{");
-
-            boolean first = true;
-            for (By by : bys) {
-              stringBuilder.append((first ? "" : ",")).append(by);
-              first = false;
+            StringBuilder builder = new StringBuilder(2 * bys.length + 1);
+            builder.append("first matching of ");
+            for(By by : bys) {
+                builder.append(by.toString()).append(" or ");
             }
-            stringBuilder.append("})");
-            return stringBuilder.toString();
-        }
-
-        static ByLegacy create(String locator) {
-            return new ByLegacy(locator, By.xpath(locator), By.id(locator),
-                    By.name(locator), By.cssSelector(locator),
-                    By.className(locator), By.className(locator),
-                    By.tagName(locator));
+            return builder.toString();
         }
     }
 
