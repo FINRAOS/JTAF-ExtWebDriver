@@ -71,7 +71,7 @@ public class Element implements IElement {
 	 *            XPath, ID, name, CSS Selector, class name, or tag name
 	 */
 	public Element(String locator) {
-		this.locator = EByLegacy.create(locator);
+		this.locator = EByFirstMatching.create(locator);
 	}
 
     /**
@@ -87,7 +87,6 @@ public class Element implements IElement {
 	 * (non-Javadoc)
 	 * 
 	 * @see qc.automation.framework.widget.IElement#getLocator()
-	 * @deprecated getLocator is no longer reliable when Elements can be created from Bys
 	 */
 	@Override
 	public String getLocator() {
@@ -131,7 +130,7 @@ public class Element implements IElement {
 	private boolean isElementPresent_internal() throws WidgetException {
 		try {
 			try {
-				if (locator instanceof ByLegacy && isElementPresentJavaXPath())
+				if (locator instanceof EByFirstMatching && isElementPresentJavaXPath())
 					return true;
 			} catch (Exception e) {
 				// Continue
@@ -812,7 +811,7 @@ public class Element implements IElement {
 	 * @throws Exception
 	 */
 	private boolean isElementPresentJavaXPath() throws Exception {
-		String xpath = ((ByLegacy)getByLocator()).getLocator();
+		String xpath = ((EByFirstMatching)getByLocator()).getLocator();
 		try {
 			xpath = formatXPathForJavaXPath(xpath);
 			NodeList nodes = getNodeListUsingJavaXPath(xpath);
@@ -1259,64 +1258,14 @@ public class Element implements IElement {
 		jse.executeScript("arguments[0].focus();", findElement());
 	}
 	
-	
-	public static class EByLegacy extends StringLocatorAwareBy {
-	    /**
-	     * Creates a new instance
-         * @param locator locator as String
-         * @param by locator as By.
-         */
-        public EByLegacy(String locator, By by) {
-            super(locator, by);
-        }
 
-        public static EByLegacy create(String locator) {
-	        return new EByLegacy(locator, ByLegacy.create(locator));
-	    }
-	}
-	
-	/**
-	 * By implementation for legacy behaviour.
-	 * @author niels
-	 *
-	 */
-    private static class ByLegacy extends StringLocatorAwareBy {
-
-        private ByLegacy(String locator) {
-            super(locator, new ByFirstMatching(By.xpath(locator), By.id(locator),
-                    By.name(locator), By.cssSelector(locator),
-                    By.className(locator), By.tagName(locator)));
-        }
-
-        /*
-         * (non-Javadoc)
-         * return the locator value to avoid writing code where the toString() of by was used for this purpose
-         *
-         * @see org.openqa.selenium.By#toString()
-         */
-        @Override
-        public String toString() {
-            return getLocator();
-        }
-
-        /**
-         *
-         * @param locator a string locator for the construction of a legacy by
-         * @return a by to be used for the legacy construction from a string locator
-         */
-        static StringLocatorAwareBy create(String locator) {
-            return new ByLegacy(locator);
-        }
-
-    }
-
-    /**
-     * ByLegacy generic behavior split out
+     /**
+      * By implementation for legacy behaviour.
      */
-    private static class ByFirstMatching extends By {
+    private static class EByFirstMatching extends By {
         final By[] bys;
 
-        private ByFirstMatching(By... bys) {
+        private EByFirstMatching(By... bys) {
             this.bys = bys;
         }
 
@@ -1347,12 +1296,24 @@ public class Element implements IElement {
          */
         @Override
         public String toString() {
-            StringBuilder builder = new StringBuilder(2 * bys.length + 1);
-            builder.append("first matching of ");
+            StringBuilder builder = new StringBuilder("By first matching of ");
             for(By by : bys) {
                 builder.append(by.toString()).append(" or ");
             }
             return builder.toString();
+        }
+        
+        
+        /**
+         * construct a StringLocatorAwareBy for the legacy behavior
+         *
+         * @param locator a string locator for the construction of a legacy by
+         * @return a by to be used for the legacy construction from a string locator
+         */
+        static StringLocatorAwareBy create(String locator) {
+            return new StringLocatorAwareBy(locator, new EByFirstMatching(By.xpath(locator), By.id(locator),
+                    By.name(locator), By.cssSelector(locator),
+                    By.className(locator), By.tagName(locator)));
         }
     }
 
