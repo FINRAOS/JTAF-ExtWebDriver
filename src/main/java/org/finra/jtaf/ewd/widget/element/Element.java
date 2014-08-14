@@ -71,9 +71,13 @@ public class Element implements IElement {
 	 *            XPath, ID, name, CSS Selector, class name, or tag name
 	 */
 	public Element(String locator) {
-		this.locator = ByLegacy.create(locator);
+		this.locator = new EByFirstMatching(locator);
 	}
-	
+
+    /**
+     *
+     * @param locator a By which defines this element by its first match
+     */
 	public Element(By locator) {
 	    this.locator = locator;
 	}
@@ -86,7 +90,13 @@ public class Element implements IElement {
 	 */
 	@Override
 	public String getLocator() {
-		return locator == null ? null : locator.toString();
+	    if (locator == null) {
+	        return null;
+	    } else if (locator instanceof StringLocatorAwareBy) {
+	        return ((StringLocatorAwareBy) locator).getLocator();
+	    } else {
+	        return locator.toString();
+	    }
 	}
 	
 	@Override
@@ -120,7 +130,9 @@ public class Element implements IElement {
 	private boolean isElementPresent_internal() throws WidgetException {
 		try {
 			try {
-				if (locator instanceof ByLegacy && isElementPresentJavaXPath())
+			    final boolean isPotentiallyXpathWithLocator =
+			            (locator instanceof EByFirstMatching) || (locator instanceof EByXpath);  
+				if (isPotentiallyXpathWithLocator && isElementPresentJavaXPath())
 					return true;
 			} catch (Exception e) {
 				// Continue
@@ -169,7 +181,10 @@ public class Element implements IElement {
 	@Override
 	public boolean isElementPresent(boolean isJavaXPath) throws WidgetException {
 		try {
-			if (isJavaXPath) {
+            final boolean isPotentiallyXpathWithLocator =
+                    (locator instanceof EByFirstMatching) || (locator instanceof EByXpath);  
+
+			if (isJavaXPath && isPotentiallyXpathWithLocator) {
 				return isElementPresentJavaXPath();
 			} else {
 				findElement();
@@ -675,17 +690,12 @@ public class Element implements IElement {
 		WebDriver wd = getGUIDriver().getWrappedDriver();
 		
 		final WebElement webElement = wd.findElement(locator);
-		if (webElement != null) {
-			try {
-                highlight(highlightMode);
-            } catch (WidgetException e) {
-                //TODO Log would be nice.
-            }
-			return webElement;
-		}
-
-		throw new NoSuchElementException("Could not find element at " + locator);
-
+		try {
+            highlight(highlightMode);
+        } catch (WidgetException e) {
+            //TODO Log would be nice.
+        }
+		return webElement;
 	}
 
 	/**
@@ -699,9 +709,7 @@ public class Element implements IElement {
 
 	/**
 	 * Set the background color of a particular web element to a certain color
-	 * 
-	 * @param element
-	 *            the element to highlight
+	 *
 	 * @param color
 	 *            the color to use for highlight
 	 * @throws Exception
@@ -801,7 +809,7 @@ public class Element implements IElement {
 	 * @throws Exception
 	 */
 	private boolean isElementPresentJavaXPath() throws Exception {
-		String xpath = ((ByLegacy)getByLocator()).getLocator();
+		String xpath = ((StringLocatorAwareBy)getByLocator()).getLocator();
 		try {
 			xpath = formatXPathForJavaXPath(xpath);
 			NodeList nodes = getNodeListUsingJavaXPath(xpath);
@@ -1248,60 +1256,35 @@ public class Element implements IElement {
 		jse.executeScript("arguments[0].focus();", findElement());
 	}
 	
+
 	
-	/**
-	 * By implementation for legacy behaviour.
-	 * @author niels
-	 *
-	 */
-    private static class ByLegacy extends By {
+	private static class EByFirstMatching extends StringLocatorAwareBy {
 
-        final String locator;
-
-
+        /**
+         * New instance.
+         * @param locator the locator as string.
+         */
+        private EByFirstMatching(String locator) {
+            super(locator, new ByFirstMatching(By.xpath(locator), By.id(locator),
+                    By.name(locator), By.cssSelector(locator),
+                    By.className(locator), By.tagName(locator)));
+        }
+	    
+	}
+	
+     /**
+      * By implementation for legacy behaviour.
+     */
+    private static class ByFirstMatching extends By {
         final By[] bys;
 
-        /**
-         * @param locator
-         */
-        private ByLegacy(String locator, By... bys) {
+        private ByFirstMatching(By... bys) {
             this.bys = bys;
-            this.locator = locator;
         }
-        
-        
-        /**
-         * @return the locator
-         */
-        public String getLocator() {
-            return locator;
-        }
+
         /*
          * (non-Javadoc)
-         * 
-         * @see
-         * org.openqa.selenium.support.pagefactory.ByAll#findElement(org.openqa
-         * .selenium.SearchContext)
-         */
-        @Override
-        public WebElement findElement(SearchContext context) {
-            for (By by : bys) {
-                try {
-                    final WebElement element = by.findElement(context);
-                    if (element != null) {
-                        return element;
-                    }
-                } catch (Exception e) {
-                    // ignored
-                }
-            }
-            return null;
-        }
-        
-        
-
-        /* (non-Javadoc)
-         * @see org.openqa.selenium.support.pagefactory.ByAll#findElements(org.openqa.selenium.SearchContext)
+         * @see org.openqa.selenium.By#findElements(org.openqa.selenium.SearchContext)
          */
         @Override
         public List<WebElement> findElements(SearchContext context) {
@@ -1321,20 +1304,19 @@ public class Element implements IElement {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see org.openqa.selenium.By#toString()
          */
         @Override
         public String toString() {
-            return locator;
+            StringBuilder builder = new StringBuilder("By first matching of ");
+            for(By by : bys) {
+                builder.append(by.toString()).append(" or ");
+            }
+            return builder.toString();
         }
-
-        static ByLegacy create(String locator) {
-            return new ByLegacy(locator, By.xpath(locator), By.id(locator),
-                    By.name(locator), By.cssSelector(locator),
-                    By.className(locator), By.className(locator),
-                    By.tagName(locator));
-        }
+        
+        
     }
 
 }

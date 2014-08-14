@@ -30,6 +30,7 @@ public interface IElement {
      * CSS Selector, class name, or tag name to the element
      * 
      * @return the locator to the element in the form of a String.
+     * @deprecated getLocator is no longer reliable when IElements can be created from Bys
      */
     public String getLocator();
 
