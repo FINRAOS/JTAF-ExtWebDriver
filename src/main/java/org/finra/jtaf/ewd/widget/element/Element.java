@@ -709,9 +709,7 @@ public class Element implements IElement {
 
 	/**
 	 * Set the background color of a particular web element to a certain color
-	 * 
-	 * @param element
-	 *            the element to highlight
+	 *
 	 * @param color
 	 *            the color to use for highlight
 	 * @throws Exception
@@ -811,7 +809,7 @@ public class Element implements IElement {
 	 * @throws Exception
 	 */
 	private boolean isElementPresentJavaXPath() throws Exception {
-		String xpath = ((EByFirstMatching)getByLocator()).getLocator();
+		String xpath = ((StringLocatorAwareBy)getByLocator()).getLocator();
 		try {
 			xpath = formatXPathForJavaXPath(xpath);
 			NodeList nodes = getNodeListUsingJavaXPath(xpath);
@@ -1310,10 +1308,19 @@ public class Element implements IElement {
          * @param locator a string locator for the construction of a legacy by
          * @return a by to be used for the legacy construction from a string locator
          */
-        static StringLocatorAwareBy create(String locator) {
+        static StringLocatorAwareBy create(final String locator) {
             return new StringLocatorAwareBy(locator, new EByFirstMatching(By.xpath(locator), By.id(locator),
                     By.name(locator), By.cssSelector(locator),
-                    By.className(locator), By.tagName(locator)));
+                    By.className(locator), By.tagName(locator))) {
+                /*
+                 * (non-Javadoc)
+                 * @see org.finra.jtaf.ewd.widget.element.StringLocatorAwareBy#getLocator()
+                 */
+                @Override
+                public String getLocator() {
+                    return locator;
+                }
+            };
         }
     }
 
