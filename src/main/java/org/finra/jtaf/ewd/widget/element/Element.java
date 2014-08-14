@@ -71,7 +71,7 @@ public class Element implements IElement {
 	 *            XPath, ID, name, CSS Selector, class name, or tag name
 	 */
 	public Element(String locator) {
-		this.locator = EByFirstMatching.create(locator);
+		this.locator = new EByFirstMatching(locator);
 	}
 
     /**
@@ -1262,13 +1262,28 @@ public class Element implements IElement {
 	}
 	
 
+	
+	private static class EByFirstMatching extends StringLocatorAwareBy {
+
+        /**
+         * New instance.
+         * @param locator the locator as string.
+         */
+        private EByFirstMatching(String locator) {
+            super(locator, new ByFirstMatching(By.xpath(locator), By.id(locator),
+                    By.name(locator), By.cssSelector(locator),
+                    By.className(locator), By.tagName(locator)));
+        }
+	    
+	}
+	
      /**
       * By implementation for legacy behaviour.
      */
-    private static class EByFirstMatching extends By {
+    private static class ByFirstMatching extends By {
         final By[] bys;
 
-        private EByFirstMatching(By... bys) {
+        private ByFirstMatching(By... bys) {
             this.bys = bys;
         }
 
@@ -1327,18 +1342,6 @@ public class Element implements IElement {
         }
         
         
-        /**
-         * construct a StringLocatorAwareBy for the legacy behavior
-         *
-         * @param locator a string locator for the construction of a legacy by
-         * @return a by to be used for the legacy construction from a string locator
-         */
-        static StringLocatorAwareBy create(final String locator) {
-            return new StringLocatorAwareBy(locator, new EByFirstMatching(By.xpath(locator), By.id(locator),
-                    By.name(locator), By.cssSelector(locator),
-                    By.className(locator), By.tagName(locator))) {
-            };
-        }
     }
 
 }
