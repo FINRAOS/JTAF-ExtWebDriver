@@ -130,9 +130,9 @@ public class Element implements IElement {
 	private boolean isElementPresent_internal() throws WidgetException {
 		try {
 			try {
-			    final boolean isPotantiallyXpathWithLocator =
+			    final boolean isPotentiallyXpathWithLocator =
 			            (locator instanceof EByFirstMatching) || (locator instanceof EByXpath);  
-				if (isPotantiallyXpathWithLocator && isElementPresentJavaXPath())
+				if (isPotentiallyXpathWithLocator && isElementPresentJavaXPath())
 					return true;
 			} catch (Exception e) {
 				// Continue
@@ -181,10 +181,10 @@ public class Element implements IElement {
 	@Override
 	public boolean isElementPresent(boolean isJavaXPath) throws WidgetException {
 		try {
-            final boolean isPotantiallyXpathWithLocator =
+            final boolean isPotentiallyXpathWithLocator =
                     (locator instanceof EByFirstMatching) || (locator instanceof EByXpath);  
 
-			if (isJavaXPath && isPotantiallyXpathWithLocator) {
+			if (isJavaXPath && isPotentiallyXpathWithLocator) {
 				return isElementPresentJavaXPath();
 			} else {
 				findElement();
