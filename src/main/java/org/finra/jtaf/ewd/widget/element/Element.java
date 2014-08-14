@@ -130,7 +130,9 @@ public class Element implements IElement {
 	private boolean isElementPresent_internal() throws WidgetException {
 		try {
 			try {
-				if (locator instanceof EByFirstMatching && isElementPresentJavaXPath())
+			    final boolean isPotantiallyXpathWithLocator =
+			            (locator instanceof EByFirstMatching) || (locator instanceof EByXpath);  
+				if (isPotantiallyXpathWithLocator && isElementPresentJavaXPath())
 					return true;
 			} catch (Exception e) {
 				// Continue
@@ -179,7 +181,10 @@ public class Element implements IElement {
 	@Override
 	public boolean isElementPresent(boolean isJavaXPath) throws WidgetException {
 		try {
-			if (isJavaXPath) {
+            final boolean isPotantiallyXpathWithLocator =
+                    (locator instanceof EByFirstMatching) || (locator instanceof EByXpath);  
+
+			if (isJavaXPath && isPotantiallyXpathWithLocator) {
 				return isElementPresentJavaXPath();
 			} else {
 				findElement();
@@ -1286,6 +1291,26 @@ public class Element implements IElement {
             return null;
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.openqa.selenium.support.pagefactory.By#findElement(org.openqa.selenium.SearchContext)
+         */
+        @Override
+        public WebElement findElement(SearchContext context) {
+            for (By by : bys) {
+                try {
+                    final WebElement element = by.findElement(context);
+                    if (element != null) {
+                        return element;
+                    }
+                } catch (Exception e) {
+                    // ignored
+                }
+            }
+            return null;
+        }
 
         /*
          * (non-Javadoc)
@@ -1312,14 +1337,6 @@ public class Element implements IElement {
             return new StringLocatorAwareBy(locator, new EByFirstMatching(By.xpath(locator), By.id(locator),
                     By.name(locator), By.cssSelector(locator),
                     By.className(locator), By.tagName(locator))) {
-                /*
-                 * (non-Javadoc)
-                 * @see org.finra.jtaf.ewd.widget.element.StringLocatorAwareBy#getLocator()
-                 */
-                @Override
-                public String getLocator() {
-                    return locator;
-                }
             };
         }
     }
