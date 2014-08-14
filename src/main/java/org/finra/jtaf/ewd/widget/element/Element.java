@@ -690,17 +690,12 @@ public class Element implements IElement {
 		WebDriver wd = getGUIDriver().getWrappedDriver();
 		
 		final WebElement webElement = wd.findElement(locator);
-		if (webElement != null) {
-			try {
-                highlight(highlightMode);
-            } catch (WidgetException e) {
-                //TODO Log would be nice.
-            }
-			return webElement;
-		}
-
-		throw new NoSuchElementException("Could not find element at " + locator);
-
+		try {
+            highlight(highlightMode);
+        } catch (WidgetException e) {
+            //TODO Log would be nice.
+        }
+		return webElement;
 	}
 
 	/**
@@ -1306,26 +1301,6 @@ public class Element implements IElement {
             return null;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * org.openqa.selenium.support.pagefactory.By#findElement(org.openqa.selenium.SearchContext)
-         */
-        @Override
-        public WebElement findElement(SearchContext context) {
-            for (By by : bys) {
-                try {
-                    final WebElement element = by.findElement(context);
-                    if (element != null) {
-                        return element;
-                    }
-                } catch (Exception e) {
-                    // ignored
-                }
-            }
-            return null;
-        }
 
         /*
          * (non-Javadoc)
