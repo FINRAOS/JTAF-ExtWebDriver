@@ -5,6 +5,7 @@ script: target/CM/deploy.sh
 branches:
   only:
   - master
+  - deprecateGetLocator
 env:
   global:
   - secure: Oy9NuuTFiLgW+zc7rnOET65RHKM+LHtKV6TTtqqLmQirsz72Qqxa0xYI6f4CBSr9bhHOJyLpGXc/5+Mzy2Fwyg/nog6wpmfsZICBn9UELG9uLflCz7rqbJ2LuFV/MPFSWcRpco2A7ZEcgW0AEVDVR8NtBdGKHpKs15ZcmIGbhWM=
