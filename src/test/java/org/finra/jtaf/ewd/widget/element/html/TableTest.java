@@ -35,16 +35,16 @@ public class TableTest {
 
     public static String url = "http://localhost:29090/simpleapp/staticwidgetsapp.html";
     public ExtWebDriver wd;
-	
+
 	protected String tableLocator = "//table[@id=\"tableTest1\"]";
 	protected String badTableLocator = "//table[@id=\"badTable\"]";
 	protected String noSuchTableLocator = "//table[@id=\"noSuchTable\"]";
 	protected List<String> expectedTableTest1Headers = new ArrayList<String>();
-    
+
 	@Before
     public void setup() throws Exception {
         wd = SessionManager.getInstance().getCurrentSession();
-        
+
         expectedTableTest1Headers.add("Header 1");
         expectedTableTest1Headers.add("Header 2");
         expectedTableTest1Headers.add("Header 3");
@@ -56,7 +56,7 @@ public class TableTest {
         wd.close();
         SessionManager.getInstance().removeSession(wd);
     }
-    
+
     @Test
     public void testConstructorNoSuchTable() throws WidgetException{
     	boolean exceptionThrown = false;
@@ -68,7 +68,7 @@ public class TableTest {
     	}
     	Assert.assertFalse(exceptionThrown);
     }
-    
+
     @Test
     public void testGetTableHeaders1() throws WidgetException{
     	wd.open(url);
@@ -79,7 +79,7 @@ public class TableTest {
     		Assert.assertEquals("Table header string didn't match!", expectedTableTest1Headers.get(i), actualHeaders.get(i).trim());
     	}
     }
-    
+
     @Test
     public void testGetTableRowColumnData1() throws WidgetException{
     	wd.open(url);
@@ -89,8 +89,8 @@ public class TableTest {
     	cellValue = table.getTableRowColumnData(3, 1);
     	Assert.assertEquals("Table cell value didn't match!", "Row 3: Cell 1", cellValue.trim());
     }
-    
-    
+
+
     @Test
     public void testGetTableDataInArray() throws WidgetException{
     	wd.open(url);
@@ -100,7 +100,7 @@ public class TableTest {
     	Assert.assertEquals("Table data didn't match", dataAsArray.get(0)[1].trim(), "Row 1: Cell 2");
     	Assert.assertEquals("Table data didn't match", dataAsArray.get(1)[0].trim(), "Row 2: Cell 1");
     }
-    
+
     @Test
     public void testGetTableDataInMap() throws WidgetException{
      	wd.open(url);
@@ -109,9 +109,9 @@ public class TableTest {
     	Assert.assertEquals("Table data didn't match", dataAsMap.get(0).get("Header 1").trim(), "Row 1: Cell 1");
     	Assert.assertEquals("Table data didn't match", dataAsMap.get(0).get("Header 2").trim(), "Row 1: Cell 2");
     	Assert.assertEquals("Table data didn't match", dataAsMap.get(1).get("Header 1").trim(), "Row 2: Cell 1");
-   
+
     }
-    
+
     @Test
     public void testGetTableRowCount() throws WidgetException{
     	wd.open(url);
@@ -119,7 +119,7 @@ public class TableTest {
     	int tableCount = table.getTableRowCount();
     	Assert.assertEquals("Error matching row count", tableCount, 3);
     }
-    
+
     @Test
     public void testGetTableColumnCount() throws WidgetException{
     	wd.open(url);
@@ -127,7 +127,7 @@ public class TableTest {
     	int tableCount = table.getTableColumnCount();
     	Assert.assertEquals("Error matching row count", tableCount, 4);
     }
-    
+
     @Test
     public void testIsItemExist() throws WidgetException{
     	wd.open(url);
@@ -137,7 +137,7 @@ public class TableTest {
     	boolean isExist = table.isItemExist(map);
     	Assert.assertTrue(isExist);
     }
-    
+
     @Test
     public void testGetRowNumber() throws WidgetException{
     	wd.open(url);
@@ -147,14 +147,14 @@ public class TableTest {
     	int rowNumber = table.getRowNumber(map);
     	Assert.assertEquals(rowNumber, 1);
     }
-    
+
     @Test
     public void testIsElementPresentNoSuchTable() throws WidgetException{
     	wd.open(url);
     	ITable table = new Table(noSuchTableLocator);
     	Assert.assertFalse(table.isElementPresent());
     }
-    
+
     @Test
     public void testGetTableHeadersException() throws WidgetException{
     	boolean exceptionThrown = false;
@@ -171,7 +171,7 @@ public class TableTest {
     @Test
     public void testGetTableRowColumnDataException() throws WidgetException{
     	boolean exceptionThrown = false;
-    	
+
     	try {
     		wd.open(url);
     		ITable table = new Table(badTableLocator);
@@ -232,7 +232,7 @@ public class TableTest {
     	}
     	Assert.assertTrue(exceptionThrown);
     }
-    
+
     @Test
     public void testGetTableColumnCountException() throws WidgetException{
     	boolean exceptionThrown = false;
