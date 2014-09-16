@@ -29,13 +29,13 @@ public class ImageTest {
 
     public static String url = "http://localhost:29090/simpleapp/staticwidgetsapp.html";
     public ExtWebDriver wd;
-	
+
 	protected String imageLocator = "//img[@id=\"imageTest1\"]";
-    
+
 	@Before
     public void setup() throws Exception {
         wd = SessionManager.getInstance().getCurrentSession();
-        
+
     }
 
     @After
@@ -43,12 +43,12 @@ public class ImageTest {
         wd.close();
         SessionManager.getInstance().removeSession(wd);
     }
-    
+
     @Test
     public void testGetSource() throws WidgetException{
     	wd.open(url);
     	IImage image = new Image(imageLocator);
     	Assert.assertTrue(image.getSource().contains("finralogo.jpg"));
     }
-    
+
 }

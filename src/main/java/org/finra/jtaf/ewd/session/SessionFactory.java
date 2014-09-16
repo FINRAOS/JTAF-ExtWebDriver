@@ -23,13 +23,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
- * 
+ *
  * Interface for DefaultSessionsFactory
  *
  */
 public interface SessionFactory {
     /**
-     * 
+     *
      * @return a map of strings
      */
     public Map<String, String> createDefaultOptions();
@@ -43,7 +43,7 @@ public interface SessionFactory {
     public void cleanup(Map<String, String> options) throws Exception;
 
     /**
-     * 
+     *
      * @param options
      *            the options you want the capabilities instance to have
      * @return the capabilities of webdriver
@@ -52,7 +52,7 @@ public interface SessionFactory {
     public DesiredCapabilities createCapabilities(Map<String, String> options) throws Exception;
 
     /**
-     * 
+     *
      * @param options
      *            the options passed on to the webdriver instance
      * @param capabilities
@@ -64,7 +64,7 @@ public interface SessionFactory {
             throws Exception;
 
     /**
-     * 
+     *
      * @param options
      *            options for the session
      * @param wd

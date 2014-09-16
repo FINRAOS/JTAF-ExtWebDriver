@@ -28,9 +28,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class DefaultSessionFactoryTests {
-	
+
 	public static SessionFactory sf = new DefaultSessionFactory();
-	
+
 	private DesiredCapabilities capabilityTest(String property) throws Exception{
 		Map<String, String> opts = new HashMap<String, String>();
 		opts.put("client", "sessionfactory/" + property + ".properties");
@@ -38,7 +38,7 @@ public class DefaultSessionFactoryTests {
 		Assert.assertNotNull(dc);
 		return dc;
 	}
-	
+
 	@Test
 	public void createCapabilitiesTest() throws Exception {
 		//THESE USE GRID
@@ -48,7 +48,7 @@ public class DefaultSessionFactoryTests {
 		DesiredCapabilities ie2 = capabilityTest("ie2");
 		Assert.assertEquals("internet explorer", ie2.getBrowserName());
 		Assert.assertNotNull(ie2.getCapability(CapabilityType.PROXY));
-		
+
 		//browser=*iexplore
 		Assert.assertEquals("internet explorer", capabilityTest("ie3").getBrowserName());
 		//browser=firefox
@@ -67,7 +67,7 @@ public class DefaultSessionFactoryTests {
 		Assert.assertEquals("iPad", capabilityTest("ipad").getBrowserName());
 		//browser=android
 		Assert.assertEquals("android", capabilityTest("android").getBrowserName());
-		
+
 		//THESE DO NOT USE GRID
 		DesiredCapabilities nonChrome = capabilityTest("safari2");
 		Assert.assertNotNull(nonChrome.getCapability("browser.download.dir"));
@@ -75,62 +75,62 @@ public class DefaultSessionFactoryTests {
 
 		Assert.assertNotNull(capabilityTest("chrome2").getCapability("chrome.switches"));
 	}
-	
+
 	@Test(expected=Exception.class)
 	public void createCapabilitiesTestException() throws Exception {
-		capabilityTest("htmlunit");	
+		capabilityTest("htmlunit");
 	}
-	
+
 	@Test(expected=Exception.class)
 	public void createCapabilitiesTestGridurlException() throws Exception {
-		capabilityTest("gridfail1");	
+		capabilityTest("gridfail1");
 	}
-	
+
 	@Test(expected=Exception.class)
 	public void createCapabilitiesTestGridBrowserException() throws Exception {
-		capabilityTest("gridfail2");	
+		capabilityTest("gridfail2");
 	}
-	
+
 	@Test(expected=Exception.class)
 	public void createCapabilitiesTestGridPlatformException() throws Exception {
-		capabilityTest("gridfail3");	
+		capabilityTest("gridfail3");
 	}
-	
+
 	@Test
 	public void createDefaultOptionsTest() throws Exception {
 		Map<String, String> defaultOpts = sf.createDefaultOptions();
 		Assert.assertNotNull(defaultOpts);
 	}
-	
+
 	@Test
 	public void testCreateInnerDriver() throws Exception{
 		Map<String, String> defaultOpts = sf.createDefaultOptions();
 		DesiredCapabilities dc = sf.createCapabilities(defaultOpts);
-		
+
 		WebDriver innerDriverTest = sf.createInnerDriver(defaultOpts, dc);
-		
+
 		Assert.assertNotNull(innerDriverTest);
 	}
-	
-	@Test 
+
+	@Test
 	public void createNewSessionTest() throws Exception {
 		Map<String, String> defaultOpts = sf.createDefaultOptions();
 		DesiredCapabilities dc = sf.createCapabilities(defaultOpts);
-		
+
 		WebDriver wd = sf.createInnerDriver(defaultOpts, dc);
-		
+
 		ExtWebDriver wdTest = sf.createNewSession(defaultOpts, wd);
-		
+
 		Assert.assertNotNull(wdTest);
 	}
-	
-	
+
+
 	class FailFactory extends DefaultSessionFactory{
 		   @Override
 		    public Map<String, String> createDefaultOptions() {
 		        HashMap<String, String> ret = new HashMap<String, String>();
 		        // Add any default options needed here (like path to default properties)
-		      
+
 		        ret.put("client", "fail.properties");
 
 		        return ret;

@@ -29,11 +29,11 @@ public class HtmlListTest {
 
     public static String url = "http://localhost:29090/simpleapp/staticwidgetsapp.html";
 	public ExtWebDriver wd;
-	
+
 	protected String htmlListLocator = "//ul[@id=\"htmlListTest1\"]";
     protected String badHtmlListLocator = "//ul[@id=\"badHtmlListTest\"]";
     protected String brokenLocator = "//ul[@id=\"brokenLocator\"]";
-    
+
 	@Before
     public void setup() throws Exception {
         wd = SessionManager.getInstance().getCurrentSession();
@@ -44,7 +44,7 @@ public class HtmlListTest {
         wd.close();
         SessionManager.getInstance().removeSession(wd);
     }
-    
+
     @Test
     public void testGetItemCount() throws WidgetException{
     	wd.open(url);

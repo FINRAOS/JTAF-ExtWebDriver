@@ -25,17 +25,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class InputTest {
-	
+
     public static String url = "http://localhost:29090/simpleapp/interactiveelements.html";
 	public ExtWebDriver wd;
-	
+
 	protected String inputLocator = "//input[@id=\"inputTest\"]";
     protected String brokeLocator = "//input[@id=\"doesntexist\"]";
-    
+
 	@Before
     public void setup() throws Exception {
         wd = SessionManager.getInstance().getCurrentSession();
-        
+
     }
 
     @After
@@ -46,7 +46,7 @@ public class InputTest {
             SessionManager.getInstance().removeSession(wd);
         }
     }
-    
+
     @Test
     public void testTypeAppend() throws WidgetException{
     	wd.open(url);
@@ -61,7 +61,7 @@ public class InputTest {
     	Input in = new Input(brokeLocator);
     	in.typeAppend("1");
     }
-    
+
     @Test
     public void testSetValue() throws WidgetException{
     	wd.open(url);
@@ -80,7 +80,7 @@ public class InputTest {
     		exception = true;
     	}
     	Assert.assertTrue(exception);
-    	
+
     }
     @Test
     public void testGetValue() throws WidgetException{
