@@ -6,7 +6,6 @@ Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver
 
 Releases
 ========
-We will be having monthly scheduled releases.
 >[Release 1.0](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.0) is available on Maven central repository! - 12/13/2013
 
 >[Release 1.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.1) has been released! - 02/03/2014
@@ -19,7 +18,7 @@ We will be having monthly scheduled releases.
 
 >[Release 1.4](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.4) has been released! - 08/15/2014
 
->Release 1.5 - Scheduled for September
+>Release 1.5 - Coming soon!
 
 Contributing
 =============
