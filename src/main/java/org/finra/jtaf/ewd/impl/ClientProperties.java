@@ -27,14 +27,15 @@ import java.util.Map;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.configuration.PropertiesConfigurationLayout;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Enables storage of and access to driver and browser configuration.
  *
  */
 public class ClientProperties {
-    private final Logger logger = Logger.getLogger(ClientProperties.class.getPackage().getName());
+    private final Logger logger = LoggerFactory.getLogger(ClientProperties.class.getPackage().getName());
 
     private URL client;
 
@@ -119,7 +120,7 @@ public class ClientProperties {
         try {
             browserInitPositionX = Integer.parseInt(browserInitPositionXStr);
         } catch (Exception e) {
-            logger.fatal("Error parsing '"
+            logger.error("Error parsing '"
                     + browserInitPositionXStr
                     + "' (value of 'browser.init.position.x' property from client properties file) as integer. Please fix your test configuration.");
         }
@@ -129,7 +130,7 @@ public class ClientProperties {
         try {
             browserInitPositionY = Integer.parseInt(browserInitPositionYStr);
         } catch (Exception e) {
-            logger.fatal("Error parsing '"
+            logger.error("Error parsing '"
                     + browserInitPositionYStr
                     + "' (value of 'browser.init.position.y' property from client properties file) as integer. Please fix your test configuration.");
         }
@@ -203,7 +204,7 @@ public class ClientProperties {
                     .equalsIgnoreCase("yes"))) {
                 doTaskKill = true;
             } else {
-                logger.fatal("Property 'doTaskKill' is not within range of accepted values. (Range of accepted values are '1'/'0', 'Yes'/'No' and 'True'/'False')");
+                logger.error("Property 'doTaskKill' is not within range of accepted values. (Range of accepted values are '1'/'0', 'Yes'/'No' and 'True'/'False')");
                 doTaskKill = true;
             }
         } else {
@@ -236,7 +237,7 @@ public class ClientProperties {
                 || highlight.equalsIgnoreCase("0")) {
             isHighlight = false;
         } else {
-            logger.fatal("Error parsing client property 'highlight' ('" + highlight
+            logger.error("Error parsing client property 'highlight' ('" + highlight
                     + "'). It can be one of 'true / false', 'yes / no', '1 / 0'.");
         }
 
@@ -306,7 +307,7 @@ public class ClientProperties {
                     }
                     config.save(config.getPath());
                 } catch (ConfigurationException e) {
-                    logger.fatal("Error saving updated property file ('" + config.getPath() + "')"
+                    logger.error("Error saving updated property file ('" + config.getPath() + "')"
                             + e);
                 }
             }

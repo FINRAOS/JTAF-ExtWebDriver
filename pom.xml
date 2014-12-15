@@ -67,6 +67,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <org.slf4j.version>1.7.8</org.slf4j.version>
 	</properties>
 	<build>
 		<plugins>
@@ -277,10 +278,11 @@
 		</dependency>
 		<!-- logging -->
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
-		</dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
 		<!-- for easily configuring our client properties -->
 		<dependency>
 			<groupId>commons-configuration</groupId>

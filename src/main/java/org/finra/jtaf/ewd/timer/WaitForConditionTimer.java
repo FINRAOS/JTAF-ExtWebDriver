@@ -17,7 +17,8 @@
 
 package org.finra.jtaf.ewd.timer;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.openqa.selenium.By;
 
 /**
@@ -30,7 +31,7 @@ public class WaitForConditionTimer {
     private ITimerCallback timerCallback;
     private By locator;
 
-    private final Logger logger = Logger.getLogger(WaitForConditionTimer.class.getPackage()
+    private final Logger logger = LoggerFactory.getLogger(WaitForConditionTimer.class.getPackage()
             .getName());
 
     /**
