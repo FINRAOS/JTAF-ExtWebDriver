@@ -25,7 +25,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.timer.WidgetTimeoutException;
 import org.finra.jtaf.ewd.widget.IElement;
@@ -47,7 +48,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  */
 public class ScreenshotUtils {
 
-	private static Logger log = Logger.getLogger(ScreenshotUtils.class);
+	private static Logger log = LoggerFactory.getLogger(ScreenshotUtils.class);
 	
 	/***
 	 * You can use this method to take your control pictures. Note that the file should be a png.

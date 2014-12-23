@@ -33,7 +33,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.ccil.cowan.tagsoup.Parser;
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.HighlightProvider;
@@ -59,7 +60,7 @@ import com.google.common.collect.Lists;
  * 
  */
 public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
-	private static Logger logger = Logger.getLogger(ExtWebDriver.class
+	private static Logger logger = LoggerFactory.getLogger(ExtWebDriver.class
 			.getPackage().getName());
 
 	/**
