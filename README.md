@@ -6,7 +6,6 @@ Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver
 
 Releases
 ========
-We will be having monthly scheduled releases.
 >[Release 1.0](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.0) is available on Maven central repository! - 12/13/2013
 
 >[Release 1.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.1) has been released! - 02/03/2014
@@ -17,7 +16,9 @@ We will be having monthly scheduled releases.
 
 >[Release 1.3](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.3) has been released! - 05/02/2014
 
->Release 1.4 - Scheduled for June
+>[Release 1.4](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.4) has been released! - 08/15/2014
+
+>Release 1.5 - Coming soon!
 
 Contributing
 =============
@@ -44,6 +45,10 @@ ExtWebDriver uses Maven plugins to execute both the unit and integration tests. 
 mvn verify
 ```
 You can run individual tests by executing it from your IDE or through command line. If you want to run an integration test, you need to deploy the app locally first before execution.
+
+Requirements
+==============
+ExtWebDriver requires Java SE version 7 or above available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 License Type
 =============

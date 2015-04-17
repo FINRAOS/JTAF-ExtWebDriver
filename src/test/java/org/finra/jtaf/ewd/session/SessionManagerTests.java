@@ -105,7 +105,7 @@ public class SessionManagerTests {
 		Assert.assertNotNull(ewd3);
 		Assert.assertFalse(ewd3.isJavascriptClickMode());
 	}
-	
+
 	@Test
     public void testNewSessionConstructionWithOverrideOptionsConvenient() throws Exception {
         ExtWebDriver ewd = SessionManager.getInstance().setSessionFactory(new TestFactory()).getNewSession();
@@ -126,7 +126,7 @@ public class SessionManagerTests {
 		Assert.assertNotNull(ewd);
 		Assert.assertEquals("htmlunit", ewd.getBrowserName());
 	}
-	
+
 	@Test
     public void testNewSessionConstructionWithClientPropertiesConvenient() throws Exception {
         ExtWebDriver ewd = SessionManager.getInstance().getNewSession("client", "client.properties");
@@ -157,9 +157,9 @@ public class SessionManagerTests {
 		String expectedId = ewd.getSessionId();
 		Assert.assertNotNull(ewd);
 		SessionManager.getInstance().switchToSession(ewd);
-		Assert.assertEquals(expectedId, SessionManager.getInstance().getCurrentSession().getSessionId());	
+		Assert.assertEquals(expectedId, SessionManager.getInstance().getCurrentSession().getSessionId());
 	}
-	
+
 	@Test
 	public void testRemoveSessionString() throws Exception{
 		ExtWebDriver ewd = SessionManager.getInstance().setSessionFactory(new TestFactory()).getNewSession(false);
@@ -171,13 +171,13 @@ public class SessionManagerTests {
 		ewd = SessionManager.getInstance().getSession(sessionIdToRemove);
 		Assert.assertNull(ewd);
 	}
-	
+
 	class FailFactory extends DefaultSessionFactory{
 		   @Override
 		    public Map<String, String> createDefaultOptions() {
 		        HashMap<String, String> ret = new HashMap<String, String>();
 		        // Add any default options needed here (like path to default properties)
-		      
+
 		        ret.put("client", "fail.properties");
 
 		        return ret;

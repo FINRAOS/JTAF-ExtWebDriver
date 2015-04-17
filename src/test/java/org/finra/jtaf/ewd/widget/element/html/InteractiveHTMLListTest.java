@@ -22,7 +22,6 @@ import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.session.SessionManager;
 import org.finra.jtaf.ewd.widget.IInteractiveElement;
 import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.InteractiveElement;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -63,7 +62,7 @@ public class InteractiveHTMLListTest {
     	IInteractiveElement ie = hList.getInteractiveItem(1);
     	ie.click();
     	//This needs to happen since its a button
-    	Button b = new Button("//input[@id=\"button\"]");
+    	new Button("//input[@id=\"button\"]");
     }
 
     @Test(expected=WidgetException.class)
@@ -73,13 +72,13 @@ public class InteractiveHTMLListTest {
         IInteractiveElement ie = hList.getInteractiveItem(10);
         ie.click();
         //This needs to happen since its a button
-        Button b = new Button("//input[@id=\"button\"]");
+        new Button("//input[@id=\"button\"]");
     }
     
     @Test(expected=WidgetException.class)
     public void testGetInteractiveItemsException() throws WidgetException{
     	wd.open(url);
     	InteractiveHtmlList hList = new InteractiveHtmlList(badHtmlListLocator);
-    	List<IInteractiveElement> ieLists = hList.getInteractiveItems();
+    	hList.getInteractiveItems();
     }
 }

@@ -20,6 +20,7 @@ import org.finra.jtaf.ewd.widget.ITextField;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.WidgetRuntimeException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 
 /**
  * HTML Text Input element
@@ -29,8 +30,16 @@ public class Input extends InteractiveElement implements ITextField {
 
     public Input(String locator) {
         super(locator);
-        // TODO Auto-generated constructor stub
     }
+
+    /**
+     * @param locator
+     */
+    public Input(By locator) {
+        super(locator);
+    }
+
+
 
     /*
      * (non-Javadoc)
@@ -44,11 +53,11 @@ public class Input extends InteractiveElement implements ITextField {
             if (value instanceof String) {
                 type((String) value);
             } else {
-                throw new WidgetRuntimeException("Invalid type. 'value' must be a 'String' type", getLocator());
+                throw new WidgetRuntimeException("Invalid type. 'value' must be a 'String' type", getByLocator());
             }
 
         } catch (Exception e) {
-            throw new WidgetException("Error while typing " + value, getLocator(), e);
+            throw new WidgetException("Error while typing " + value, getByLocator(), e);
         }
     }
 
@@ -63,7 +72,7 @@ public class Input extends InteractiveElement implements ITextField {
         try {
             return getAttribute("value");
         } catch (Exception e) {
-            throw new WidgetException("Error while getting text value", getLocator(), e);
+            throw new WidgetException("Error while getting text value", getByLocator(), e);
         }
     }
 
@@ -77,7 +86,7 @@ public class Input extends InteractiveElement implements ITextField {
         try {
             super.typeAppend(text);
         } catch (Exception e) {
-            throw new WidgetException("Error while type appending " + text, getLocator(), e);
+            throw new WidgetException("Error while type appending " + text, getByLocator(), e);
         }
     }
 

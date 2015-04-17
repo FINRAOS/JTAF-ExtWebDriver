@@ -28,6 +28,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 public class ElementTest {
 
@@ -173,7 +174,7 @@ public class ElementTest {
     @Test(expected=WidgetException.class)
     public void testIsElementVisibleException() throws WidgetException{
     	wd.open(url);
-    	IElement hidden = new Element(null);
+    	IElement hidden = new Element((By)null);
     	hidden.isElementVisible();
     }
     

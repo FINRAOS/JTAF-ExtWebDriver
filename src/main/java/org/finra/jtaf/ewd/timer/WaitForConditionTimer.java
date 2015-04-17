@@ -17,7 +17,9 @@
 
 package org.finra.jtaf.ewd.timer;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.openqa.selenium.By;
 
 /**
  * Provides a way to block until the element at a given locator meets a given
@@ -27,9 +29,9 @@ import org.apache.log4j.Logger;
 public class WaitForConditionTimer {
 
     private ITimerCallback timerCallback;
-    private String locator;
+    private By locator;
 
-    private final Logger logger = Logger.getLogger(WaitForConditionTimer.class.getPackage()
+    private final Logger logger = LoggerFactory.getLogger(WaitForConditionTimer.class.getPackage()
             .getName());
 
     /**
@@ -42,7 +44,7 @@ public class WaitForConditionTimer {
      * @param timerCallback
      *            the method called to check the condition to be met
      */
-    public WaitForConditionTimer(String locator, ITimerCallback timerCallback) {
+    public WaitForConditionTimer(By locator, ITimerCallback timerCallback) {
         this.timerCallback = timerCallback;
         this.locator = locator;
     }

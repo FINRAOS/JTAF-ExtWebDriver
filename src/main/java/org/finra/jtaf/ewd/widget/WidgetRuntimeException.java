@@ -17,6 +17,8 @@
 
 package org.finra.jtaf.ewd.widget;
 
+import org.openqa.selenium.By;
+
 /**
  * Thrown by many {@link IElement Widget} interface methods to propagate a
  * {@link RuntimeException}.
@@ -41,6 +43,22 @@ public class WidgetRuntimeException extends Exception {
         super(message + ": at " + locator);
     }
 
+    
+    /**
+     * Constructs a {@code WidgetRuntimeException} with the specified detail
+     * message and the element locator being used when the {@code Exception} was
+     * thrown.
+     * 
+     * @param message
+     *            the detail message
+     * @param locator
+     *            the element locator being used when the {@code Exception} was
+     *            thrown
+     */
+    public WidgetRuntimeException(String message, By locator) {
+        super(message + ": at " + locator);
+    }
+    
     /**
      * Constructs a {@code WidgetRuntimeException} with the specified detail
      * message, the element locator being used when the {@code Exception} was

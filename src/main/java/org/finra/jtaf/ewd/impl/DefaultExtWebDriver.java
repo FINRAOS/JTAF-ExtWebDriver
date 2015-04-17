@@ -33,20 +33,18 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.ccil.cowan.tagsoup.Parser;
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.HighlightProvider;
 import org.finra.jtaf.ewd.TimeOutException;
 import org.finra.jtaf.ewd.widget.IElement;
-import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.Element;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.HasCapabilities;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.w3c.dom.Node;
@@ -62,7 +60,7 @@ import com.google.common.collect.Lists;
  * 
  */
 public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
-	private static Logger logger = Logger.getLogger(ExtWebDriver.class
+	private static Logger logger = LoggerFactory.getLogger(ExtWebDriver.class
 			.getPackage().getName());
 
 	/**
@@ -428,49 +426,6 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 		}
 	}
 
-	/**
-	 * Executes JavaScript in the context of an element
-	 * 
-	 * @param javaScript
-	 *            the script to execute
-	 * @param element
-	 *            the object on which to execute
-	 * 
-	 *            TODO: use
-	 *            {@link org.finra.jtaf.ewd.timer.WaitForConditionTimer}
-	 */
-	private void eval(String javaScript, WebElement element) {
-		try {
-			// TODO: add configuration for JavaScript executor
-			((JavascriptExecutor) wd).executeScript(javaScript);
-
-			// TODO: catch specific exceptions. If wd is not a JavaScript
-			// executor, don't bother waiting.
-		} catch (Exception e) {
-			long time = System.currentTimeMillis() + 2000;
-			boolean success = false;
-			while (!success && System.currentTimeMillis() < time) {
-				try {
-					((JavascriptExecutor) wd)
-							.executeScript(javaScript, element);
-					success = true;
-				} catch (Exception e2) {
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						// TODO: log
-					}
-					e = e2;
-				}
-			}
-
-			if (!success) {
-				// TODO: use specific exception type(s) for eval issues
-				throw new RuntimeException(e);
-			}
-		}
-	}
-
 	@Override
 	public String getHtmlSource() {
 		selectLastFrame();
@@ -558,8 +513,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 				wd.switchTo().defaultContent();
 			}
 
-            FrameNode nextFrame = new FrameNode(currentFrame, "(//iframe)[" + i
-					+ "]", this.getWrappedDriver().findElement(By.xpath("(//iframe)[" + i + "]")));
+            FrameNode nextFrame = new FrameNode(currentFrame, By.xpath("(//iframe)[" + i + "]"), this.getWrappedDriver().findElement(By.xpath("(//iframe)[" + i + "]")));
 			String nextFrameId = currFrameId.substring(0,
 					currFrameId.length() - 1) + "-" + i + "]";
 
@@ -579,11 +533,11 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 			if (lastSelectedFrame != null) {
 				FrameNode parentNode = lastSelectedFrame;
-				lastSelectedFrame = new FrameNode(parentNode, element.getLocator(),
+				lastSelectedFrame = new FrameNode(parentNode, element.getByLocator(),
 						frameElement);
 			} else {
 				FrameNode parentNode = new FrameNode();
-				lastSelectedFrame = new FrameNode(parentNode, element.getLocator(),
+				lastSelectedFrame = new FrameNode(parentNode, element.getByLocator(),
 						frameElement);
 			}
 			// TODO: look for a specific exception
@@ -595,7 +549,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 				wd.switchTo().frame(frameElement);
 
 				FrameNode parentNode = new FrameNode();
-				lastSelectedFrame = new FrameNode(parentNode, element.getLocator(),
+				lastSelectedFrame = new FrameNode(parentNode, element.getByLocator(),
 						frameElement);
 			} else {
 				Stack<FrameNode> framesToSelect = new Stack<FrameNode>();
@@ -742,7 +696,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 		private boolean isRoot;
 		private final FrameNode parentNode;
-		private final String iframeLocator;
+		private final By iframeLocator;
 		private final WebElement frame;
 
 		/**
@@ -766,7 +720,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 		 * @param frame
 		 *            the WebElement frame itself
 		 */
-		FrameNode(FrameNode parentNode, String iframeLocator, WebElement frame) {
+		FrameNode(FrameNode parentNode, By iframeLocator, WebElement frame) {
 			this.setRoot(false);
 			this.parentNode = parentNode;
 			this.iframeLocator = iframeLocator;
@@ -796,7 +750,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 		 *
 		 * @return String representing the locator of the frame element
 		 */
-		String getFrameLocator() {
+		By getFrameLocator() {
 			return iframeLocator;
 		}
 

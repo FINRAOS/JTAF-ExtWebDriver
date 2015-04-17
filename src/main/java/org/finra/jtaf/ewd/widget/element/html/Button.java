@@ -19,6 +19,7 @@ package org.finra.jtaf.ewd.widget.element.html;
 import org.finra.jtaf.ewd.widget.IButton;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
+import org.openqa.selenium.By;
 
 /**
  * 
@@ -31,6 +32,12 @@ public class Button extends InteractiveElement implements IButton {
         super(locator);
     }
 
+    public Button(By locator) {
+        super(locator);
+    }
+
+
+
     /*
      * (non-Javadoc)
      * 
@@ -41,7 +48,7 @@ public class Button extends InteractiveElement implements IButton {
         try {
             return getText();
         } catch (Exception e) {
-            throw new WidgetException("Error while getting button text", getLocator(), e);
+            throw new WidgetException("Error while getting button text", getByLocator(), e);
         }
     }
 }

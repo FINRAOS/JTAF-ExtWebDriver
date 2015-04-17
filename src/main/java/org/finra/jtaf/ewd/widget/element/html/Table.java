@@ -34,12 +34,13 @@ import javax.xml.xpath.XPathFactory;
 
 import org.ccil.cowan.tagsoup.Parser;
 import org.finra.jtaf.ewd.widget.IElement;
-import org.finra.jtaf.ewd.widget.IReadableElement;
 import org.finra.jtaf.ewd.widget.ITable;
 import org.finra.jtaf.ewd.widget.WidgetException;
 import org.finra.jtaf.ewd.widget.element.Element;
 import org.finra.jtaf.ewd.widget.element.InteractiveElement;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -68,6 +69,16 @@ public class Table extends InteractiveElement implements ITable {
      * 
      * @param locator
      *            XPath, ID, name, CSS Selector, class name, or tag name
+     * @throws WidgetException
+     */
+    public Table(By locator) throws WidgetException {
+        super(locator);
+    }
+    
+    /**
+     * 
+     * @param locator
+     *            XPath, ID, name, CSS Selector, class name, or tag name
      * @return String of the xpath
      * @throws WidgetException
      */
@@ -77,7 +88,7 @@ public class Table extends InteractiveElement implements ITable {
     private String generateXPathLocator() throws WidgetException {
     	if(xPathLocator == null)
     	{
-            IElement elem = new Element(getLocator());
+            IElement elem = new Element(getByLocator());
             String key = "tablewidgetattribute";
             long value = System.currentTimeMillis();
             elem.eval("arguments[0].setAttribute('" + key + "', '" + value + "')");

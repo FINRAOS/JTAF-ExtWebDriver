@@ -140,6 +140,7 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
             webElements = wd.findElements(By.xpath(locator));
             if (webElements != null && webElements.size() > 0) {
                 for (WebElement we : webElements) {
+                    //TODO the we is never used. So this makes no sense. 
                     highlight( HIGHLIGHT_MODES.FIND);
                 }
                 return webElements;
@@ -151,6 +152,7 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
             webElements = wd.findElements(By.id(locator));
             if (webElements != null && webElements.size() > 0) {
                 for (WebElement we : webElements) {
+                    //TODO the we is never used. So this makes no sense.
                     highlight( HIGHLIGHT_MODES.FIND);
                 }
                 return webElements;
@@ -162,6 +164,7 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
             webElements = wd.findElements(By.name(locator));
             if (webElements != null && webElements.size() > 0) {
                 for (WebElement we : webElements) {
+                    //TODO the we is never used. So this makes no sense.
                     highlight( HIGHLIGHT_MODES.FIND);
                 }
                 return webElements;
@@ -184,6 +187,7 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
             webElements = wd.findElements(By.className(locator));
             if (webElements != null && webElements.size() > 0) {
                 for (WebElement we : webElements) {
+                  //TODO the we is never used. So this makes no sense.
                     highlight( HIGHLIGHT_MODES.FIND);
                 }
                 return webElements;
@@ -195,6 +199,7 @@ public class RadioGroup extends InteractiveElement implements IRadioGroup {
             webElements = wd.findElements(By.tagName(locator));
             if (webElements != null && webElements.size() > 0) {
                 for (WebElement we : webElements) {
+                  //TODO the we is never used. So this makes no sense.
                     highlight( HIGHLIGHT_MODES.FIND);
                 }
                 return webElements;
