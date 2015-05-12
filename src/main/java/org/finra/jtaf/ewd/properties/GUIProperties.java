@@ -84,7 +84,7 @@ public class GUIProperties {
                 return RESOURCE_BUNDLE.getString(key).trim();
             }
         } catch (MissingResourceException e) {
-            throw new PropertyNotFoundRuntimeException(key, actualBundleName);
+            throw new MissingGUIPropertyException(key, actualBundleName);
         } catch (IllegalArgumentException ie) {
             throw ie;
         }
@@ -99,7 +99,7 @@ public class GUIProperties {
      *            instances of the {@code String} literal <code>"{n}"</code> in
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the parameterized property associated with the given key
-     * @throws PropertyNotFoundRuntimeException
+     * @throws MissingGUIPropertyException
      */
     public String getPropertyValue(String key, String... params) {
         return getString(key, params);
@@ -115,7 +115,7 @@ public class GUIProperties {
      *            instances of the {@code String} literal <code>"{n}"</code> in
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the parameterized property list associated with the given key
-     * @throws PropertyNotFoundRuntimeException
+     * @throws MissingGUIPropertyException
      */
     public List<String> getPropertyValueAsList(String key, String... params) {
         try {
@@ -130,7 +130,7 @@ public class GUIProperties {
                 return Arrays.asList(properties);
             }
         } catch (MissingResourceException e) {
-        	throw new PropertyNotFoundRuntimeException(key, actualBundleName);
+        	throw new MissingGUIPropertyException(key, actualBundleName);
         } catch (IllegalArgumentException ie) {
             throw ie;
         }
