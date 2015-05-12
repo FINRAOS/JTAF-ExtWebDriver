@@ -35,6 +35,8 @@ import java.util.PropertyResourceBundle;
 public class GUIProperties {
     private static final String DEFAULT_BUNDLE_NAME = "gui.properties";
     private final PropertyResourceBundle RESOURCE_BUNDLE;
+    
+    private final String actualBundleName;
 
     /**
      * Constructs a {@code GUIProperties} using the default bundle name.
@@ -51,6 +53,7 @@ public class GUIProperties {
         } catch (IOException e) {
             throw new RuntimeException("Could not load :" + DEFAULT_BUNDLE_NAME, e);
         }
+        this.actualBundleName = DEFAULT_BUNDLE_NAME;
     }
 
     /**
@@ -70,9 +73,10 @@ public class GUIProperties {
         } catch (IOException e) {
             throw new RuntimeException("Could not load :" + guiPropertiesFileName, e);
         }
+        this.actualBundleName = guiPropertiesFileName;
     }
 
-    private String getString(String key, Object params[]) throws Exception {
+    private String getString(String key, Object params[]) {
         try {
             if ((params != null) && (params.length > 0)) {
                 return MessageFormat.format(RESOURCE_BUNDLE.getString(key), params).trim();
@@ -80,7 +84,7 @@ public class GUIProperties {
                 return RESOURCE_BUNDLE.getString(key).trim();
             }
         } catch (MissingResourceException e) {
-            throw e;
+            throw new PropertyNotFoundRuntimeException(key, actualBundleName);
         } catch (IllegalArgumentException ie) {
             throw ie;
         }
@@ -95,9 +99,9 @@ public class GUIProperties {
      *            instances of the {@code String} literal <code>"{n}"</code> in
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the parameterized property associated with the given key
-     * @throws Exception
+     * @throws PropertyNotFoundRuntimeException
      */
-    public String getPropertyValue(String key, String... params) throws Exception {
+    public String getPropertyValue(String key, String... params) {
         return getString(key, params);
     }
 
@@ -111,9 +115,9 @@ public class GUIProperties {
      *            instances of the {@code String} literal <code>"{n}"</code> in
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the parameterized property list associated with the given key
-     * @throws Exception
+     * @throws PropertyNotFoundRuntimeException
      */
-    public List<String> getPropertyValueAsList(String key, String... params) throws Exception {
+    public List<String> getPropertyValueAsList(String key, String... params) {
         try {
             String properties[] = RESOURCE_BUNDLE.getStringArray(key);
             if ((params != null) && (params.length > 0)) {
@@ -126,7 +130,7 @@ public class GUIProperties {
                 return Arrays.asList(properties);
             }
         } catch (MissingResourceException e) {
-            throw e;
+        	throw new PropertyNotFoundRuntimeException(key, actualBundleName);
         } catch (IllegalArgumentException ie) {
             throw ie;
         }
