@@ -110,6 +110,27 @@ public class ScreenshotUtils {
 	}
 	
 	/***
+	 * Take a screenshot of the browser content. Note that while using RemoteWebDriver sessions (ie: with
+	 * Sauce Labs), the screenshot will be a full page of content--not only the visible content where the
+	 * page is scrolled (as when using a non-RemoteWebDriver session).
+	 * 
+	 * @param toSaveAs - name of the file to save the picture in (Note: must be PNG)
+	 * @throws IOException 
+	 */
+	public static void takeScreenshotOfPage(File toSaveAs) throws IOException {
+		WebDriver wd = SessionManager.getInstance().getCurrentSession().getWrappedDriver();
+		File screenshot;
+		if(!(wd instanceof RemoteWebDriver)) {
+			screenshot = ((TakesScreenshot) wd).getScreenshotAs(OutputType.FILE);		
+		}
+		else {
+			Augmenter augmenter = new Augmenter();
+			screenshot = ((TakesScreenshot) augmenter.augment(wd)).getScreenshotAs(OutputType.FILE);
+		}
+		FileUtils.copyFile(screenshot, toSaveAs);
+	}
+	
+	/***
 	 * Prereq: The page on which you are taking the screenshot is fully loaded
 	 * 
 	 * Take a screenshot of the element identified by element and save the file as toSaveAs
