@@ -64,9 +64,9 @@ public class GUIHierarchyConcatenationProperties {
      *            names to be concatenated and searched for
      * @return the first property found associated with a concatenation of the
      *         given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String[] propertyNames) throws Exception {
+    public String getPropertyValue(String[] propertyNames) throws MissingGUIPropertyException {
         return getPropertyValue(propertyNames, (String[]) null);
     }
 
@@ -82,9 +82,9 @@ public class GUIHierarchyConcatenationProperties {
      *            names to be concatenated and searched for
      * @return the first property list found associated with a concatenation of
      *         the given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String[] propertyNames) throws Exception {
+    public List<String> getPropertyValueAsList(String[] propertyNames) throws MissingGUIPropertyException {
         return getPropertyValueAsList(propertyNames, (String[]) null);
     }
 
@@ -96,9 +96,9 @@ public class GUIHierarchyConcatenationProperties {
      *            property name to be found
      * @return the first property found associated with a concatenation of the
      *         given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String propertyName) throws Exception {
+    public String getPropertyValue(String propertyName) throws MissingGUIPropertyException {
         String[] propertyNames = new String[1];
         propertyNames[0] = propertyName;
 
@@ -113,9 +113,9 @@ public class GUIHierarchyConcatenationProperties {
      *            property name to be found
      * @return the first property list found associated with a concatenation of
      *         the given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String propertyName) throws Exception {
+    public List<String> getPropertyValueAsList(String propertyName) throws MissingGUIPropertyException {
         String[] propertyNames = new String[1];
         propertyNames[0] = propertyName;
 
@@ -137,21 +137,22 @@ public class GUIHierarchyConcatenationProperties {
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the first property found associated with a concatenation of the
      *         given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String[] propertyNames, String... parameters) throws Exception {
+    public String getPropertyValue(String[] propertyNames, String... parameters) 
+    		throws MissingGUIPropertyException {
         // Create possible combinations of property names
         String value;
-        List<String> possiblePropertyName = new ArrayList<String>();
+        List<String> possiblePropertyNames = new ArrayList<String>();
         StringBuffer fullName = new StringBuffer();
         for (int i = 0; i < propertyNames.length; i++) {
             fullName.append(propertyNames[propertyNames.length - i - 1]);
-            possiblePropertyName.add(fullName.toString());
+            possiblePropertyNames.add(fullName.toString());
         }
 
         // Try to find the property
-        for (int i = 0; i < possiblePropertyName.size(); i++) {
-            String propertyNameCurrent = possiblePropertyName.get(possiblePropertyName.size() - i
+        for (int i = 0; i < possiblePropertyNames.size(); i++) {
+            String propertyNameCurrent = possiblePropertyNames.get(possiblePropertyNames.size() - i
                     - 1);
 
             for (int y = 0; y < propertyFiles.size(); y++) {
@@ -169,9 +170,7 @@ public class GUIHierarchyConcatenationProperties {
             }
         }
 
-        throw new Exception("Can't find '" + StringUtils.join(possiblePropertyName, ",")
-                + "' property(ies) in '" + StringUtils.join(propertyFilesNames, ",")
-                + "' property file(s)");
+        throw new MissingGUIPropertyException(possiblePropertyNames, propertyFilesNames);
     }
 
     /**
@@ -189,22 +188,22 @@ public class GUIHierarchyConcatenationProperties {
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the first property list found associated with a concatenation of
      *         the given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
     public List<String> getPropertyValueAsList(String[] propertyNames, String... parameters)
-            throws Exception {
+            throws MissingGUIPropertyException {
         // Create possible combinations of property names
         List<String> value;
-        List<String> possiblePropertyName = new ArrayList<String>();
+        List<String> possiblePropertyNames = new ArrayList<String>();
         StringBuffer fullName = new StringBuffer();
         for (int i = 0; i < propertyNames.length; i++) {
             fullName.append(propertyNames[propertyNames.length - i - 1]);
-            possiblePropertyName.add(fullName.toString());
+            possiblePropertyNames.add(fullName.toString());
         }
 
         // Try to find the property
-        for (int i = 0; i < possiblePropertyName.size(); i++) {
-            String propertyNameCurrent = possiblePropertyName.get(possiblePropertyName.size() - i
+        for (int i = 0; i < possiblePropertyNames.size(); i++) {
+            String propertyNameCurrent = possiblePropertyNames.get(possiblePropertyNames.size() - i
                     - 1);
 
             for (int y = 0; y < propertyFiles.size(); y++) {
@@ -223,9 +222,7 @@ public class GUIHierarchyConcatenationProperties {
             }
         }
 
-        throw new Exception("Can't find '" + StringUtils.join(possiblePropertyName, ",")
-                + "' property(ies) in '" + StringUtils.join(propertyFilesNames, ",")
-                + "' property file(s)");
+        throw new MissingGUIPropertyException(possiblePropertyNames, propertyFilesNames);
     }
 
     /**
@@ -239,9 +236,9 @@ public class GUIHierarchyConcatenationProperties {
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the first property found associated with a concatenation of the
      *         given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String key, String... parameters) throws Exception {
+    public String getPropertyValue(String key, String... parameters) throws MissingGUIPropertyException {
         return getPropertyValue(new String[] { key }, parameters);
     }
 
@@ -256,9 +253,10 @@ public class GUIHierarchyConcatenationProperties {
      *            the retrieved value will be replaced by {@code params[n]}
      * @return the first property list found associated with a concatenation of
      *         the given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String key, String... parameters) throws Exception {
+    public List<String> getPropertyValueAsList(String key, String... parameters) 
+    		throws MissingGUIPropertyException {
         return getPropertyValueAsList(new String[] { key }, parameters);
     }
 
@@ -274,9 +272,9 @@ public class GUIHierarchyConcatenationProperties {
      *            representation of {@code params[n]}
      * @return the first property found associated with a concatenation of the
      *         given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String key, Object[] parameters) throws Exception {
+    public String getPropertyValue(String key, Object[] parameters) throws MissingGUIPropertyException {
         if (parameters != null && parameters.length > 0) {
             String parameters2[] = new String[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
@@ -303,9 +301,10 @@ public class GUIHierarchyConcatenationProperties {
      *            representation of {@code params[n]}
      * @return the first property list found associated with a concatenation of
      *         the given names
-     * @throws Exception
+     * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String key, Object[] parameters) throws Exception {
+    public List<String> getPropertyValueAsList(String key, Object[] parameters) 
+    		throws MissingGUIPropertyException {
         if (parameters != null && parameters.length > 0) {
             String parameters2[] = new String[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
