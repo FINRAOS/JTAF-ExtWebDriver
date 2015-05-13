@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.MissingResourceException;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * Collects a group of {@link GUIProperties}.
  * 
@@ -66,7 +64,7 @@ public class GUIHierarchyConcatenationProperties {
      *         given names
      * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String[] propertyNames) throws MissingGUIPropertyException {
+    public String getPropertyValue(String[] propertyNames) {
         return getPropertyValue(propertyNames, (String[]) null);
     }
 
@@ -84,7 +82,7 @@ public class GUIHierarchyConcatenationProperties {
      *         the given names
      * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String[] propertyNames) throws MissingGUIPropertyException {
+    public List<String> getPropertyValueAsList(String[] propertyNames) {
         return getPropertyValueAsList(propertyNames, (String[]) null);
     }
 
@@ -98,7 +96,7 @@ public class GUIHierarchyConcatenationProperties {
      *         given names
      * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String propertyName) throws MissingGUIPropertyException {
+    public String getPropertyValue(String propertyName) {
         String[] propertyNames = new String[1];
         propertyNames[0] = propertyName;
 
@@ -115,7 +113,7 @@ public class GUIHierarchyConcatenationProperties {
      *         the given names
      * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String propertyName) throws MissingGUIPropertyException {
+    public List<String> getPropertyValueAsList(String propertyName) {
         String[] propertyNames = new String[1];
         propertyNames[0] = propertyName;
 
@@ -139,8 +137,7 @@ public class GUIHierarchyConcatenationProperties {
      *         given names
      * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String[] propertyNames, String... parameters) 
-    		throws MissingGUIPropertyException {
+    public String getPropertyValue(String[] propertyNames, String... parameters) {
         // Create possible combinations of property names
         String value;
         List<String> possiblePropertyNames = new ArrayList<String>();
@@ -190,8 +187,7 @@ public class GUIHierarchyConcatenationProperties {
      *         the given names
      * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String[] propertyNames, String... parameters)
-            throws MissingGUIPropertyException {
+    public List<String> getPropertyValueAsList(String[] propertyNames, String... parameters) {
         // Create possible combinations of property names
         List<String> value;
         List<String> possiblePropertyNames = new ArrayList<String>();
@@ -238,7 +234,7 @@ public class GUIHierarchyConcatenationProperties {
      *         given names
      * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String key, String... parameters) throws MissingGUIPropertyException {
+    public String getPropertyValue(String key, String... parameters) {
         return getPropertyValue(new String[] { key }, parameters);
     }
 
@@ -255,8 +251,7 @@ public class GUIHierarchyConcatenationProperties {
      *         the given names
      * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String key, String... parameters) 
-    		throws MissingGUIPropertyException {
+    public List<String> getPropertyValueAsList(String key, String... parameters) {
         return getPropertyValueAsList(new String[] { key }, parameters);
     }
 
@@ -274,7 +269,7 @@ public class GUIHierarchyConcatenationProperties {
      *         given names
      * @throws MissingGUIPropertyException
      */
-    public String getPropertyValue(String key, Object[] parameters) throws MissingGUIPropertyException {
+    public String getPropertyValue(String key, Object[] parameters) {
         if (parameters != null && parameters.length > 0) {
             String parameters2[] = new String[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
@@ -303,8 +298,7 @@ public class GUIHierarchyConcatenationProperties {
      *         the given names
      * @throws MissingGUIPropertyException
      */
-    public List<String> getPropertyValueAsList(String key, Object[] parameters) 
-    		throws MissingGUIPropertyException {
+    public List<String> getPropertyValueAsList(String key, Object[] parameters) {
         if (parameters != null && parameters.length > 0) {
             String parameters2[] = new String[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
