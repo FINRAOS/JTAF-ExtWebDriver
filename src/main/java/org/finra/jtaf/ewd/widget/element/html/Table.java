@@ -33,11 +33,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.ccil.cowan.tagsoup.Parser;
-import org.finra.jtaf.ewd.widget.IElement;
-import org.finra.jtaf.ewd.widget.ITable;
-import org.finra.jtaf.ewd.widget.WidgetException;
-import org.finra.jtaf.ewd.widget.element.Element;
-import org.finra.jtaf.ewd.widget.element.InteractiveElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -46,6 +41,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
+
+import org.finra.jtaf.ewd.widget.IElement;
+import org.finra.jtaf.ewd.widget.ITable;
+import org.finra.jtaf.ewd.widget.WidgetException;
+import org.finra.jtaf.ewd.widget.element.Element;
+import org.finra.jtaf.ewd.widget.element.InteractiveElement;
 
 /**
  * HTML Table element
@@ -76,9 +77,6 @@ public class Table extends InteractiveElement implements ITable {
     }
     
     /**
-     * 
-     * @param locator
-     *            XPath, ID, name, CSS Selector, class name, or tag name
      * @return String of the xpath
      * @throws WidgetException
      */
@@ -409,7 +407,11 @@ public class Table extends InteractiveElement implements ITable {
         } else {
             if (n.getNodeType() != Node.TEXT_NODE) {
                 NamedNodeMap attrs = n.getAttributes();
-                Node styleAttr = attrs.getNamedItem("style");
+                Node styleAttr = null;
+                if (attrs != null)
+                {
+                    styleAttr = attrs.getNamedItem("style");
+                }
                 NodeList cnl = null;
                 if (styleAttr != null) {
                     String style = styleAttr.getTextContent();
