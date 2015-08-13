@@ -1,18 +1,17 @@
 /*
  * (C) Copyright 2013 Java Test Automation Framework Contributors.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
  */
 package org.finra.jtaf.ewd.session;
 
@@ -31,7 +30,8 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
  * of test execution has its own manager instance.
  * 
  */
-public class SessionManager {
+public class SessionManager
+{
 
     private Map<String, ExtWebDriver> sessions = new HashMap<String, ExtWebDriver>();
 
@@ -44,22 +44,28 @@ public class SessionManager {
 
     private boolean doCleanup = true;
 
-    private SessionManager() {
+    private SessionManager()
+    {
 
     }
 
-    private static ThreadLocal<SessionManager> sessionManager = new ThreadLocal<SessionManager>() {
-        protected synchronized SessionManager initialValue() {
+    private static ThreadLocal<SessionManager> sessionManager = new ThreadLocal<SessionManager>()
+    {
+        @Override
+        protected synchronized SessionManager initialValue()
+        {
             return new SessionManager();
         }
     };
-    
-    private static ThreadLocal<SessionFactory> sessionFactory = new ThreadLocal<SessionFactory>() {
-        protected synchronized SessionFactory initialValue() {
+
+    private static ThreadLocal<SessionFactory> sessionFactory = new ThreadLocal<SessionFactory>()
+    {
+        @Override
+        protected synchronized SessionFactory initialValue()
+        {
             return new DefaultSessionFactory();
         }
     };
-
 
     /**
      * Obtain the ThreadLocal instance of SessionManager. Configures the
@@ -70,8 +76,9 @@ public class SessionManager {
      * @see setSessionFactory
      */
 
-    public static SessionManager getInstance() {
-    	return sessionManager.get();
+    public static SessionManager getInstance()
+    {
+        return sessionManager.get();
     }
 
     /**
@@ -88,7 +95,8 @@ public class SessionManager {
      * @see getInstance
      */
 
-    public SessionManager setSessionFactory(SessionFactory impl) {
+    public SessionManager setSessionFactory(SessionFactory impl)
+    {
         sessionFactory.set(impl);
         return this;
     }
@@ -107,19 +115,26 @@ public class SessionManager {
      *      switchToSession(String)
      */
 
-    public ExtWebDriver getCurrentSession(boolean createIfNotFound) {
+    public ExtWebDriver getCurrentSession(boolean createIfNotFound)
+    {
 
-        for (int i = 0; i < MAX_RETRIES; i++) {
+        for (int i = 0; i < MAX_RETRIES; i++)
+        {
             ExtWebDriver sel = sessions.get(currentSessionId);
-            try {
-                if ((sel == null) && (createIfNotFound)) {
+            try
+            {
+                if ((sel == null) && (createIfNotFound))
+                {
                     sel = getNewSession();
                 }
                 return sel;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 // if the exception is of type UnreachableBrowserException, try
                 // again
-                if (!(e instanceof UnreachableBrowserException)) {
+                if (!(e instanceof UnreachableBrowserException))
+                {
                     e.printStackTrace();
                 }
             }
@@ -135,7 +150,8 @@ public class SessionManager {
      * @return ExtWebDriver an instance of ExtWebDriver
      */
 
-    public ExtWebDriver getCurrentSession() {
+    public ExtWebDriver getCurrentSession()
+    {
         return getCurrentSession(true);
     }
 
@@ -146,7 +162,8 @@ public class SessionManager {
      * @return
      */
 
-    public ExtWebDriver getSession(String sessionId) {
+    public ExtWebDriver getSession(String sessionId)
+    {
         return sessions.get(sessionId);
     }
 
@@ -157,7 +174,8 @@ public class SessionManager {
      * @return
      */
 
-    public Map<String, ExtWebDriver> getSessions() {
+    public Map<String, ExtWebDriver> getSessions()
+    {
         return sessions;
     }
 
@@ -168,7 +186,8 @@ public class SessionManager {
      * @param sessionId
      */
 
-    public void switchToSession(String sessionId) {
+    public void switchToSession(String sessionId)
+    {
         currentSessionId = sessionId;
     }
 
@@ -181,7 +200,8 @@ public class SessionManager {
      * @param sessionId
      */
 
-    public void switchToSession(ExtWebDriver ewd) {
+    public void switchToSession(ExtWebDriver ewd)
+    {
         currentSessionId = ewd.getSessionId();
     }
 
@@ -191,7 +211,8 @@ public class SessionManager {
      * 
      * @return
      */
-    public String getCurrentSessionId() {
+    public String getCurrentSessionId()
+    {
         return currentSessionId;
     }
 
@@ -202,7 +223,8 @@ public class SessionManager {
      *            the ID of the session to be removed
      */
 
-    public void removeSession(String sessionId) {
+    public void removeSession(String sessionId)
+    {
         sessions.remove(sessionId);
     }
 
@@ -215,7 +237,8 @@ public class SessionManager {
      *            the ExtWebDriver session to be removed
      */
 
-    public void removeSession(ExtWebDriver session) {
+    public void removeSession(ExtWebDriver session)
+    {
         sessions.remove(session.getSessionId());
     }
 
@@ -228,7 +251,8 @@ public class SessionManager {
      * @throws Exception
      */
 
-    public ExtWebDriver getNewSession() throws Exception {
+    public ExtWebDriver getNewSession() throws Exception
+    {
         return getNewSession(true);
     }
 
@@ -244,7 +268,8 @@ public class SessionManager {
      * @throws Exception
      */
 
-    public ExtWebDriver getNewSession(boolean setAsCurrent) throws Exception {
+    public ExtWebDriver getNewSession(boolean setAsCurrent) throws Exception
+    {
         Map<String, String> options = sessionFactory.get().createDefaultOptions();
         return getNewSessionDo(options, setAsCurrent);
     }
@@ -266,7 +291,8 @@ public class SessionManager {
      * @throws Exception
      */
 
-    public ExtWebDriver getNewSession(String key, String value) throws Exception {
+    public ExtWebDriver getNewSession(String key, String value) throws Exception
+    {
         return getNewSession(key, value, true);
     }
 
@@ -290,7 +316,8 @@ public class SessionManager {
      */
 
     public ExtWebDriver getNewSession(String key, String value, boolean setAsCurrent)
-            throws Exception {
+        throws Exception
+    {
 
         /**
          * This is where the clientPropertiesFile is parsed and key-value pairs
@@ -314,7 +341,8 @@ public class SessionManager {
      * @throws Exception
      */
 
-    public ExtWebDriver getNewSession(Map<String, String> override) throws Exception {
+    public ExtWebDriver getNewSession(Map<String, String> override) throws Exception
+    {
         return getNewSession(override, true);
     }
 
@@ -333,11 +361,13 @@ public class SessionManager {
      */
 
     public ExtWebDriver getNewSession(Map<String, String> override, boolean setAsCurrent)
-            throws Exception {
+        throws Exception
+    {
 
         Map<String, String> options = sessionFactory.get().createDefaultOptions();
 
-        for (Entry<String, String> opt : override.entrySet()) {
+        for (Entry<String, String> opt : override.entrySet())
+        {
             options.put(opt.getKey(), opt.getValue());
         }
 
@@ -345,9 +375,11 @@ public class SessionManager {
     }
 
     private ExtWebDriver getNewSessionDo(Map<String, String> options, boolean setAsCurrent)
-            throws Exception {
+        throws Exception
+    {
 
-        if (doCleanup) {
+        if (doCleanup)
+        {
             sessionFactory.get().cleanup(options);
             doCleanup = false;
         }
@@ -362,7 +394,8 @@ public class SessionManager {
         ExtWebDriver sel = sessionFactory.get().createNewSession(options, innerDriver);
 
         String sessionId = getNextCustomSessionId();
-        if (setAsCurrent) {
+        if (setAsCurrent)
+        {
             currentSessionId = sessionId;
         }
 
@@ -379,7 +412,8 @@ public class SessionManager {
      * 
      * @return String of the next session Id
      */
-    private String getNextCustomSessionId() {
+    private String getNextCustomSessionId()
+    {
         String id = "custom_" + nextCustomSessionId;
         nextCustomSessionId++;
         return id;
