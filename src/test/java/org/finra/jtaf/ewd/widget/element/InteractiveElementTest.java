@@ -372,6 +372,18 @@ public class InteractiveElementTest {
         Assert.assertEquals("'", i.getValue());
     }
 
+    @Test
+    public void testJavascriptTypeWordWithApostrophe() throws WidgetException{
+        wd.open(url);
+        wd.setTypeMode(true);
+        IInteractiveElement field = new InteractiveElement("//input[@id='inputFieldTest']");
+        field.waitForElementPresent();
+        field.type("What's up doc?");
+        wd.setTypeMode(false);
+        Input i = new Input(field.getByLocator());
+        Assert.assertEquals("What's up doc?", i.getValue());
+    }
+
     @Test(expected=WidgetException.class)
     public void testTypeException() throws WidgetException{
     	wd.open(url);
