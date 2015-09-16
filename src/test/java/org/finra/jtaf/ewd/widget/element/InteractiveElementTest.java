@@ -360,6 +360,18 @@ public class InteractiveElementTest {
         Assert.assertEquals("'", i.getValue());
     }
 
+    @Test
+    public void testJavascriptTypeUserEscapedSingleQuote() throws WidgetException{
+        wd.open(url);
+        wd.setTypeMode(true);
+        IInteractiveElement field = new InteractiveElement("//input[@id='inputFieldTest']");
+        field.waitForElementPresent();
+        field.type("\\'");
+        wd.setTypeMode(false);
+        Input i = new Input(field.getByLocator());
+        Assert.assertEquals("'", i.getValue());
+    }
+
     @Test(expected=WidgetException.class)
     public void testTypeException() throws WidgetException{
     	wd.open(url);

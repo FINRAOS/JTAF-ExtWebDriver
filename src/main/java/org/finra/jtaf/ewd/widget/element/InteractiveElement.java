@@ -295,7 +295,11 @@ public class InteractiveElement extends Element implements IInteractiveElement {
     public void type(String text) throws WidgetException{
         try{
 	    	if (getGUIDriver().isJavascriptTypeMode()) {
-	            final String theText = text.replaceAll("\\'", "\\\\'");
+
+                // Replaces apostrophes that have not been escaped with escaped variations
+                // Slashes need to be escaped multiple times.  Once for Java's string escaping
+                // and again for the RegEx engine escaping.
+	            final String theText = text.replaceAll("(\\\\')|(\\')", "\\\\'");
                 highlight( HIGHLIGHT_MODES.PUT);
                 try {
                     eval("arguments[0].value='" + theText + "';");
