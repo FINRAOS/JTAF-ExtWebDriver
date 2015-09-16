@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package org.finra.jtaf.ewd.widget.element;
 
@@ -32,16 +32,16 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 
 	/**
-    * 
+    *
     * @param locator
     *            XPath, ID, name, CSS Selector, class name, or tag name
     */
 	public InteractiveElement(String locator) {
 		super(locator);
 	}
-	
+
    /**
-    * 
+    *
     * @param locator an By-expression.
     */
     public InteractiveElement(By locator) {
@@ -50,7 +50,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IClickableElement#click()
 	 */
 	@Override
@@ -82,7 +82,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IClickableElement#doubleClick()
 	 */
 	@Override
@@ -101,7 +101,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IClickableElement#rightClick()
 	 */
 	@Override
@@ -120,7 +120,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#isEnabled()
 	 */
 	@Override
@@ -136,7 +136,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * qc.automation.framework.widget.IInteractiveElement#dragAndDrop(IElement element)
 	 */
@@ -146,7 +146,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 			Actions builder = new Actions(getGUIDriver().getWrappedDriver());
 	        synchronized (InteractiveElement.class) {
 	            getGUIDriver().focus();
-	            builder.dragAndDrop(this.getWebElement(), 
+	            builder.dragAndDrop(this.getWebElement(),
 	            		new InteractiveElement(element.getByLocator()).getWebElement()).build().perform();
 	        }
 		} catch (Exception e) {
@@ -158,7 +158,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * qc.automation.framework.widget.IInteractiveElement#dragAndDropByOffset(IElement element)
 	 */
@@ -177,7 +177,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	 }
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#keyDown()
 	 */
 	@Override
@@ -201,7 +201,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#keyUp()
 	 */
 	@Override
@@ -226,7 +226,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#clickAndHold()
 	 */
 	@Override
@@ -245,7 +245,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * qc.automation.framework.widget.IInteractiveElement#releaseClickAndHold()
 	 */
@@ -265,7 +265,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * qc.automation.framework.widget.IInteractiveElement#sendKeys(CharSequence
 	 * keysToSend)
@@ -287,7 +287,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see qc.automation.framework.widget.IInteractiveElement#type(java.lang.String,
      * java.lang.String)
      */
@@ -295,7 +295,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
     public void type(String text) throws WidgetException{
         try{
 	    	if (getGUIDriver().isJavascriptTypeMode()) {
-	            final String theText = text;
+	            final String theText = text.replaceAll("\\'", "\\\\'");
                 highlight( HIGHLIGHT_MODES.PUT);
                 try {
                     eval("arguments[0].value='" + theText + "';");
@@ -321,10 +321,10 @@ public class InteractiveElement extends Element implements IInteractiveElement {
         	throw new WidgetException("Error while trying to type at " + getByLocator(), getByLocator(), e);
         }
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see qc.automation.framework.widget.IInteractiveElement#typeAppend(java.lang.String,
      * java.lang.String)
      */
@@ -343,7 +343,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#mouseMove()
 	 */
 	@Override
@@ -362,7 +362,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#mouseMoveOut()
 	 */
 	@Override
@@ -387,7 +387,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see qc.automation.framework.widget.IInteractiveElement#mouseOver()
 	 */
 	@Override
@@ -401,7 +401,7 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	}
 
 	/**
-	 * Throw Unsupported Operation exception if getValue() on Interactive element is invoked 
+	 * Throw Unsupported Operation exception if getValue() on Interactive element is invoked
 	 */
 	@Override
 	public Object getValue() throws WidgetException {
@@ -409,13 +409,13 @@ public class InteractiveElement extends Element implements IInteractiveElement {
 	}
 
 	/**
-	 * Throw Unsupported Operation exception if getLabel() on Interactive element is invoked 
+	 * Throw Unsupported Operation exception if getLabel() on Interactive element is invoked
 	 */
 	@Override
 	public String getLabel() throws WidgetException {
 		throw new UnsupportedOperationException("getLabel() is not supported by InteractiveElement");
 	}
-	
-	 
+
+
 
 }
