@@ -44,7 +44,10 @@ ExtWebDriver uses Maven plugins to execute both the unit and integration tests. 
 ```sh
 mvn verify
 ```
-You can run individual tests by executing it from your IDE or through command line. If you want to run an integration test, you need to deploy the app locally first before execution.
+You can run individual tests by executing it from your IDE or through command line. If you want to run an integration test, you need to deploy the app locally first before execution. You can start the application server by executing:
+```sh
+mvn jetty:start
+```
 
 Requirements
 ==============
