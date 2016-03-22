@@ -39,6 +39,7 @@ import org.ccil.cowan.tagsoup.Parser;
 import org.finra.jtaf.ewd.ExtWebDriver;
 import org.finra.jtaf.ewd.HighlightProvider;
 import org.finra.jtaf.ewd.TimeOutException;
+import org.finra.jtaf.ewd.impl.ClientProperties;
 import org.finra.jtaf.ewd.widget.IElement;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
