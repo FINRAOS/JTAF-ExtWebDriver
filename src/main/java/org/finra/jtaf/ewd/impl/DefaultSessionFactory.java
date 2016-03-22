@@ -37,8 +37,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.finra.jtaf.ewd.ExtWebDriver;
-import org.finra.jtaf.ewd.impl.ClientProperties;
-import org.finra.jtaf.ewd.impl.DefaultExtWebDriver;
 import org.finra.jtaf.ewd.session.SessionFactory;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
