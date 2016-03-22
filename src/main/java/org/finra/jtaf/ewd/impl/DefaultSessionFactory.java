@@ -419,7 +419,8 @@ public class DefaultSessionFactory implements SessionFactory {
                 wd = new ChromeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("safari")) {
                 wd = new SafariDriver(desiredCapabilities);
-            } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge")) {
+            } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge")
+            		|| browser.equalsIgnoreCase("edge")) {
                 wd = new EdgeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("htmlunit")) {
                 wd = new HtmlUnitDriver(desiredCapabilities);
