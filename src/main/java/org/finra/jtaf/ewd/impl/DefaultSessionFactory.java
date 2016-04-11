@@ -233,6 +233,20 @@ public class DefaultSessionFactory implements SessionFactory {
                 capabilities.setCapability("platform", "Windows 7");
             }
 
+            String sauceFile = properties.getGridSaucefile() ;
+            if (sauceFile != null && sauceFile.length() > 0) {
+                Map<String,String> sOptions = new HashMap<String,String>();
+                sOptions.put("executable", "sauce-storage:" + sauceFile );
+                sOptions.put("args", "[ '--silent', '-a', '-q' ]");
+                sOptions.put("background", "true");
+                 
+                capabilities.setCapability("prerun",sOptions);
+            	
+            }
+            
+
+            
+            
             // Set Proxy
             String proxyStr = properties.getProxy();
             String proxyHttps = properties.getProxyHttps();
