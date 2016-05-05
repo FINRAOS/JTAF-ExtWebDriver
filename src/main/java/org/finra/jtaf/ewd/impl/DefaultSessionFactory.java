@@ -43,6 +43,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -215,7 +216,9 @@ public class DefaultSessionFactory implements SessionFactory {
                 capabilities = DesiredCapabilities.ipad();
             } else if (browser.equalsIgnoreCase("iphone")) {
                 capabilities = DesiredCapabilities.iphone();
-            } else {
+            } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge")) {
+            	capabilities = DesiredCapabilities.edge();
+			} else {
                 log.fatal("Unsupported browser: " + browser
                         + " Please refer to documentation for supported browsers.");
             }
@@ -414,6 +417,9 @@ public class DefaultSessionFactory implements SessionFactory {
                 wd = new ChromeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("safari")) {
                 wd = new SafariDriver(desiredCapabilities);
+            } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge")
+            		|| browser.equalsIgnoreCase("edge")) {
+                wd = new EdgeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("htmlunit")) {
                 wd = new HtmlUnitDriver(desiredCapabilities);
                 ((HtmlUnitDriver) wd).setJavascriptEnabled(true);
