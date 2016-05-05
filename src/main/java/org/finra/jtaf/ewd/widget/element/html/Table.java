@@ -278,14 +278,12 @@ public class Table extends InteractiveElement implements ITable {
     public boolean isItemExist(Map<String, String> item) throws WidgetException {
         try {
             List<Map<String, String>> tableData = getTableDataInMap();
-            Set<String> keys = item.keySet();
             for (Map<String, String> rowData : tableData) {
                 boolean found = true;
-                for (String key : keys) {
-                    String actual = rowData.get(key);
-                    String expect = item.get(key);
+                for (Map.Entry<String, String> expectedEntry : item.entrySet()) {
+                    String actual = rowData.get(expectedEntry.getKey());
 
-                    if (!actual.equals(expect)) {
+                    if (!actual.equals(expectedEntry.getValue())) {
                         found = false;
                     }
                 }
@@ -311,15 +309,13 @@ public class Table extends InteractiveElement implements ITable {
     public int getRowNumber(Map<String, String> item) throws WidgetException {
         try {
             List<Map<String, String>> tableData = getTableDataInMap();
-            Set<String> keys = item.keySet();
             int index = 1;
             for (Map<String, String> rowData : tableData) {
                 boolean found = true;
-                for (String key : keys) {
-                    String actual = rowData.get(key);
-                    String expect = item.get(key);
+                for (Map.Entry<String, String> expectedEntry : item.entrySet()) {
+                    String actual = rowData.get(expectedEntry.getKey());
 
-                    if (!actual.equals(expect)) {
+                    if (!actual.equals(expectedEntry.getValue())) {
                         found = false;
                     }
                 }
