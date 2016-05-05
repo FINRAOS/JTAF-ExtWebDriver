@@ -40,16 +40,16 @@ public class InteractiveElementTest {
 	private String getButton(String id){
 		return "//button[@id='" + id + "']";
 	}
-	
+
 	private String getInput(String id){
 		return "//input[@id='" + id + "']";
 	}
-	
-	
+
+
 	private String getDiv(String id){
 		return "//div[@id='" + id + "']";
 	}
-	
+
     @Before
     public void setup() throws Exception {
         wd = SessionManager.getInstance().getCurrentSession();
@@ -61,7 +61,7 @@ public class InteractiveElementTest {
         SessionManager.getInstance().removeSession(wd);
 
     }
- 
+
     @Test
     public void testClick() throws Exception {
         wd.open(url);
@@ -71,7 +71,7 @@ public class InteractiveElementTest {
         ie.click();
         Assert.assertEquals("Clicked", (new Element("//div[@id='content']")).getText());
     }
-    
+
     @Test
     public void testClickJSClick() throws Exception {
         wd.open(url);
@@ -83,14 +83,14 @@ public class InteractiveElementTest {
         wd.setClickMode(false);
         Assert.assertEquals("Clicked", content.getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testClickException() throws Exception {
         wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//button[@id='zzzz");
         ie.click();
     }
-    
+
     @Test
     public void testDoubleClick() throws Exception {
         wd.open(url);
@@ -100,14 +100,14 @@ public class InteractiveElementTest {
         ie.doubleClick();
         Assert.assertEquals("double clicked", (new Element("//div[@id='content']")).getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testDoubleClickException() throws Exception {
         wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//button[@id='zzzz");
         ie.doubleClick();
     }
-    
+
     @Test
     public void testRightClick() throws Exception {
         wd.open(url);
@@ -117,21 +117,21 @@ public class InteractiveElementTest {
         ie.rightClick();
         Assert.assertEquals("right clicked", (new Element("//div[@id='content']")).getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testRightClickException() throws Exception {
         wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//input[bad");
         ie.rightClick();
     }
-    
+
     @Test
     public void testIsEnabledFalse() throws WidgetException {
         wd.open(url);
         IInteractiveElement ie = new InteractiveElement(getButton("disabledBtn"));
         ie.waitForElementPresent();
         Assert.assertFalse("isEnabled should return false", ie.isEnabled());
-    
+
     }
 
     @Test
@@ -140,15 +140,15 @@ public class InteractiveElementTest {
         IInteractiveElement ie = new InteractiveElement(getInput("rightClickTest"));
         ie.waitForElementPresent();
         Assert.assertTrue("isEnabled should return true", ie.isEnabled());
-        	
+
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testIsEnabledException() throws WidgetException {
     	wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//input[bad");
         Assert.assertTrue("isEnabled should return true", ie.isEnabled());
-        
+
     }
 
     @Test(expected=WidgetException.class)
@@ -157,17 +157,17 @@ public class InteractiveElementTest {
 
         IInteractiveElement ie = new InteractiveElement("//div[bad");
         IInteractiveElement destination = new InteractiveElement("//div[alsoBad");
-        ie.dragAndDrop(destination);       	
+        ie.dragAndDrop(destination);
     }
-      
+
     @Test(expected=WidgetException.class)
     public void testDragAndDropByOffsetException() throws WidgetException{
     	wd.open(url);
 
         IInteractiveElement ie = new InteractiveElement("//div[bad");
-        ie.dragAndDropByOffset(0, 50);       	
+        ie.dragAndDropByOffset(0, 50);
     }
-    
+
     @Test
     public void testKeyDown() throws WidgetException{
     	wd.open(url);
@@ -177,14 +177,14 @@ public class InteractiveElementTest {
         ie.keyDown(Keys.SHIFT);
         Assert.assertEquals("KeyDown", element.getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testKeyDownException() throws WidgetException{
     	wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//input[bad]");
         ie.keyDown(Keys.SHIFT);
-    }    
-    
+    }
+
     @Test
     public void testKeyUp() throws WidgetException{
     	wd.open(url);
@@ -196,56 +196,56 @@ public class InteractiveElementTest {
         ie.keyUp(Keys.SHIFT);
         Assert.assertEquals("KeyUp", element.getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testKeyUpException() throws WidgetException{
     	wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//input[bad]");
         ie.keyUp(Keys.SHIFT);
     }
-    
+
     @Test
     public void testClickAndHold() throws WidgetException{
     	wd.open(url);
 
         IInteractiveElement ie = new InteractiveElement(getInput("mouseEvents"));
         IElement element = new Element(getDiv("content"));
-        
+
         ie.waitForElementPresent();
         ie.clickAndHold();
         Assert.assertEquals("Mouse is Down", element.getText());
-           
+
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testClickAndHoldException() throws WidgetException{
     	wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//input[bad]");
-        ie.clickAndHold();          
+        ie.clickAndHold();
     }
-    
+
     @Test
     public void testReleaseClickAndHold() throws WidgetException{
     	wd.open(url);
 
         IInteractiveElement ie = new InteractiveElement(getInput("mouseEvents"));
         IElement element = new Element(getDiv("content"));
-        
+
         ie.waitForElementPresent();
         ie.clickAndHold();
         ie.releaseClickAndHold();
         Assert.assertEquals("Mouse Released", element.getText());
-           
+
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testReleaseClickAndHoldException() throws WidgetException{
     	wd.open(url);
 
         IInteractiveElement ie = new InteractiveElement("//input[bad]");
-        ie.releaseClickAndHold();          
+        ie.releaseClickAndHold();
     }
-    
+
     @Test
     public void testSendKeys() throws WidgetException{
     	wd.open(url);
@@ -256,7 +256,7 @@ public class InteractiveElementTest {
         ie.sendKeys("abcd");
         Assert.assertEquals("abcd", element.getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testSendKeysException() throws WidgetException{
     	wd.open(url);
@@ -264,7 +264,7 @@ public class InteractiveElementTest {
         IInteractiveElement ie = new InteractiveElement("//input[bad]");
         ie.sendKeys("abcd");
     }
-    
+
     @Test
     public void testMouseMove() throws WidgetException{
     	wd.open(url);
@@ -275,7 +275,7 @@ public class InteractiveElementTest {
         ie.mouseMove();
         Assert.assertEquals("Mouse Move Triggered", element.getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testMouseMoveException() throws WidgetException{
     	wd.open(url);
@@ -301,14 +301,14 @@ public class InteractiveElementTest {
         ie.mouseOver();
         Assert.assertEquals("Mouse Over", element.getText());
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testMouseOverException() throws WidgetException{
     	wd.open(url);
         IInteractiveElement ie = new InteractiveElement("//input[bad]");
         ie.mouseOver();
     }
-    
+
     @Test(expected=UnsupportedOperationException.class)
     public void testGetValue() throws WidgetException{
     	wd.open(url);
@@ -316,7 +316,7 @@ public class InteractiveElementTest {
         ie.waitForElementPresent();
         ie.getValue();
     }
-    
+
     @Test(expected=UnsupportedOperationException.class)
     public void testGetLabel() throws WidgetException{
     	wd.open(url);
@@ -325,7 +325,7 @@ public class InteractiveElementTest {
         ie.waitForElementPresent();
         ie.getLabel();
     }
-    
+
     @Test
     public void testType() throws WidgetException{
     	wd.open(url);
@@ -335,7 +335,7 @@ public class InteractiveElementTest {
         IElement element = new Element(getDiv("textcontent"));
         Assert.assertEquals("hello", element.getText());
     }
-    
+
     @Test
     public void testJavascriptType() throws WidgetException{
     	wd.open(url);
@@ -347,35 +347,71 @@ public class InteractiveElementTest {
     	Input i = new Input(field.getByLocator());
         Assert.assertEquals("hello", i.getValue());
     }
-    
+
+    @Test
+    public void testJavascriptTypeSingleQuote() throws WidgetException{
+        wd.open(url);
+        wd.setTypeMode(true);
+        IInteractiveElement field = new InteractiveElement("//input[@id='inputFieldTest']");
+        field.waitForElementPresent();
+        field.type("'");
+        wd.setTypeMode(false);
+        Input i = new Input(field.getByLocator());
+        Assert.assertEquals("'", i.getValue());
+    }
+
+    @Test
+    public void testJavascriptTypeUserEscapedSingleQuote() throws WidgetException{
+        wd.open(url);
+        wd.setTypeMode(true);
+        IInteractiveElement field = new InteractiveElement("//input[@id='inputFieldTest']");
+        field.waitForElementPresent();
+        field.type("\\'");
+        wd.setTypeMode(false);
+        Input i = new Input(field.getByLocator());
+        Assert.assertEquals("'", i.getValue());
+    }
+
+    @Test
+    public void testJavascriptTypeWordWithApostrophe() throws WidgetException{
+        wd.open(url);
+        wd.setTypeMode(true);
+        IInteractiveElement field = new InteractiveElement("//input[@id='inputFieldTest']");
+        field.waitForElementPresent();
+        field.type("What's up doc?");
+        wd.setTypeMode(false);
+        Input i = new Input(field.getByLocator());
+        Assert.assertEquals("What's up doc?", i.getValue());
+    }
+
     @Test(expected=WidgetException.class)
     public void testTypeException() throws WidgetException{
     	wd.open(url);
     	IInteractiveElement field = new InteractiveElement("//input[dff]");
     	field.type("hello");
     }
-    
+
     @Test
     public void testTypeAppend() throws WidgetException{
     	wd.open(url);
     	IInteractiveElement field = new InteractiveElement("//input[@id='inputFieldTest']");
         IElement element = new Element(getDiv("textcontent"));
-        
+
     	field.waitForElementPresent();
     	field.typeAppend("hello");
         Assert.assertEquals("hello", element.getText());
         field.typeAppend("world");
         Assert.assertEquals("helloworld", element.getText());
-        
+
     }
-    
+
     @Test(expected=WidgetException.class)
     public void testTypeAppendException() throws WidgetException{
     	wd.open(url);
     	IInteractiveElement field = new InteractiveElement("//input[dff]");
     	field.type("hello");
     }
-    
+
     @Test
     public void testHighlight() throws WidgetException{
     	wd.open(url);
@@ -385,9 +421,9 @@ public class InteractiveElementTest {
         	b.click();
         	Assert.assertEquals(getRgb(b.getCssValue("background-color")), highDriver.getHighlightColor("put"));
     	}
-    	
+
     }
-    
+
     public String getRgb(String rgba){
     	if(rgba.startsWith("rgba") & rgba.split(",").length>3){
     		String[] splits = rgba.substring(rgba.indexOf("a")+1).split(",");
