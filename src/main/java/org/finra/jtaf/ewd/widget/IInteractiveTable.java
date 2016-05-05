@@ -32,7 +32,7 @@ public interface IInteractiveTable extends ITable {
      *            - the desired row to be selected
      * @throws WidgetException
      */
-    public void selectRow(int rowNumber) throws WidgetException;
+    void selectRow(int rowNumber) throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting a specific row in a
@@ -43,7 +43,7 @@ public interface IInteractiveTable extends ITable {
      *            used to select the row that contains the same values
      * @throws WidgetException
      */
-    public void selectRow(Map<String, String> item) throws WidgetException;
+    void selectRow(Map<String, String> item) throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting a specific row in a
@@ -55,7 +55,7 @@ public interface IInteractiveTable extends ITable {
      *            contains the same values
      * @throws WidgetException
      */
-    public void selectRowElement(Map<String, Object> item) throws WidgetException;
+    void selectRowElement(Map<String, Object> item) throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting multiple rows in a
@@ -65,7 +65,7 @@ public interface IInteractiveTable extends ITable {
      *            - an array containing all of the row numbers
      * @throws WidgetException
      */
-    public void selectRows(int[] rowNumbers) throws WidgetException;
+    void selectRows(int... rowNumbers) throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting specific rows in a
@@ -76,7 +76,7 @@ public interface IInteractiveTable extends ITable {
      *            used to select the row that contains the same values
      * @throws WidgetException
      */
-    public void selectRows(List<Map<String, String>> items) throws WidgetException;
+    void selectRows(List<Map<String, String>> items) throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting specific rows in a
@@ -88,7 +88,7 @@ public interface IInteractiveTable extends ITable {
      *            contains the same values
      * @throws WidgetException
      */
-    public void selectRowsElements(List<Map<String, Object>> items) throws WidgetException;
+    void selectRowsElements(List<Map<String, Object>> items) throws WidgetException;
 
     /**
      * Implementing this method would allow for double clicking on a specific
@@ -98,7 +98,7 @@ public interface IInteractiveTable extends ITable {
      *            - the number indicating which row is to be double clicked
      * @throws WidgetException
      */
-    public void doubleClickRow(int rowNumber) throws WidgetException;
+    void doubleClickRow(int rowNumber) throws WidgetException;
 
     /**
      * Implementing this method would allow for double clicking on a specific
@@ -108,7 +108,7 @@ public interface IInteractiveTable extends ITable {
      *            - the number indicating which row is to be double clicked
      * @throws WidgetException
      */
-    public void doubleClickRow(int rowNumber, int columnNumber) throws WidgetException;
+    void doubleClickRow(int rowNumber, int columnNumber) throws WidgetException;
 
     /**
      * Implementing this method would allow for double clicking on a specific
@@ -119,7 +119,7 @@ public interface IInteractiveTable extends ITable {
      *            used to select the row that contains the same values
      * @throws WidgetException
      */
-    public void doubleClickRow(Map<String, String> item) throws WidgetException;
+    void doubleClickRow(Map<String, String> item) throws WidgetException;
 
     /**
      * Implementing this method would allow for double clicking a specific row
@@ -131,7 +131,7 @@ public interface IInteractiveTable extends ITable {
      *            contains the same values
      * @throws WidgetException
      */
-    public void doubleClickRowElement(Map<String, Object> item) throws WidgetException;
+    void doubleClickRowElement(Map<String, Object> item) throws WidgetException;
 
     /**
      * Implementing this method would allow for double clicking on a specific
@@ -142,7 +142,7 @@ public interface IInteractiveTable extends ITable {
      *            used to select the row that contains the same values
      * @throws WidgetException
      */
-    public void doubleClickRow(Map<String, String> item, int columnNumber) throws WidgetException;
+    void doubleClickRow(Map<String, String> item, int columnNumber) throws WidgetException;
 
     /**
      * Implementing this method would allow for double clicking a specific cell
@@ -154,7 +154,7 @@ public interface IInteractiveTable extends ITable {
      *            contains the same values
      * @throws WidgetException
      */
-    public void doubleClickRowElement(Map<String, Object> item, int columnNumber)
+    void doubleClickRowElement(Map<String, Object> item, int columnNumber)
             throws WidgetException;
 
     /**
@@ -165,7 +165,7 @@ public interface IInteractiveTable extends ITable {
      *         a String array
      * @throws WidgetException
      */
-    public List<String[]> getSelectedRowsInArray() throws WidgetException;
+    List<String[]> getSelectedRowsInArray() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting all of the elements of
@@ -175,7 +175,7 @@ public interface IInteractiveTable extends ITable {
      *         a Object array
      * @throws WidgetException
      */
-    public List<Object[]> getSelectedRowsElementsInArray() throws WidgetException;
+    List<Object[]> getSelectedRowsElementsInArray() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting all of the key-value
@@ -185,7 +185,7 @@ public interface IInteractiveTable extends ITable {
      *         contained in a Map<String, String>
      * @throws WidgetException
      */
-    public List<Map<String, String>> getSelectedRowsInMap() throws WidgetException;
+    List<Map<String, String>> getSelectedRowsInMap() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting all of the key-value
@@ -195,5 +195,5 @@ public interface IInteractiveTable extends ITable {
      *         contained in a Map<String, String>
      * @throws WidgetException
      */
-    public List<Map<String, Object>> getSelectedRowsElementsInMap() throws WidgetException;
+    List<Map<String, Object>> getSelectedRowsElementsInMap() throws WidgetException;
 }

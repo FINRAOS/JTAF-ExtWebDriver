@@ -29,5 +29,5 @@ public interface IEditableElement extends IInteractiveElement {
      *            - the value that the editable element
      * @throws WidgetException
      */
-    public void setValue(Object value) throws WidgetException;
+    void setValue(Object value) throws WidgetException;
 }

@@ -28,5 +28,5 @@ public interface IImage extends IInteractiveElement {
      * @return the source of the image as a String
      * @throws WidgetException
      */
-    public String getSource() throws WidgetException;
+    String getSource() throws WidgetException;
 }

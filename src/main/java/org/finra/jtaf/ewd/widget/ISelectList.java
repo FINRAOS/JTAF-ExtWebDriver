@@ -29,7 +29,7 @@ public interface ISelectList extends IEditableElement {
      * @return all of the options in the list as a List of Strings
      * @throws WidgetException
      */
-    public List<String> getOptions() throws WidgetException;
+    List<String> getOptions() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the currently selected
@@ -39,7 +39,7 @@ public interface ISelectList extends IEditableElement {
      *         Strings
      * @throws WidgetException
      */
-    public List<String> getSelectedOptions() throws WidgetException;
+    List<String> getSelectedOptions() throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting a specific option from
@@ -49,7 +49,7 @@ public interface ISelectList extends IEditableElement {
      *            - the option that is to be selected
      * @throws WidgetException
      */
-    public void selectOption(String option) throws WidgetException;
+    void selectOption(String option) throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the text of the
@@ -58,7 +58,7 @@ public interface ISelectList extends IEditableElement {
      * @return the text of the currently selected option
      * @throws WidgetException
      */
-    public String getSelectedOption() throws WidgetException;
+    String getSelectedOption() throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting multiple options in
@@ -68,7 +68,7 @@ public interface ISelectList extends IEditableElement {
      *            - the list containing the text of the elements to be selected
      * @throws WidgetException
      */
-    public void selectMultipleOptions(List<String> options) throws WidgetException;
+    void selectMultipleOptions(List<String> options) throws WidgetException;
 
     /**
      * Implementing this method would allow for deselecting any options in the
@@ -76,6 +76,6 @@ public interface ISelectList extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void deselectAllOptions() throws WidgetException;
+    void deselectAllOptions() throws WidgetException;
 
 }

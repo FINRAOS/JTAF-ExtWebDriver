@@ -32,7 +32,7 @@ public interface IElement {
      * @return the locator to the element in the form of a String.
      * @deprecated getLocator is no longer reliable when IElements can be created from Bys
      */
-    public String getLocator();
+    String getLocator();
 
     /**
      * Implementing this method would allow for obtaining the XPath, ID, name,
@@ -40,7 +40,7 @@ public interface IElement {
      * 
      * @return the locator to the element in the form of a {@link By}-Object.
      */
-    public By getByLocator();
+    By getByLocator();
     
     /**
      * Implementing this method would allow for checking if an element is
@@ -49,7 +49,7 @@ public interface IElement {
      * @return true if the element is present or false if it isn't
      * @throws WidgetException
      */
-    public boolean isElementPresent() throws WidgetException;
+    boolean isElementPresent() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if an element is
@@ -61,7 +61,7 @@ public interface IElement {
      * @return true if the element is present or false if it isn't
      * @throws WidgetException
      */
-    public boolean isElementPresent(long time) throws WidgetException;
+    boolean isElementPresent(long time) throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if an element is
@@ -75,7 +75,7 @@ public interface IElement {
      * @return true if the element is present or false if it isn't
      * @throws WidgetException
      */
-    public boolean isElementPresent(boolean useJavaXpath) throws WidgetException;
+    boolean isElementPresent(boolean useJavaXpath) throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if an element is Not
@@ -84,7 +84,7 @@ public interface IElement {
      * @throws WidgetException
      * @return
      */
-    public boolean isElementNotPresent() throws WidgetException;
+    boolean isElementNotPresent() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if an element is Not
@@ -95,7 +95,7 @@ public interface IElement {
      * @throws WidgetException
      * @return
      */
-    public boolean isElementNotPresent(long timeout) throws WidgetException;
+    boolean isElementNotPresent(long timeout) throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if an element is
@@ -104,7 +104,7 @@ public interface IElement {
      * @return true if the element is visible or false if it isn't
      * @throws WidgetException
      */
-    public boolean isElementVisible() throws WidgetException;
+    boolean isElementVisible() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if an element is
@@ -116,7 +116,7 @@ public interface IElement {
      * @return true if the element is visible or false if it isn't
      * @throws WidgetException
      */
-    public boolean isElementVisible(long time) throws WidgetException;
+    boolean isElementVisible(long time) throws WidgetException;
 
     /***
      * Implementing this method would allow for checking whether an element
@@ -124,7 +124,7 @@ public interface IElement {
      * @return
      * @throws WidgetException
      */
-    public boolean isWithinBoundsOfWindow() throws WidgetException;
+    boolean isWithinBoundsOfWindow() throws WidgetException;
     
     /**
      * Implementing this method would allow for the test to wait until the
@@ -132,7 +132,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForElementPresent() throws WidgetException, WidgetTimeoutException;
+    void waitForElementPresent() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for the test to wait a designated
@@ -143,7 +143,7 @@ public interface IElement {
      *            be present
      * @throws WidgetException
      */
-    public void waitForElementPresent(long time) throws WidgetException, WidgetTimeoutException;
+    void waitForElementPresent(long time) throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for the test to wait until the
@@ -151,7 +151,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForElementNotPresent() throws WidgetException, WidgetTimeoutException;
+    void waitForElementNotPresent() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for the test to wait a designated
@@ -162,7 +162,7 @@ public interface IElement {
      *            be present
      * @throws WidgetException
      */
-    public void waitForElementNotPresent(long time) throws WidgetException, WidgetTimeoutException;
+    void waitForElementNotPresent(long time) throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for the test to wait until the
@@ -170,7 +170,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForVisible() throws WidgetException, WidgetTimeoutException;
+    void waitForVisible() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for the test to wait until a
@@ -181,7 +181,7 @@ public interface IElement {
      *            be visible
      * @throws WidgetException
      */
-    public void waitForVisible(long time) throws WidgetException;
+    void waitForVisible(long time) throws WidgetException;
 
     /**
      * Implementing this method would allow for the test to wait until the
@@ -189,7 +189,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForNotVisible() throws WidgetException, WidgetTimeoutException;
+    void waitForNotVisible() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for the test to wait a designated
@@ -200,7 +200,7 @@ public interface IElement {
      *            be not visible
      * @throws WidgetException
      */
-    public void waitForNotVisible(long time) throws WidgetException;
+    void waitForNotVisible(long time) throws WidgetException;
 
     /**
      * Implementing this method would allow for obtaining the text of the
@@ -209,7 +209,7 @@ public interface IElement {
      * @return the text of the element as a String
      * @throws WidgetException
      */
-    public String getText() throws WidgetException;
+    String getText() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking if the element has a
@@ -220,7 +220,7 @@ public interface IElement {
      * @return true if the element has this attribute and false if it does not
      * @throws WidgetException
      */
-    public boolean isAttributePresent(String attributeName) throws WidgetException;
+    boolean isAttributePresent(String attributeName) throws WidgetException;
 
     /**
      * Implementing this method would allow for getting an attribute of an
@@ -231,7 +231,7 @@ public interface IElement {
      * @return the attribute's value
      * @throws WidgetException
      */
-    public String getAttribute(String attributeName) throws WidgetException;
+    String getAttribute(String attributeName) throws WidgetException;
 
     /**
      * Implementing this method would allow for keeping the test from
@@ -243,7 +243,7 @@ public interface IElement {
      *            - the value that the test waits for the attribute to have
      * @throws WidgetException
      */
-    public void waitForAttributeEqualTo(String attributeName, String attributeValue)
+    void waitForAttributeEqualTo(String attributeName, String attributeValue)
             throws WidgetException, WidgetTimeoutException;
 
     /**
@@ -261,7 +261,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForAttributeEqualTo(String attributeName, String attributeValue, long time)
+    void waitForAttributeEqualTo(String attributeName, String attributeValue, long time)
             throws WidgetException, WidgetTimeoutException;
 
     /**
@@ -275,7 +275,7 @@ public interface IElement {
      *            have
      * @throws WidgetException
      */
-    public void waitForAttributeNotEqualTo(String attributeName, String attributeValue)
+    void waitForAttributeNotEqualTo(String attributeName, String attributeValue)
             throws WidgetException, WidgetTimeoutException;
 
     /**
@@ -293,7 +293,7 @@ public interface IElement {
      *            to be no longer have to the desired value
      * @throws WidgetException
      */
-    public void waitForAttributeNotEqualTo(String attributeName, String attributeValue, long time)
+    void waitForAttributeNotEqualTo(String attributeName, String attributeValue, long time)
             throws WidgetException, WidgetTimeoutException;
 
     /**
@@ -308,7 +308,7 @@ public interface IElement {
      *            Milliseconds
      * @throws WidgetException
      */
-    public void waitForAttribute(String attributeName, String pattern, long timeout)
+    void waitForAttribute(String attributeName, String pattern, long timeout)
             throws WidgetException;
 
     /**
@@ -321,7 +321,7 @@ public interface IElement {
      *            String pattern to match
      * @throws WidgetException
      */
-    public void waitForAttribute(String attributeName, String pattern) throws WidgetException;
+    void waitForAttribute(String attributeName, String pattern) throws WidgetException;
 
     /**
      * Waits for specific attribute value not match specific pattern within
@@ -335,7 +335,7 @@ public interface IElement {
      *            Milliseconds
      * @throws WidgetException
      */
-    public void waitForNotAttribute(String attributeName, String pattern, long timeout)
+    void waitForNotAttribute(String attributeName, String pattern, long timeout)
             throws WidgetException;
 
     /**
@@ -348,7 +348,7 @@ public interface IElement {
      *            String pattern to match
      * @throws WidgetException
      */
-    public void waitForNotAttribute(String attributeName, String pattern) throws WidgetException;
+    void waitForNotAttribute(String attributeName, String pattern) throws WidgetException;
 
     /**
      * Implementing this method would allow for keeping the test from
@@ -356,7 +356,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForText() throws WidgetException, WidgetTimeoutException;
+    void waitForText() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for keeping the test from
@@ -369,14 +369,14 @@ public interface IElement {
      * @throws WidgetException
      * @throws WidgetTimeoutException
      */
-    public void waitForText(long time) throws WidgetException, WidgetTimeoutException;
+    void waitForText(long time) throws WidgetException, WidgetTimeoutException;
 
     /**
      * Waits for element to be enabled within period of maxRequestTimeout
      * 
      * @throws WidgetException
      */
-    public void waitForEnabled() throws WidgetException;
+    void waitForEnabled() throws WidgetException;
 
     /**
      * Waits for element to be enabled within period of specified time
@@ -386,7 +386,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public void waitForEnabled(long time) throws WidgetException;
+    void waitForEnabled(long time) throws WidgetException;
 
     /**
      * Implementing this method would allow for obtaining the X-coordinate of
@@ -396,7 +396,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public int getLocationX() throws WidgetException;
+    int getLocationX() throws WidgetException;
 
     /**
      * Implementing this method would allow for obtaining the Y-coordinate of
@@ -406,7 +406,7 @@ public interface IElement {
      * 
      * @throws WidgetException
      */
-    public int getLocationY() throws WidgetException;
+    int getLocationY() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking to see if the element's
@@ -417,7 +417,7 @@ public interface IElement {
      * @return true if the text is present and false if it is not
      * @throws WidgetException
      */
-    public boolean hasText(String text) throws WidgetException;
+    boolean hasText(String text) throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the CSS value given the
@@ -428,14 +428,14 @@ public interface IElement {
      * @return the value of the property
      * @throws WidgetException
      */
-    public String getCssValue(String propertyName) throws WidgetException;
+    String getCssValue(String propertyName) throws WidgetException;
 
     /**
      * Implementing this method would allow for highlighting this element
      * 
      * @throws WidgetException
      */
-    public void highlight() throws WidgetException;
+    void highlight() throws WidgetException;
 
     /**
      * Implementing this method would allow for highlighting this element a
@@ -445,7 +445,7 @@ public interface IElement {
      *            - the color to be used when highlighting the element
      * @throws WidgetException
      */
-    public void highlight(String color) throws WidgetException;
+    void highlight(String color) throws WidgetException;
 
     /**
      * Implementing this method would allow for getting this element as a
@@ -454,14 +454,14 @@ public interface IElement {
      * @return this element as a WebElement
      * @throws WidgetException
      */
-    public WebElement getWebElement() throws WidgetException;
+    WebElement getWebElement() throws WidgetException;
 
     /**
      * Returns true if the element is enabled.
      * 
      * @return true if this element is enabled and false if it is not
      */
-    public boolean isEnabled() throws WidgetException;
+    boolean isEnabled() throws WidgetException;
 
     /**
      * Implementing this method would allow for forcing an element to fire a
@@ -471,7 +471,7 @@ public interface IElement {
      *            - the event that this element should fire
      * @throws WidgetException
      */
-    public void fireEvent(String event) throws WidgetException;
+    void fireEvent(String event) throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the text of all of this
@@ -480,7 +480,7 @@ public interface IElement {
      * @return an array containing the text of all the child nodes
      * @throws WidgetException
      */
-    public String[] getChildNodesValuesText() throws WidgetException;
+    String[] getChildNodesValuesText() throws WidgetException;
 
     /**
      * Returns inner HTML of the element
@@ -488,7 +488,7 @@ public interface IElement {
      * @return the inner HTML as a string
      * @throws Exception
      */
-    public String getInnerHTML() throws WidgetException;
+    String getInnerHTML() throws WidgetException;
 
     /**
      * Implementing this method would allow to execute a javascript on the
@@ -498,20 +498,20 @@ public interface IElement {
      *            the javascript code you want to execute
      * @throws WidgetException
      */
-    public void eval(String javascript) throws WidgetException;
+    void eval(String javascript) throws WidgetException;
     
     /**
      * Implementing this method would allow for the element to be scrolled to on the page
      * 
      * @throws WidgetException
      */
-    public void scrollTo() throws WidgetException;
+    void scrollTo() throws WidgetException;
     
     /**
      * Implementing this method would allow for the element to be brought into focus
      * 
      * @throws WidgetException
      */
-    public void focusOn() throws WidgetException;
+    void focusOn() throws WidgetException;
 
 }

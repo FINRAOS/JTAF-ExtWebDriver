@@ -29,7 +29,7 @@ public interface ICheckBox extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void check() throws WidgetException;
+    void check() throws WidgetException;
 
 
     /**
@@ -37,7 +37,7 @@ public interface ICheckBox extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void uncheck() throws WidgetException;
+    void uncheck() throws WidgetException;
 
     /**
      * Implementing this method would allow being able to tell if the CheckBox
@@ -46,7 +46,7 @@ public interface ICheckBox extends IEditableElement {
      * @return true if checked and false if it isn't
      * @throws WidgetException
      */
-    public boolean isChecked() throws WidgetException;
+    boolean isChecked() throws WidgetException;
 
     /**
      * Implementing this method would allow for waiting until the CheckBox has
@@ -54,7 +54,7 @@ public interface ICheckBox extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void waitForChecked() throws WidgetException, WidgetTimeoutException;
+    void waitForChecked() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for waiting until the CheckBox has
@@ -62,7 +62,7 @@ public interface ICheckBox extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void waitForUnchecked() throws WidgetException, WidgetTimeoutException;
+    void waitForUnchecked() throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for waiting until the CheckBox has
@@ -73,7 +73,7 @@ public interface ICheckBox extends IEditableElement {
      *            the CheckBox to be checked
      * @throws WidgetException
      */
-    public void waitForChecked(final long timeout) throws WidgetException, WidgetTimeoutException;
+    void waitForChecked(final long timeout) throws WidgetException, WidgetTimeoutException;
 
     /**
      * Implementing this method would allow for waiting until the CheckBox has
@@ -84,6 +84,6 @@ public interface ICheckBox extends IEditableElement {
      *            the CheckBox to be unchecked
      * @throws WidgetException
      */
-    public void waitForUnchecked(final long timeout) throws WidgetException, WidgetTimeoutException;
+    void waitForUnchecked(final long timeout) throws WidgetException, WidgetTimeoutException;
 
 }

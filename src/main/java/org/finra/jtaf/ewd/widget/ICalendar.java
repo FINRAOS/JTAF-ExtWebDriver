@@ -29,14 +29,14 @@ public interface ICalendar extends IEditableElement {
      * @return true if the Calendar widget is open and false if it is closed.
      * @throws WidgetException
      */
-    public boolean isOpen() throws WidgetException;
+    boolean isOpen() throws WidgetException;
 
     /**
      * Implementing this method would allow for closing the Calendar widget
      * 
      * @throws WidgetException
      */
-    public void close() throws WidgetException;
+    void close() throws WidgetException;
 
     /**
      * Implementing this method would allow for selecting the current date in
@@ -44,7 +44,7 @@ public interface ICalendar extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void chooseToday() throws WidgetException;
+    void chooseToday() throws WidgetException;
 
     /**
      * Implementing this method would allow for inputting a specific date into
@@ -54,5 +54,5 @@ public interface ICalendar extends IEditableElement {
      *            - the desired date to be entered into the Calendar widget
      * @throws WidgetException
      */
-    public void enterDate(String value) throws WidgetException;
+    void enterDate(String value) throws WidgetException;
 }
