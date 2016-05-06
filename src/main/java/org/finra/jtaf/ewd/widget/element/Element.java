@@ -680,11 +680,7 @@ public class Element implements IElement {
 
 	private WebElement findElement(boolean doHighlight) {
 
-		HIGHLIGHT_MODES highlightMode = null;
-		if (doHighlight)
-			highlightMode = HIGHLIGHT_MODES.FIND;
-		else if (!doHighlight)
-			highlightMode = HIGHLIGHT_MODES.NONE;
+		HIGHLIGHT_MODES highlightMode = doHighlight ? HIGHLIGHT_MODES.FIND : HIGHLIGHT_MODES.NONE;
 
 		getGUIDriver().selectLastFrame();
 		WebDriver wd = getGUIDriver().getWrappedDriver();
