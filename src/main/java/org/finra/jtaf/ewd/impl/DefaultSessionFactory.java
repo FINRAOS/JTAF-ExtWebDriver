@@ -641,6 +641,11 @@ public class DefaultSessionFactory implements SessionFactory {
                 - (numberOfDaysToKeepTempFolders * MILLISECONDS_IN_DAY);
 
         File tempFolder = new File(folder);
+        if(null == tempFolder.listFiles()) {
+            log.debug("Folder '" + tempFolder.getName() + "' was empty. Nothing to delete");
+            return;
+        }
+
         for (File currentFile : tempFolder.listFiles()) {
             if (currentFile.isDirectory()) {
                 for (String folderTemplate : folderTemplates) {
