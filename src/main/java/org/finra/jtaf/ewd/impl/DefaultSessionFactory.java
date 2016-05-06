@@ -57,8 +57,8 @@ import org.openqa.selenium.safari.SafariDriver;
 
 /**
  * SessionPool functionality used by SessionManager instances.
- * 
- * 
+ *
+ *
  */
 
 public class DefaultSessionFactory implements SessionFactory {
@@ -219,7 +219,7 @@ public class DefaultSessionFactory implements SessionFactory {
             } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge")) {
             	capabilities = DesiredCapabilities.edge();
 			} else {
-                log.fatal("Unsupported browser: " + browser
+                throw new Exception("Unsupported browser: " + browser
                         + " Please refer to documentation for supported browsers.");
             }
 
@@ -450,13 +450,13 @@ public class DefaultSessionFactory implements SessionFactory {
     public ExtWebDriver createNewSession(Map<String, String> options, WebDriver wd) {
         DefaultExtWebDriver selenium = new DefaultExtWebDriver();
         selenium.setWrappedDriver(wd);
-        
+
         // Get client properties file
         ClientProperties properties = new ClientProperties(options.get("client"));
-        
+
         // Set client properties (specific to our factory/implementation)
         selenium.setClientProperties(properties);
-        
+
         // Set timeout value
         selenium.setMaxRequestTimeout(properties.getMaxRequestTimeoutString());
 
@@ -483,7 +483,7 @@ public class DefaultSessionFactory implements SessionFactory {
     }
 
     /**
-     * 
+     *
      * @param ffp
      *            for use in setting the firefox profile for the tests to use
      *            when running firefox
@@ -503,7 +503,7 @@ public class DefaultSessionFactory implements SessionFactory {
     }
 
     /**
-     * 
+     *
      * @param ffp
      *            the firefox profile you are using
      * @param propertiesFile
@@ -546,7 +546,7 @@ public class DefaultSessionFactory implements SessionFactory {
     }
 
     /**
-     * 
+     *
      * @param ffp
      *            the firefox profile specified
      * @param extensions
@@ -561,7 +561,7 @@ public class DefaultSessionFactory implements SessionFactory {
     }
 
     /**
-     * 
+     *
      * @param filePath
      *            the binary path location of the firefox app (where it's
      *            installed)
@@ -594,7 +594,7 @@ public class DefaultSessionFactory implements SessionFactory {
     /**
      * This method cleans out folders where the WebDriver temp information is
      * stored.
-     * 
+     *
      * @param properties
      *            client properties specified
      */
@@ -627,7 +627,7 @@ public class DefaultSessionFactory implements SessionFactory {
     /**
      * This method can be called to remove specific folders or set how long you
      * want to keep the temp information.
-     * 
+     *
      * @param folder
      *            which temp folder you want to remove
      * @param folderTemplates
