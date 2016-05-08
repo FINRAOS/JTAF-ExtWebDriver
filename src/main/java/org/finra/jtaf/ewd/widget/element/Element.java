@@ -18,6 +18,7 @@ package org.finra.jtaf.ewd.widget.element;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.xml.transform.Transformer;
@@ -898,7 +899,7 @@ public class Element implements IElement {
 
 		String html = getGUIDriver().getHtmlSource();
 		html = html.replaceAll(">\\s+<", "><");
-		InputStream input = new ByteArrayInputStream(html.getBytes());
+		InputStream input = new ByteArrayInputStream(html.getBytes(Charset.forName("UTF-8")));
 
 		XMLReader reader = new Parser();
 		reader.setFeature(Parser.namespacesFeature, false);
