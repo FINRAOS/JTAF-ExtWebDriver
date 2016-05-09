@@ -18,6 +18,7 @@ package org.finra.jtaf.ewd.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -618,7 +619,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 
 		String html = getHtmlSource();
 		html = html.replaceAll(">\\s+<", "><");
-		InputStream input = new ByteArrayInputStream(html.getBytes());
+		InputStream input = new ByteArrayInputStream(html.getBytes(Charset.forName("UTF-8")));
 
 		XMLReader reader = new Parser();
 		reader.setFeature(Parser.namespacesFeature, false);

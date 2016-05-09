@@ -18,6 +18,7 @@ package org.finra.jtaf.ewd.widget.element.html;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -365,7 +366,7 @@ public class Table extends InteractiveElement implements ITable {
 
         String html = getGUIDriver().getHtmlSource();
         html = html.replaceAll(">\\s+<", "><");
-        InputStream input = new ByteArrayInputStream(html.getBytes());
+        InputStream input = new ByteArrayInputStream(html.getBytes(Charset.forName("UTF-8")));
 
         XMLReader reader = new Parser();
         reader.setFeature(Parser.namespacesFeature, false);
