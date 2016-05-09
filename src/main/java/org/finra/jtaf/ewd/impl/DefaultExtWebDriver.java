@@ -688,7 +688,7 @@ public class DefaultExtWebDriver implements ExtWebDriver, HighlightProvider {
 	 * child frame
 	 * 
 	 */
-	private class FrameNode {
+	private static class FrameNode {
 
 		private boolean isRoot;
 		private final FrameNode parentNode;
