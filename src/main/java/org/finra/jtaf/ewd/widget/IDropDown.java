@@ -31,7 +31,7 @@ public interface IDropDown extends IEditableElement {
      *            - the item in the DropDown widget that is to be selected
      * @throws WidgetException
      */
-    public void selectOption(String option) throws WidgetException;
+    void selectOption(String option) throws WidgetException;
 
     /**
      * Implementing this method would allow for obtaining all of the options
@@ -40,7 +40,7 @@ public interface IDropDown extends IEditableElement {
      * @return a list of the options that are contained in the dropdown menu
      * @throws WidgetException
      */
-    public List<String> getOptions() throws WidgetException;
+    List<String> getOptions() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking which option was
@@ -49,5 +49,5 @@ public interface IDropDown extends IEditableElement {
      * @return the option that was selected from the dropdown
      * @throws WidgetException
      */
-    public String getSelectedOption() throws WidgetException;
+    String getSelectedOption() throws WidgetException;
 }

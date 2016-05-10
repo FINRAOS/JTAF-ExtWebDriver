@@ -28,5 +28,5 @@ public interface IHyperLink extends IInteractiveElement {
      * @return the href of the HyperLink element as a String
      * @throws WidgetException
      */
-    public String getHref() throws WidgetException;
+    String getHref() throws WidgetException;
 }

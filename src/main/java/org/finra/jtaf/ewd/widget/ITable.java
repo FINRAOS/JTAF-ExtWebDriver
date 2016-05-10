@@ -31,7 +31,7 @@ public interface ITable extends IInteractiveElement {
      * @return a list containing all of the headers as Strings
      * @throws WidgetException
      */
-    public List<String> getTableHeaders() throws WidgetException;
+    List<String> getTableHeaders() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting data from a specific
@@ -44,7 +44,7 @@ public interface ITable extends IInteractiveElement {
      * @return the text of the specified cell
      * @throws WidgetException
      */
-    public String getTableRowColumnData(int rowNumber, int columnNumber) throws WidgetException;
+    String getTableRowColumnData(int rowNumber, int columnNumber) throws WidgetException;
 
     /**
      * Implementing this method would allow for getting all of the values in
@@ -53,7 +53,7 @@ public interface ITable extends IInteractiveElement {
      * @return a list containing all of the text in a table
      * @throws WidgetException
      */
-    public List<String[]> getTableDataInArray() throws WidgetException;
+    List<String[]> getTableDataInArray() throws WidgetException;
     
     /**
      * Implementing this method would allow for getting all of text in the table
@@ -62,7 +62,7 @@ public interface ITable extends IInteractiveElement {
      * @return a List containing maps all of the text in a table as
      * @throws WidgetException
      */
-    public List<Map<String, String>> getTableDataInMap() throws WidgetException;
+    List<Map<String, String>> getTableDataInMap() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the total number of rows
@@ -71,7 +71,7 @@ public interface ITable extends IInteractiveElement {
      * @return the number of rows in the table
      * @throws WidgetException
      */
-    public int getTableRowCount() throws WidgetException;
+    int getTableRowCount() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the total number of
@@ -80,7 +80,7 @@ public interface ITable extends IInteractiveElement {
      * @return the number of columns in the table
      * @throws WidgetException
      */
-    public int getTableColumnCount() throws WidgetException;
+    int getTableColumnCount() throws WidgetException;
 
     /**
      * Implementing this method would allow for checking the table to see if an
@@ -91,7 +91,7 @@ public interface ITable extends IInteractiveElement {
      * @return
      * @throws WidgetException
      */
-    public boolean isItemExist(Map<String, String> item) throws WidgetException;
+    boolean isItemExist(Map<String, String> item) throws WidgetException;
 
     /**
      * Implementing this element would allow for getting the row number in a
@@ -102,5 +102,5 @@ public interface ITable extends IInteractiveElement {
      * @return the row number containing the text
      * @throws WidgetException
      */
-    public int getRowNumber(Map<String, String> item) throws WidgetException;
+    int getRowNumber(Map<String, String> item) throws WidgetException;
 }

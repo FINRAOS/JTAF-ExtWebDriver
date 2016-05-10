@@ -28,7 +28,7 @@ public interface IReadableElement extends IElement {
      * @return the value of the ReadableElement as an Object
      * @throws WidgetException
      */
-    public Object getValue() throws WidgetException;
+    Object getValue() throws WidgetException;
 
     /**
      * Implementing this method would allow for getting the ReadableElement's
@@ -37,6 +37,6 @@ public interface IReadableElement extends IElement {
      * @return the label of the ReadableElement as a String
      * @throws WidgetException
      */
-    public String getLabel() throws WidgetException;
+    String getLabel() throws WidgetException;
 
 }

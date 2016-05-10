@@ -87,6 +87,7 @@ public class ClientProperties {
     private final String gridUrl;
     private final String gridPlatform;
     private final String gridProperties;
+    private final String gridSauceFile;
 
     /**
      * Constructs a {@code ClientProperties} from the given file.
@@ -272,6 +273,8 @@ public class ClientProperties {
             selectLastFrame = true;
         }
 
+        gridSauceFile = load("grid.saucefile", null, "grid sauce file goes here") ;
+        
         gridUrl = load("grid.url",
                 "http://username-string:access-key-string@ondemand.saucelabs.com:80/wd/hub",
                 "Sauce labs URL (e.g. 'http://username-string:access-key-string@ondemand.saucelabs.com:80/wd/hub')");
@@ -609,7 +612,16 @@ public class ClientProperties {
     public boolean isUseGrid() {
         return useGrid;
     }
-
+    
+    /**
+     * Returns the Selenium Grid Sauce File.
+     * 
+     * @return the Selenium Grid Sauce File
+     */
+    public String getGridSaucefile() {
+        return gridSauceFile;
+    }
+    
     /**
      * Returns the Selenium Grid platform.
      * 

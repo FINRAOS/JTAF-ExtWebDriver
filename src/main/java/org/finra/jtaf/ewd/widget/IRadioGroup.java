@@ -28,7 +28,7 @@ public interface IRadioGroup extends IEditableElement {
      * 
      * @throws WidgetException
      */
-    public void select(String value) throws WidgetException;
+    void select(String value) throws WidgetException;
 
     /**
      * Implementing this method would allow for returning selected value on the RadioGroup widget
@@ -36,7 +36,7 @@ public interface IRadioGroup extends IEditableElement {
      * @return selected option value
      * @throws WidgetException
      */
-    public String getSelectedValue() throws WidgetException;
+    String getSelectedValue() throws WidgetException;
 
     /**
      * Implementing this method would allow for returning available values on the RadioGroup widget
@@ -44,5 +44,5 @@ public interface IRadioGroup extends IEditableElement {
      * @return available options value
      * @throws WidgetException
      */
-    public List<String> getValues() throws WidgetException;
+    List<String> getValues() throws WidgetException;
 }

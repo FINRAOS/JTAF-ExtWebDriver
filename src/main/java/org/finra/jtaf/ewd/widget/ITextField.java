@@ -29,5 +29,5 @@ public interface ITextField extends IEditableElement {
      *            - the text that is being typed into the textfield
      * @throws WidgetException
      */
-    public void typeAppend(String text) throws WidgetException;
+    void typeAppend(String text) throws WidgetException;
 }
