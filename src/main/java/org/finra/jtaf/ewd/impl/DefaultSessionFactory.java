@@ -526,8 +526,8 @@ public class DefaultSessionFactory implements SessionFactory {
     private static void addPreferences(FirefoxProfile ffp, String propertiesFile) {
         Properties firefoxProfile = new Properties();
 
-        try {
-            firefoxProfile.load(new FileInputStream(propertiesFile));
+        try(FileInputStream fis = new FileInputStream(propertiesFile)) {
+            firefoxProfile.load(fis);
         } catch (Throwable th) {
             throw new RuntimeException("Could not load firefox profile", th);
         }
