@@ -75,7 +75,7 @@ public class DefaultSessionFactory implements SessionFactory {
     @Override
     public void cleanup(Map<String, String> options) throws Exception {
 
-        ClientProperties properties = new ClientProperties(options.get("client"));
+        ClientProperties properties = new ClientProperties(options);
 
         if (!executedTaskKill) {
             synchronized (lock) {
@@ -179,7 +179,7 @@ public class DefaultSessionFactory implements SessionFactory {
     @Override
     public DesiredCapabilities createCapabilities(Map<String, String> options) throws Exception {
 
-        ClientProperties properties = new ClientProperties(options.get("client"));
+        ClientProperties properties = new ClientProperties(options);
 
         final String browser = properties.getBrowser();
 
@@ -350,7 +350,7 @@ public class DefaultSessionFactory implements SessionFactory {
     @Override
     public WebDriver createInnerDriver(Map<String, String> options, DesiredCapabilities capabilities)
             throws Exception {
-        ClientProperties properties = new ClientProperties(options.get("client"));
+        ClientProperties properties = new ClientProperties(options);
 
         WebDriver wd = null;
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities(capabilities);
@@ -466,7 +466,7 @@ public class DefaultSessionFactory implements SessionFactory {
         selenium.setWrappedDriver(wd);
 
         // Get client properties file
-        ClientProperties properties = new ClientProperties(options.get("client"));
+        ClientProperties properties = new ClientProperties(options);
 
         // Set client properties (specific to our factory/implementation)
         selenium.setClientProperties(properties);
