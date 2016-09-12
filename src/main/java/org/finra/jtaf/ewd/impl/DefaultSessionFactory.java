@@ -430,12 +430,14 @@ public class DefaultSessionFactory implements SessionFactory {
                 }
                 
                 // for downloading with Chrome
-                HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-                chromePrefs.put("profile.default_content_settings.popups", 0);
-                chromePrefs.put("download.default_directory", properties.getDownloadFolder());
-                ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.setExperimentalOption("prefs", chromePrefs);
-                desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+                if(properties.getDownloadFolder() != null) {
+                    HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+                    chromePrefs.put("profile.default_content_settings.popups", 0);
+                    chromePrefs.put("download.default_directory", properties.getDownloadFolder());
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.setExperimentalOption("prefs", chromePrefs);
+                    desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+                }
 
                 wd = new ChromeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("safari")) {
