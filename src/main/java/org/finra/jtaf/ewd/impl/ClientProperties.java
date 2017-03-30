@@ -19,6 +19,7 @@ package org.finra.jtaf.ewd.impl;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,15 +31,20 @@ import org.apache.commons.configuration.PropertiesConfigurationLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.collect.ImmutableMap;
+
 /**
  * Enables storage of and access to driver and browser configuration.
  * 
  */
 public class ClientProperties {
+	private static final String CLIENT_KEY = "client";
+	
     private final Logger logger = LoggerFactory.getLogger(ClientProperties.class.getPackage().getName());
 
     private URL client;
-
+    
+    private final Map<String, String> options;
     private final PropertiesConfiguration config;
     private final PropertiesConfigurationLayout propertiesConfigurationLayout;
 
@@ -96,6 +102,13 @@ public class ClientProperties {
      *            the file to be loaded
      */
     public ClientProperties(String filePath) {
+    	this(Collections.singletonMap(CLIENT_KEY, filePath));
+    }
+    
+    public ClientProperties(Map<String, String> options) {
+    	this.options = ImmutableMap.copyOf(options);
+    	String filePath = options.get(CLIENT_KEY);
+    	
         URL clientPath = this.getClass().getClassLoader().getResource(filePath);
         this.config = new PropertiesConfiguration();
         this.config.setDelimiterParsingDisabled(true);
@@ -302,7 +315,9 @@ public class ClientProperties {
      *         already contains the given key
      */
     private final String load(String key, String defaultValue, String comment) {
-        if (config.getProperty(key) != null) {
+    	if(options.containsKey(key)) {
+    		return options.get(key);
+    	} else if (config.getProperty(key) != null) {
             return config.getString(key);
         } else {
             if (defaultValue != null) {
