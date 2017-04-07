@@ -67,7 +67,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.slf4j.version>1.7.8</org.slf4j.version>
+		<org.slf4j.version>1.7.8</org.slf4j.version>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
 	</properties>
 	<build>
 		<plugins>
