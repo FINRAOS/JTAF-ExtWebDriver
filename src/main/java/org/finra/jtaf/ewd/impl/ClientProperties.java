@@ -94,6 +94,7 @@ public class ClientProperties {
     private final String gridPlatform;
     private final String gridProperties;
     private final String gridSauceFile;
+    private final String tunnelIdentifier;
 
     /**
      * Constructs a {@code ClientProperties} from the given file.
@@ -295,6 +296,7 @@ public class ClientProperties {
                 "Selenium Grid OS Platform name (e.g. 'Windows 7')");
         gridProperties = load("grid.properties", "record-screenshots=true",
                 "Space separated Selenium Grid properties (e.g. 'record-screenshots=true')");
+        tunnelIdentifier = load("tunnel.identifier", null, "sauce connect tunnel name");
     }
 
     /**
@@ -698,5 +700,9 @@ public class ClientProperties {
      */
     public URL getClient() {
         return client;
+    }
+
+    public String getTunnelIdentifier() {
+        return tunnelIdentifier;
     }
 }
