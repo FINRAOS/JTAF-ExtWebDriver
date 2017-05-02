@@ -33,6 +33,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 
+import com.google.common.base.Strings;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -245,8 +246,10 @@ public class DefaultSessionFactory implements SessionFactory {
             	
             }
             
-
-            
+            String tunnelIdentifier = properties.getTunnelIdentifier();
+            if(!Strings.isNullOrEmpty(tunnelIdentifier)) {
+                capabilities.setCapability("tunnel-identifier", tunnelIdentifier);
+            }
             
             // Set Proxy
             String proxyStr = properties.getProxy();
