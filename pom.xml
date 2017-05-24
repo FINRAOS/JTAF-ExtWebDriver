@@ -205,7 +205,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.5.v20170502</version>
+				<version>9.2.19.v20160908</version>
 				<executions>
 					<execution>
 						<id>start-jetty</id>
@@ -234,8 +234,7 @@
 					</webApp>
 					<systemProperties>
 						<systemProperty>
-							<!-- otherwise there can be a timeout error while scanning for annotations (?) -->
-							<name>jetty.http.port</name>
+							<name>jetty.port</name>
 							<value>29090</value>
 						</systemProperty>
 						<systemProperty>
