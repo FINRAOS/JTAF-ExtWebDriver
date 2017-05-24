@@ -71,7 +71,7 @@ public interface IInteractiveTable extends ITable {
      * Implementing this method would allow for selecting specific rows in a
      * table based on contents of the rows
      * 
-     * @param item
+     * @param items
      *            - a map containing key-value pairs, both of which are Strings,
      *            used to select the row that contains the same values
      * @throws WidgetException
@@ -82,7 +82,7 @@ public interface IInteractiveTable extends ITable {
      * Implementing this method would allow for selecting specific rows in a
      * table based on contents of the row
      * 
-     * @param item
+     * @param items
      *            - a map containing key-value pairs, with the key as a String
      *            and the value as an Object, used to select the row that
      *            contains the same values
@@ -182,7 +182,7 @@ public interface IInteractiveTable extends ITable {
      * pairs of all the selected rows
      * 
      * @return a List containing the selected rows key-values which are
-     *         contained in a Map<String, String>
+     *         contained in a string-string Map
      * @throws WidgetException
      */
     List<Map<String, String>> getSelectedRowsInMap() throws WidgetException;
@@ -192,7 +192,7 @@ public interface IInteractiveTable extends ITable {
      * pairs of all the selected rows
      * 
      * @return a List containing the selected rows key-values which are
-     *         contained in a Map<String, String>
+     *         contained in a string-string Map
      * @throws WidgetException
      */
     List<Map<String, Object>> getSelectedRowsElementsInMap() throws WidgetException;
