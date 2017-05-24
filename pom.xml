@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.finra.jtaf</groupId>
 	<artifactId>jtaf-extwebdriver</artifactId>
-	<version>1.5.3-SNAPSHOT</version>
+	<version>1.5.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<name>Extensions for WebDriver</name>
     <description>ExtWebDriver is an enhancement to the WebDriver API, with features such as widget library, session management and extended functions</description>
@@ -138,7 +138,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.6.3.201306030806</version>
+				<version>0.7.9</version>
 				<executions>
 					<!-- The Executions required by unit tests are omitted. -->
 					<!-- Prepares the property pointing to the JaCoCo runtime agent which is passed as VM argument when Maven the Failsafe plugin is executed. -->
@@ -203,18 +203,17 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.1.14.v20131031</version>
+				<version>9.4.5.v20170502</version>
 				<executions>
 					<execution>
 						<id>start-jetty</id>
 						<phase>pre-integration-test</phase>
 						<goals>
-							<goal>run</goal>
+							<goal>start</goal>
 						</goals>
 						<configuration>
-							<scanIntervalSeconds>0</scanIntervalSeconds>
 							<daemon>true</daemon>
 						</configuration>
 					</execution>
@@ -227,18 +226,24 @@
 					</execution>
 				</executions>
 				<configuration>
-					<connectors>
-						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>29090</port>
-						</connector>
-					</connectors>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<stopPort>28005</stopPort>
 					<stopKey>STOP</stopKey>
 					<webAppSourceDirectory>src/test/resources/webapp</webAppSourceDirectory>
 					<webApp>
 						<contextPath>/simpleapp</contextPath>
 					</webApp>
+					<systemProperties>
+						<systemProperty>
+							<!-- otherwise there can be a timeout error while scanning for annotations (?) -->
+							<name>jetty.http.port</name>
+							<value>29090</value>
+						</systemProperty>
+						<systemProperty>
+							<!-- otherwise there can be a timeout error while scanning for annotations (?) -->
+							<name>org.eclipse.jetty.annotations.maxWait</name>
+							<value>120</value>
+						</systemProperty>
+					</systemProperties>
 				</configuration>
 			</plugin>
             <plugin>
@@ -291,10 +296,10 @@
 			<type>pom</type>
 		</dependency>
 		<dependency>
-        <groupId>org.seleniumhq.selenium</groupId>
-        <artifactId>selenium-htmlunit-driver</artifactId>
-        <version>2.52.0</version>
-    </dependency>  
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>2.52.0</version>
+        </dependency>
 
 		<!-- tagsoup for view xpath tags easier -->
 		<dependency>
