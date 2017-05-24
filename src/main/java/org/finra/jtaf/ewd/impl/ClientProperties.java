@@ -95,6 +95,8 @@ public class ClientProperties {
     private final String gridProperties;
     private final String gridSauceFile;
     private final String tunnelIdentifier;
+    
+    private final boolean ignoreSecurityDomains;
 
     /**
      * Constructs a {@code ClientProperties} from the given file.
@@ -297,6 +299,8 @@ public class ClientProperties {
         gridProperties = load("grid.properties", "record-screenshots=true",
                 "Space separated Selenium Grid properties (e.g. 'record-screenshots=true')");
         tunnelIdentifier = load("tunnel.identifier", null, "sauce connect tunnel name");
+        
+        ignoreSecurityDomains = Boolean.parseBoolean(load("webdriver.ie.ignoreSecDomains", "false", "ignore security domains for IE"));
     }
 
     /**
@@ -705,4 +709,8 @@ public class ClientProperties {
     public String getTunnelIdentifier() {
         return tunnelIdentifier;
     }
+
+	public boolean shouldIgnoreSecurityDomains() {
+		return ignoreSecurityDomains;
+	}
 }
