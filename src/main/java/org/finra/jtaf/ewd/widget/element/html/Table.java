@@ -164,7 +164,7 @@ public class Table extends InteractiveElement implements ITable {
      * 
      * @return List of table row data. List index reflects row number. Each item
      *         represents table row data in String array
-     * @throws Exception
+     * @throws WidgetException
      */
     @Override
     public List<String[]> getTableDataInArray() throws WidgetException {

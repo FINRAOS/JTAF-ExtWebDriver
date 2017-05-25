@@ -103,8 +103,9 @@ public class SessionManager {
      *            set to true if a session should be created if no session is
      *            associated with the current sessionId
      * @return ExtWebDriver an ExtWebDriver instance
-     * @see getCurrentSession(), getSession(String), switchToDefaultSession(),
-     *      switchToSession(String)
+     * @see getCurrentSession()
+     * @see getSession(String)
+     * @see switchToSession(String)
      */
 
     public ExtWebDriver getCurrentSession(boolean createIfNotFound) {
@@ -178,7 +179,7 @@ public class SessionManager {
      * the current thread (since session IDs are only required to be
      * thread-local, as are sessions themselves).
      * 
-     * @param sessionId
+     * @param ewd
      */
 
     public void switchToSession(ExtWebDriver ewd) {
@@ -255,7 +256,7 @@ public class SessionManager {
      * overriding the corresponding key and value in the options, and will
      * become the current session. This is a convenience method for use when
      * only a single option needs to be overridden. If overriding multiple
-     * options, you must use getNewSession(Map<String, String>, boolean)
+     * options, you must use getNewSession(string-string Map, boolean)
      * instead.
      * 
      * @param key
@@ -276,7 +277,7 @@ public class SessionManager {
      * overriding the corresponding key and value in the options. This is a
      * convenience method for use when only a single option needs to be
      * overridden. If overriding multiple options, you must use
-     * getNewSession(Map<String, String>, boolean) instead.
+     * getNewSession(string-string Map, boolean) instead.
      * 
      * @param key
      *            The key whose default value will be overridden

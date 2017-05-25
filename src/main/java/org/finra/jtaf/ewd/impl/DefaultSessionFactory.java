@@ -379,6 +379,9 @@ public class DefaultSessionFactory implements SessionFactory {
 
                 String browserVersion = properties.getBrowserVersion();
 
+				if(properties.shouldIgnoreSecurityDomains()) {
+					desiredCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+				}
                 if (browserVersion == null || browserVersion.equals("")) {
                     throw new RuntimeException(
                             "When using IE as the browser, please set 'browser.version' in client properties");
@@ -394,6 +397,7 @@ public class DefaultSessionFactory implements SessionFactory {
                         wd = new InternetExplorerDriver(desiredCapabilities);
                     }
                 }
+                
             } else if ((browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("*firefox"))) {
                 final String ffProfileFolder = properties.getFirefoxProfileFolder();
                 final String ffProfileFile = properties.getFirefoxProfileFile();
