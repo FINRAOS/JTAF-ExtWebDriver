@@ -84,7 +84,8 @@ public class DefaultSessionFactory implements SessionFactory {
                 if (properties.isKillTasksAtStartup()) {
                     if (properties.getBrowser().equalsIgnoreCase("ie")
                             || properties.getBrowser().equalsIgnoreCase("iexplore")
-                            || properties.getBrowser().equalsIgnoreCase("*iexplore")) {
+                            || properties.getBrowser().equalsIgnoreCase("*iexplore")
+                        	|| properties.getBrowser().equalsIgnoreCase("internet explorer")) {
                         try {
                             Runtime.getRuntime().exec("taskkill /F /IM IEDriverServer.exe /T");
                         } catch (IOException e) {
@@ -202,7 +203,8 @@ public class DefaultSessionFactory implements SessionFactory {
             }
 
             if (browser.equalsIgnoreCase("ie") || browser.equalsIgnoreCase("iexplore")
-                    || browser.equalsIgnoreCase("*iexplore")) {
+                    || browser.equalsIgnoreCase("*iexplore")
+            		|| browser.equalsIgnoreCase("internet explorer")) {
                 capabilities = DesiredCapabilities.internetExplorer();
             } else if ((browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("*firefox"))) {
                 capabilities = DesiredCapabilities.firefox();
@@ -370,7 +372,7 @@ public class DefaultSessionFactory implements SessionFactory {
                 throw new RuntimeException(
                         "Browser cannot be null. Please set 'browser' in client properties. Supported browser types: IE, Firefox, Chrome, Safari, HtmlUnit.");
             } else if (browser.equalsIgnoreCase("ie") || browser.equalsIgnoreCase("iexplore")
-                    || browser.equalsIgnoreCase("*iexplore")) {
+                    || browser.equalsIgnoreCase("*iexplore") || browser.equalsIgnoreCase("internet explore")) {
                 String webdriverIEDriver = properties.getWebDriverIEDriver();
 
                 if (webdriverIEDriver != null) {
@@ -399,6 +401,10 @@ public class DefaultSessionFactory implements SessionFactory {
                 }
                 
             } else if ((browser.equalsIgnoreCase("firefox") || browser.equalsIgnoreCase("*firefox"))) {
+                final String webDriverGeckoDriver = properties.getWebDriverGeckoDriver();
+                if(webDriverGeckoDriver != null){
+                	System.setProperty("webdriver.gecko.driver", webDriverGeckoDriver);
+                }
                 final String ffProfileFolder = properties.getFirefoxProfileFolder();
                 final String ffProfileFile = properties.getFirefoxProfileFile();
                 final String path = properties.getBinaryPath();
@@ -453,6 +459,7 @@ public class DefaultSessionFactory implements SessionFactory {
             		|| browser.equalsIgnoreCase("edge")) {
                 wd = new EdgeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("htmlunit")) {
+                desiredCapabilities.setBrowserName("htmlunit");
                 wd = new HtmlUnitDriver(desiredCapabilities);
                 ((HtmlUnitDriver) wd).setJavascriptEnabled(true);
             } else {
