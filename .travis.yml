@@ -1,5 +1,5 @@
 language: java
-jdk: oraclejdk8
+jdk: oraclejdk7
 before_script: git clone -b CM `git config --get remote.origin.url` target/CM
 install: ''
 script: target/CM/deploy.sh
