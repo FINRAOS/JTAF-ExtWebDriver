@@ -73,6 +73,7 @@ public class ClientProperties {
     private final String binaryPath;
     private final String webDriverIEDriver;
     private final String webDriverChromeDriver;
+    private final String webDriverGeckoDriver;
 
     private boolean isHighlight;
     private final Map<String, String> highlightColorMap;
@@ -194,6 +195,7 @@ public class ClientProperties {
         webDriverIEDriver = load("webdriver.ie.driver", null, "Path to IEDriverServer.exe");
         webDriverChromeDriver = load("webdriver.chrome.driver", null,
                 "Path to chromedriver executable");
+        webDriverGeckoDriver = load("webdriver.gecko.driver", null, "Path to GeckoDriver executable");
 
         String uploadFolderStr = load("upload.folder", null,
                 "Default folder to grab files from to perform upload");
@@ -536,6 +538,15 @@ public class ClientProperties {
      */
     public String getWebDriverChromeDriver() {
         return webDriverChromeDriver;
+    }
+    
+    /**
+     * Returns the path to geckodriver.exe
+     * 
+     * @return
+     */
+    public String getWebDriverGeckoDriver() {
+    	return webDriverGeckoDriver;
     }
 
     /**
