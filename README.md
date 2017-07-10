@@ -18,7 +18,7 @@ Releases
 
 >[Release 1.4](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.4) has been released! - 08/15/2014
 
->Release 1.5 - Coming soon!
+>[Release 1.5](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.5)
 
 Contributing
 =============
@@ -51,7 +51,7 @@ mvn jetty:start
 
 Requirements
 ==============
-ExtWebDriver requires Java SE version 7 or above available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+ExtWebDriver requires Java SE version 8 or above available [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
 License Type
 =============
