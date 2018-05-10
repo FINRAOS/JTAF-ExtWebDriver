@@ -197,7 +197,7 @@ public class SessionManager
      * the current thread (since session IDs are only required to be
      * thread-local, as are sessions themselves).
      * 
-     * @param sessionId
+     * @param ewd
      */
 
     public void switchToSession(ExtWebDriver ewd)

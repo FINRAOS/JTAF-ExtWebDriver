@@ -57,8 +57,6 @@ public class ScreenshotUtils {
 	 * @param toSaveAs
 	 * @throws IOException 
 	 * @throws WidgetException 
-	 * @throws WidgetTimeoutException 
-	 * @throws Exception
 	 */
 	public static void takeScreenshotOfElement(IElement element, File toSaveAs) throws IOException, WidgetException {
 		
@@ -122,7 +120,8 @@ public class ScreenshotUtils {
 	 * @param toSaveAs - for example, save the file at "testData/textFieldWidget/screenshot.png"
 	 * @param threshold - you are asserting that the similarity between the two pictures
 	 * is a double greater than or equal to this double (between 0.0 and 1.0)
-	 * @throws Exception 
+	 * @throws IOException
+	 * @throws WidgetException 
 	 */
 	public static boolean isSimilarToScreenshot(IElement element, File controlPicture, File
 			toSaveAs, double threshold) throws IOException, WidgetException {
@@ -150,7 +149,6 @@ public class ScreenshotUtils {
 	 * @param toSaveAs - for example, save the file at "testData/textFieldWidget/screenshot.png"
 	 * @throws WidgetException 
 	 * @throws IOException 
-	 * @throws Exception 
 	 */
 	public static boolean isSimilarToScreenshot(IElement element, File controlPicture, 
 			File toSaveAs) throws IOException, WidgetException {

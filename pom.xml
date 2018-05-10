@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.finra.jtaf</groupId>
 	<artifactId>jtaf-extwebdriver</artifactId>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.5-knappk-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<name>Extensions for WebDriver</name>
     <description>ExtWebDriver is an enhancement to the WebDriver API, with features such as widget library, session management and extended functions</description>
@@ -76,8 +76,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -266,7 +266,7 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>2.42.2</version>
+			<version>2.50.1</version>
 			<type>pom</type>
 		</dependency>
 

@@ -486,7 +486,7 @@ public interface IElement {
      * Returns inner HTML of the element
      * 
      * @return the inner HTML as a string
-     * @throws Exception
+     * @throws WidgetException
      */
     public String getInnerHTML() throws WidgetException;
 

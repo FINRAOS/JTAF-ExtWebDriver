@@ -17,6 +17,7 @@
 package org.finra.jtaf.ewd.impl;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -96,6 +97,14 @@ public class ClientProperties {
      */
     public ClientProperties(String filePath) {
         URL clientPath = this.getClass().getClassLoader().getResource(filePath);
+        if(clientPath == null) {
+        	try {
+				clientPath = new File(filePath).toURI().toURL();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
         this.config = new PropertiesConfiguration();
         this.config.setDelimiterParsingDisabled(true);
         try {

@@ -70,8 +70,8 @@ public interface IInteractiveElement extends IReadableElement
      * Implementing this method would allow for drag and dropping by a specific
      * X/Y offset
      * 
-     * @param element
-     *            - the element that is to be drag and dropped
+     * @param xOffset
+     * @param yOffset
      * @throws WidgetException
      */
     public void dragAndDropByOffset(int xOffset, int yOffset) throws WidgetException;
@@ -135,8 +135,6 @@ public interface IInteractiveElement extends IReadableElement
      * Implementing this method would allow for appending to an already typed
      * value
      * 
-     * @param locator
-     *            XPath, ID, name, CSS Selector, class name, or tag name
      * @param text
      *            Text to append
      */
