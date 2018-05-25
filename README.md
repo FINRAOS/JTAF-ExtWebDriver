@@ -4,21 +4,19 @@ JTAF-ExtWebDriver [![Build Status](https://secure.travis-ci.org/FINRAOS/JTAF-Ext
 
 Here is the link to [getting started](http://finraos.github.io/JTAF-ExtWebDriver/howitworks.html)
 
-Releases
+Latest Version
 ========
->[Release 1.0](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.0) is available on Maven central repository! - 12/13/2013
+The latest version is version 1.5.5 (July 2017) [[maven central]](https://mvnrepository.com/artifact/org.finra.jtaf/jtaf-extwebdriver/1.5.5)
 
->[Release 1.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.1) has been released! - 02/03/2014
+Maven Dependency:
 
->[Release 1.2](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.2) has been released! - 04/07/2014
-
->[Release 1.2.1](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.2.1) patch release - 04/10/2014
-
->[Release 1.3](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.3) has been released! - 05/02/2014
-
->[Release 1.4](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.4) has been released! - 08/15/2014
-
->[Release 1.5](https://github.com/FINRAOS/JTAF-ExtWebDriver/releases/tag/jtaf-extwebdriver-1.5)
+```xml
+<dependency>
+    <groupId>org.finra.jtaf</groupId>
+    <artifactId>jtaf-extwebdriver</artifactId>
+    <version>1.5.5</version>
+</dependency>
+```
 
 Contributing
 =============

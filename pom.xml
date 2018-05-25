@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.finra.jtaf</groupId>
 	<artifactId>jtaf-extwebdriver</artifactId>
-	<version>1.5.5-SNAPSHOT</version>
+	<version>1.5.6-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<name>Extensions for WebDriver</name>
     <description>ExtWebDriver is an enhancement to the WebDriver API, with features such as widget library, session management and extended functions</description>
