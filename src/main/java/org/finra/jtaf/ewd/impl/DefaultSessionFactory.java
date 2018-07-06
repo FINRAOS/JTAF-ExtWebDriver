@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Map.Entry;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -220,7 +221,7 @@ public class DefaultSessionFactory implements SessionFactory {
                 capabilities = DesiredCapabilities.ipad();
             } else if (browser.equalsIgnoreCase("iphone")) {
                 capabilities = DesiredCapabilities.iphone();
-            } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge")) {
+            } else if (browser.equalsIgnoreCase("MS Edge") || browser.equalsIgnoreCase("MicrosoftEdge") || browser.equalsIgnoreCase("edge")) {
             	capabilities = DesiredCapabilities.edge();
 			} else {
                 throw new Exception("Unsupported browser: " + browser
@@ -298,6 +299,11 @@ public class DefaultSessionFactory implements SessionFactory {
                 }
             }
 
+            for (Entry<String, String> opt : options.entrySet())
+            {
+                capabilities.setCapability(opt.getKey(), opt.getValue());
+            }
+
             return capabilities;
         } else {
             log.debug("browser [" + browser + "]");
@@ -344,6 +350,12 @@ public class DefaultSessionFactory implements SessionFactory {
                 desiredCapabilities.setCapability("browser.download.manager.showWhenStarting",
                         false);
             }
+            
+            for (Entry<String, String> opt : options.entrySet())
+            {
+                desiredCapabilities.setCapability(opt.getKey(), opt.getValue());
+            }
+            
             return desiredCapabilities;
         }
     }

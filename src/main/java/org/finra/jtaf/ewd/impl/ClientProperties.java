@@ -17,6 +17,7 @@
 package org.finra.jtaf.ewd.impl;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,7 +78,7 @@ public class ClientProperties {
 
     private boolean isHighlight;
     private final Map<String, String> highlightColorMap;
-    
+
     private final String firefoxProfileFolder;
     private final String firefoxPropertiesFile;
     private final List<String> firefoxExtensions = new ArrayList<String>();
@@ -101,7 +102,7 @@ public class ClientProperties {
 
     /**
      * Constructs a {@code ClientProperties} from the given file.
-     * 
+     *
      * @param filePath
      *            the file to be loaded
      */
@@ -114,6 +115,14 @@ public class ClientProperties {
     	String filePath = options.get(CLIENT_KEY);
     	
         URL clientPath = this.getClass().getClassLoader().getResource(filePath);
+        if(clientPath == null) {
+        	try {
+				clientPath = new File(filePath).toURI().toURL();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
         this.config = new PropertiesConfiguration();
         this.config.setDelimiterParsingDisabled(true);
         try {
@@ -310,7 +319,7 @@ public class ClientProperties {
      * <p>
      * If the configuration already contains the given key, no change is made to
      * the configuration.
-     * 
+     *
      * @param key
      *            the key to be put into the configuration
      * @param defaultValue
@@ -348,11 +357,11 @@ public class ClientProperties {
             return defaultValue;
         }
     }
-    
+
 	/**
 	 * load the color mode and rgb values from the client properties file as
 	 * key/value pairs in the highlighColorMap
-	 * 
+	 *
 	 */
     private final void loadColorMapRgb() {
         Iterator<String> colorKeys = config.getKeys("highlight");
@@ -366,39 +375,37 @@ public class ClientProperties {
           			  highlightColorMap.put(splits[1].toUpperCase(), val);
           		  else
           			logger.warn("Please check property " +current+ ". The highlight color has to specify RGB values in this format: eg. highlight.find=rgb(255,255,0)");
-          	  }     		 
+          	  }
           	  else if(splits[0].equals("highlight")){
-        
+
           		continue;
           	  }
             }
         }
 
-        
+
         	//default load
       		logger.warn("No RGB property for highlight was provided. Colors set to default.");
-        	if(!highlightColorMap.containsKey("find"))		
+        	if(!highlightColorMap.containsKey("find"))
             	highlightColorMap.put("find".toUpperCase(), load("highlight.find", "rgb(255, 255, 0)", "color for highlight element during finding"));
-            if(!highlightColorMap.containsKey("get"))		
+            if(!highlightColorMap.containsKey("get"))
             	highlightColorMap.put("get".toUpperCase(), load("highlight.get", "rgb(135, 206, 250)", "color for highlight element during finding"));
-            if(!highlightColorMap.containsKey("put"))		
+            if(!highlightColorMap.containsKey("put"))
             	highlightColorMap.put("put".toUpperCase(), load("highlight.put", "rgb(152, 251, 152)", "color for highlight element during finding"));
-       
-        
-     
+
       }
 
       public String getHighlightColor(String colorMode){
       	return highlightColorMap.get( colorMode.toUpperCase());
       }
-      
+
       public Map<String, String> getHighlightColorMap(){
       	return this.highlightColorMap;
       }
-      
+
     /**
      * Returns the name of the browser.
-     * 
+     *
      * @return the name of the browser
      */
     public final String getBrowser() {
@@ -407,7 +414,7 @@ public class ClientProperties {
 
     /**
      * Returns the version of the browser.
-     * 
+     *
      * @return the version of the browser
      */
     public final String getBrowserVersion() {
@@ -416,7 +423,7 @@ public class ClientProperties {
 
     /**
      * Returns the proxy.
-     * 
+     *
      * @return the proxy
      */
     public final String getProxy() {
@@ -425,7 +432,7 @@ public class ClientProperties {
 
     /**
      * Returns the name of the operating system.
-     * 
+     *
      * @return the name of the operating system
      */
     public final String getOS() {
@@ -434,7 +441,7 @@ public class ClientProperties {
 
     /**
      * Returns the version of the operating system.
-     * 
+     *
      * @return the version of the operating system
      */
     public final String getOSVersion() {
@@ -443,7 +450,7 @@ public class ClientProperties {
 
     /**
      * Returns the maximum wait time for downloads.
-     * 
+     *
      * @return the maximum wait time for downloads
      */
     public final int getMaxDownloadWaitTime() {
@@ -452,7 +459,7 @@ public class ClientProperties {
 
     /**
      * Returns the directory for downloads.
-     * 
+     *
      * @return the directory for downloads
      */
     public final String getDownloadFolder() {
@@ -461,7 +468,7 @@ public class ClientProperties {
 
     /**
      * Returns the directory for uploads.
-     * 
+     *
      * @return the directory for uploads
      */
     public final String getUploadFolder() {
@@ -470,7 +477,7 @@ public class ClientProperties {
 
     /**
      * Returns the maximum timeout for requests as a {@code String}.
-     * 
+     *
      * @return the maximum timeout for requests as a {@code String}
      */
     public final String getMaxRequestTimeoutString() {
@@ -479,7 +486,7 @@ public class ClientProperties {
 
     /**
      * Returns the maximum time out for requests as an {@code int}.
-     * 
+     *
      * @return the maximum time out for requests as an {@code int}
      */
     public final int getMaxRequestTimeout() {
@@ -488,7 +495,7 @@ public class ClientProperties {
 
     /**
      * Returns the maximum wait time for pages.
-     * 
+     *
      * @return the maximum wait time for pages
      */
     public int getMaxPageWait() {
@@ -497,7 +504,7 @@ public class ClientProperties {
 
     /**
      * Returns the maximum wait time for elements to appear.
-     * 
+     *
      * @return the maximum wait time for elements to appear
      */
     public int getAppearWaitTime() {
@@ -506,7 +513,7 @@ public class ClientProperties {
 
     /**
      * Returns the maximum allowed number of sessions.
-     * 
+     *
      * @return the maximum allowed number of sessions
      */
     public String getMaxAllowedSessions() {
@@ -515,7 +522,7 @@ public class ClientProperties {
 
     /**
      * Returns the path to the Firefox executable binary.
-     * 
+     *
      * @return the path to the Firefox executable binary
      */
     public String getBinaryPath() {
@@ -524,7 +531,7 @@ public class ClientProperties {
 
     /**
      * Returns the path to IEDriverServer.exe.
-     * 
+     *
      * @return the path to IEDriverServer.exe
      */
     public String getWebDriverIEDriver() {
@@ -533,7 +540,7 @@ public class ClientProperties {
 
     /**
      * Returns the path to chromedriver.exe.
-     * 
+     *
      * @return the path to chromedriver.exe
      */
     public String getWebDriverChromeDriver() {
@@ -551,7 +558,7 @@ public class ClientProperties {
 
     /**
      * Returns the name of the browser.
-     * 
+     *
      * @return the name of the browser
      */
     public String getFirefoxProfileFolder() {
@@ -560,7 +567,7 @@ public class ClientProperties {
 
     /**
      * Returns the path to the Firefox profile.
-     * 
+     *
      * @return the path to the Firefox profile
      */
     public String getFirefoxProfileFile() {
@@ -569,7 +576,7 @@ public class ClientProperties {
 
     /**
      * Returns whether elements will be highlighted during execution.
-     * 
+     *
      * @return {@code true} if and only if elements will be highlighted during
      *         execution
      */
@@ -580,7 +587,7 @@ public class ClientProperties {
 
     /**
      * Returns a {@code List} of Firefox extensions.
-     * 
+     *
      * @return a {@code List} of Firefox extensions
      */
     public List<String> getFirefoxExtensions() {
@@ -589,7 +596,7 @@ public class ClientProperties {
 
     /**
      * Returns the number of days temporary folders are kept.
-     * 
+     *
      * @return the number of days temporary folders are kept
      */
     public int getNumberOfDaysToKeepTempFolders() {
@@ -598,7 +605,7 @@ public class ClientProperties {
 
     /**
      * Returns the list of folder names to be cleaned with the temp folders.
-     * 
+     *
      * @return the list of folder names to be cleaned with the temp folders
      */
     public String getTempFolderNameContainsList() {
@@ -607,7 +614,7 @@ public class ClientProperties {
 
     /**
      * Returns whether debug mode is enabled.
-     * 
+     *
      * @return {@code true} if and only if debug mode is enabled
      */
     public boolean getDebugMode() {
@@ -617,7 +624,7 @@ public class ClientProperties {
     /**
      * Returns whether running driver services are killed at the beginning of
      * execution.
-     * 
+     *
      * @return {@code true} if and only if running driver services are killed at
      *         the beginning of execution
      */
@@ -627,7 +634,7 @@ public class ClientProperties {
 
     /**
      * Returns whther the last frame will be automatically selected.
-     * 
+     *
      * @return {@code true} if and only if the last frame will be automatically
      *         selected
      */
@@ -637,7 +644,7 @@ public class ClientProperties {
 
     /**
      * Returns whether Selenium Grid or Saucelabs will be used.
-     * 
+     *
      * @return {@code true} if and only if Selenium Grid or Saucelabs will be
      *         used
      */
@@ -656,7 +663,7 @@ public class ClientProperties {
     
     /**
      * Returns the Selenium Grid platform.
-     * 
+     *
      * @return the Selenium Grid platform
      */
     public String getGridPlatform() {
@@ -665,7 +672,7 @@ public class ClientProperties {
 
     /**
      * Returns the Selenium Grid properties.
-     * 
+     *
      * @return the Selenium Grid properties
      */
     public String getGridProperties() {
@@ -674,7 +681,7 @@ public class ClientProperties {
 
     /**
      * Returns the Saucelabs URL.
-     * 
+     *
      * @return the Saucelabs URL
      */
     public String getGridUrl() {
@@ -683,7 +690,7 @@ public class ClientProperties {
 
     /**
      * Returns the HTTPS proxy.
-     * 
+     *
      * @return the HTTPS proxy
      */
     public String getProxyHttps() {
@@ -692,7 +699,7 @@ public class ClientProperties {
 
     /**
      * Returns the initial horizontal offset of the browser window.
-     * 
+     *
      * @return the initial horizontal offset of the browser window
      */
     public int getBrowserInitPositionX() {
@@ -701,7 +708,7 @@ public class ClientProperties {
 
     /**
      * Returns the initial vertical offset of the browser window.
-     * 
+     *
      * @return the initial vertical offset of the browser window
      */
     public int getBrowserInitPositionY() {
@@ -710,7 +717,7 @@ public class ClientProperties {
 
     /**
      * Returns the URL represented by this {@code ClientProperties}.
-     * 
+     *
      * @return the URL represented by this {@code ClientProperties}
      */
     public URL getClient() {
