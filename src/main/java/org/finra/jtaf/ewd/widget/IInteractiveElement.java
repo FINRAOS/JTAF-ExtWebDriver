@@ -1,17 +1,18 @@
 /*
  * (C) Copyright 2013 Java Test Automation Framework Contributors.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
  */
 package org.finra.jtaf.ewd.widget;
 
@@ -20,8 +21,7 @@ package org.finra.jtaf.ewd.widget;
  * check, etc)
  * 
  */
-public interface IInteractiveElement extends IReadableElement
-{
+public interface IInteractiveElement extends IReadableElement {
     /**
      * Implementing this method would allow for clicking on the interactive
      * element
@@ -53,8 +53,7 @@ public interface IInteractiveElement extends IReadableElement
      * @return true if the element is enabled and false if it isn't
      * @throws WidgetException
      */
-    @Override
-    public boolean isEnabled() throws WidgetException;
+    boolean isEnabled() throws WidgetException;
 
     /**
      * Implementing this method would allow for drag and dropping a specific
