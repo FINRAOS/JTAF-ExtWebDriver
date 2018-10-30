@@ -363,6 +363,12 @@ public class DefaultSessionFactory implements SessionFactory {
         String browser = properties.getBrowser();
 
         if (properties.isUseGrid()) {
+			if (browser.equalsIgnoreCase("chrome")) {		
+				ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions=setChromeOptions(properties);
+				
+				capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+			}
             RemoteWebDriver remoteWebDriver = new RemoteWebDriver(new URL(properties.getGridUrl()),
                     capabilities);
             remoteWebDriver.setFileDetector(new LocalFileDetector());
@@ -441,16 +447,11 @@ public class DefaultSessionFactory implements SessionFactory {
                 if (webdriverChromeDriver != null) {
                     System.setProperty("webdriver.chrome.driver", webdriverChromeDriver);
                 }
-                
-                // for downloading with Chrome
-                if(properties.getDownloadFolder() != null) {
-                    HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-                    chromePrefs.put("profile.default_content_settings.popups", 0);
-                    chromePrefs.put("download.default_directory", properties.getDownloadFolder());
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    chromeOptions.setExperimentalOption("prefs", chromePrefs);
-                    desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-                }
+
+				ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions=setChromeOptions(properties);
+
+                desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
                 wd = new ChromeDriver(desiredCapabilities);
             } else if (browser.equalsIgnoreCase("safari")) {
@@ -479,6 +480,27 @@ public class DefaultSessionFactory implements SessionFactory {
 
         return wd;
     }
+
+	private ChromeOptions setChromeOptions(ClientProperties properties){
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+                
+		// for downloading with Chrome
+		if(properties.getDownloadFolder() != null) {
+			chromePrefs.put("profile.default_content_settings.popups", 0);
+			chromePrefs.put("download.default_directory", properties.getDownloadFolder());
+		}
+		
+		if(properties.shouldEnableFlash()) {  
+			chromePrefs.put("profile.default_content_setting_values.plugins",1);  
+			chromePrefs.put("profile.content_settings.plugin_whitelist.adobe-flash-player",1);  
+			chromePrefs.put("profile.content_settings.exceptions.plugins.*,*.per_resource.adobe-flash-player",1);  
+		}
+
+		ChromeOptions chromeOptions = new ChromeOptions();
+		chromeOptions.setExperimentalOption("prefs", chromePrefs);
+		
+		return chromeOptions;
+	}
 
     /*
      * (non-Javadoc)
