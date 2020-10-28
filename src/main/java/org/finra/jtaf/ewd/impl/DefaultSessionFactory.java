@@ -450,7 +450,9 @@ public class DefaultSessionFactory implements SessionFactory {
 
 				ChromeOptions chromeOptions = new ChromeOptions();
 				chromeOptions=setChromeOptions(properties);
-
+                if(properties.getOS().equalsIgnoreCase("linux")){
+                    chromeOptions.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
+                }
                 desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
                 wd = new ChromeDriver(desiredCapabilities);
