@@ -358,15 +358,14 @@
 	</dependencies>
 	<distributionManagement>
 		<repository>
-		    <id>sonatype-nexus-staging</id>
-		    <name>Sonatype Nexus release repository</name>
-		    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+			<id>central</id>
+			<name>cm_repo</name>
+			<url>https://artifactory.finra.org/artifactory/cm_repo</url>
 		</repository>
-
-		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-            <name>Sonatype Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
+		<!--<snapshotRepository>
+			<id>cm_snapshots</id>
+			<name>cm_snapshots</name>
+			<url>http://kwawnapptq102.corp.finra.org:8090/archiva/repository/cm_snapshots</url>
+		</snapshotRepository>-->
 	</distributionManagement>
 </project>
